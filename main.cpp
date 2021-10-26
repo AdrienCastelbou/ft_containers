@@ -1,12 +1,11 @@
 #include <iostream>
 #include <vector>
+#include "Vector.hpp"
 
 int main()
 {
-	std::vector<int> iv(3, 100);
-	std::vector<int> ivv;
-	int f(iv[0]);
-	ivv = iv;
-	std::cout << iv[0] << std::endl;
-	std::cout << ivv[0] << std::endl;
+	size_t n = 3;
+	int const &v = 1;
+	ft::Vector<int> i(n, v);
+
 }
