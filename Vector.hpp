@@ -3,20 +3,26 @@
 #include <vector>
 namespace ft {
 
-	template<typename T>
+	template<class T, class Alloc = std::allocator<T> >
 		class Vector {
 			private:
-				T *array;
-				int size;
-				int capacity;
-				std::allocator<T> alloc;
+				T *_array;
+				size_t _size;
+				size_t _capacity;
+				Alloc _alloc;
 			public:
-				Vector() {
-					size = 0;
-					capacity = 0;
-					array = alloc.allocate(capacity + 1);
-					*array = 0;
+				explicit Vector(const Alloc& alloc = Alloc()) : _size(0), _capacity(0), _alloc(alloc) {
+					_array = _alloc.allocate(_capacity);
+					return ;
 				}
+				size_t size() const {
+					return (_size);
+				}
+
+				size_t capacity() const {
+					return (_capacity);
+				}
+				/*
 
 				Vector(size_t n, T const &val) {
 					size = n;
@@ -62,6 +68,6 @@ namespace ft {
 				~Vector()i {
 					alloc.deallocate(array, capacity + 1);
 					return ;
-				}
+				}*/
 		};
 }

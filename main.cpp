@@ -4,8 +4,7 @@
 
 int main()
 {
-	size_t n = 3;
-	int const &v = 1;
-	ft::Vector<int> i(n, v);
-
+	ft::Vector<int> v;
+	std::cout << v.size() << std::endl;
+	std::cout << v.capacity() << std::endl;
 }
