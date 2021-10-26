@@ -13,7 +13,7 @@ template<typename T>
 ft::Vector<T>::Vector(size_t n, T const &val) {
 	size = n;
 	capacity = n;
-	array = alloc.allocate(n + 1);
+	array = alloc.allocate(capacity + 1);
 	for(int i = 0; i < n; i++)
 		array[i] = val;
 	array[n] = 0;
@@ -27,7 +27,7 @@ ft::Vector<T>::Vector(ItType first, ItType last) {
 	for(ItType fcpy = first; fcpy != last; fcpy++)
 		size++;
 	capacity = size;
-	array = alloc.allocate(size + 1);
+	array = alloc.allocate(capacity + 1);
 	for (int i = 0; first != last; first++)
 	{
 		array[i] = *first;
@@ -43,12 +43,22 @@ ft::Vector<T>::Vector(ft::Vector<T> const &other) {
 }
 template<typename T>
 ft::Vector<T> &ft::Vector<T>::operator=(ft::Vector<T> const &other) {
+	if (this != &other)
+	{
+		this->alloc.deallocate(array, capacity + 1);
+		this->size = other.size;
+		this->capacity = other.capacity;
+		this->array = alloc.allocate(capacity + 1);
+		for (int i = 0; i != size; i < size)
+			this->array[i] = other.array[i];
+		this->array[size] = 0;
+	}
 	return (*this);
 }
 
 template<typename T>
 ft::Vector<T>::~Vector() {
-	alloc.deallocate(array, capacity + 2);
+	alloc.deallocate(array, capacity + 1);
 	return ;
 }
 
@@ -58,6 +68,4 @@ int main() {
 	size_t n = 3;
 	int const val = 1;
 	std::vector<int> v(4, 100);
-
-	ft::Vector<int> it(v.begin(), v.end());
 }
