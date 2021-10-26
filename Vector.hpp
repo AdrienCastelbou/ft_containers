@@ -15,6 +15,14 @@ namespace ft {
 					_array = _alloc.allocate(_capacity);
 					return ;
 				}
+
+				explicit Vector(size_t n, const T& val = T(), const Alloc& alloc = Alloc()) : _size(n), _capacity(n), _alloc(alloc) {
+					_array = _alloc.allocate(_capacity);
+					for (int i = 0; i < n; i++)
+						_array[i] = val;
+				}
+
+
 				size_t size() const {
 					return (_size);
 				}
@@ -23,16 +31,6 @@ namespace ft {
 					return (_capacity);
 				}
 				/*
-
-				Vector(size_t n, T const &val) {
-					size = n;
-					capacity = n;
-					array = alloc.allocate(capacity + 1);
-					for(int i = 0; i < n; i++)
-						array[i] = val;
-					array[n] = 0;
-				}
-
 				template<typename ItType>
 				Vector(ItType first, ItType last) {
 					size = 0;
