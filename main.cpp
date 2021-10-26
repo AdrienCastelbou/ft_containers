@@ -3,10 +3,10 @@
 
 int main()
 {
-	std::vector<int> iv(3);
+	std::vector<int> iv(3, 100);
+	std::vector<int> ivv;
 
-
-	iv.push_back(1);
-	std::cout << iv.size() << std::endl;
-	std::cout << iv.capacity() << std::endl;
+	ivv = iv;
+	std::cout << iv[0] << std::endl;
+	std::cout << ivv[0] << std::endl;
 }

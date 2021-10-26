@@ -15,8 +15,6 @@ namespace ft {
 				Vector(size_t, T const &);
 				template<typename ItType>
 				Vector(ItType, ItType);
-				Vector(Vector<T> const &);
-				Vector &operator=(Vector<T> const &);
 				~Vector();
 		};
 }
