@@ -5,8 +5,7 @@
 int main()
 {
 	size_t n = 3;
-	const int val = 2;
-	ft::Vector<int> v(n);
-	std::cout << v.size() << std::endl;
-	std::cout << v.capacity() << std::endl;
+	ft::Vector<std::string> v(n, "hello world");
+	ft::Vector<std::string> vv(v);
+
 }
