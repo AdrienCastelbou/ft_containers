@@ -62,13 +62,11 @@ namespace ft {
 					return ;
 				}
 
-				T& operator[](size_t n) {
-					return (_array[n]);
-				}
-
-				T const& operator[](size_t n) const {
-					return (_array[n]);
-				}
+				///////////////////////////////////////////
+				//                                       //
+				//               Capacity                //
+				//                                       //
+				///////////////////////////////////////////
 
 				size_t size() const {
 					return (_size);
@@ -78,5 +76,18 @@ namespace ft {
 					return (_capacity);
 				}
 
+				///////////////////////////////////////////
+				//                                       //
+				//            Element access             //
+				//                                       //
+				///////////////////////////////////////////
+
+				T& operator[](size_t n) {
+					return (_array[n]);
+				}
+
+				T const& operator[](size_t n) const {
+					return (_array[n]);
+				}
 		};
 }
