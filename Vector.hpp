@@ -91,15 +91,31 @@ namespace ft {
 							return ;
 						}
 						
-						T& operator*() const {
+						T& operator*() {
 							return (*m_ptr);
 						}
-						
+
+						const T& operator*() const {
+							return (*m_ptr);
+						}
+
 						T* operator->() {
 							return (m_ptr);
 						}
 
-						Iterator operator++() {
+						const T* operator->() const {
+							return (m_ptr);
+						}
+
+						T& operator[](int n) {
+							return (*(m_ptr + n));
+						}
+
+						const T& operator[](int n) const {
+							return (*(m_ptr + n));
+						}
+
+						Iterator& operator++() {
 							m_ptr++;
 							return (*this);
 						}
@@ -108,6 +124,53 @@ namespace ft {
 							Iterator tmp = *this;
 							++(*this);
 							return (tmp);
+						}
+
+						Iterator& operator--() {
+							m_ptr--;
+							return (*this);
+						}
+
+						Iterator operator--(int) {
+							Iterator tmp = *this;
+							--(*this);
+							return (tmp);
+						}
+
+						Iterator& operator+(int n) {
+							Iterator tmp = *this;
+							return (tmp += n);
+						}
+
+						Iterator& operator+=(int n) {
+							m_ptr += n;
+							return (*this);
+						}
+
+						Iterator& operator-(int n) {
+							Iterator tmp = *this;
+							return (tmp -= n);
+						}
+
+						Iterator& operator-=(int n) {
+							m_ptr -= n;
+							return (*this);
+						}
+
+						bool operator<(const Iterator& b) {
+							return (m_ptr < b.m_ptr);
+						}
+
+						bool operator<=(const Iterator& b) {
+							return (m_ptr <= b.m_ptr);
+						}
+
+						bool operator>(const Iterator& b) {
+							return (m_ptr > b.m_ptr);
+						}
+
+						bool operator>=(const Iterator& b) {
+							return (m_ptr >= b.m_ptr);
 						}
 
 						bool operator==(const Iterator& b) {
@@ -119,15 +182,122 @@ namespace ft {
 						}
 				};
 
+				class Const_Iterator {
+					private:
+						const T* m_ptr;
+
+					public:
+						Const_Iterator(T* ptr) : m_ptr(ptr) {
+							return ;
+						}
+						
+						const T& operator*() {
+							return (*m_ptr);
+						}
+
+						const T& operator*() const {
+							return (*m_ptr);
+						}
+
+						const T* operator->() {
+							return (m_ptr);
+						}
+
+						const T* operator->() const {
+							return (m_ptr);
+						}
+
+						T& operator[](int n) {
+							return (*(m_ptr + n));
+						}
+
+						const T& operator[](int n) const {
+							return (*(m_ptr + n));
+						}
+
+						Const_Iterator& operator++() {
+							m_ptr++;
+							return (*this);
+						}
+
+						Const_Iterator operator++(int) {
+							Const_Iterator tmp = *this;
+							++(*this);
+							return (tmp);
+						}
+
+						Const_Iterator& operator--() {
+							m_ptr--;
+							return (*this);
+						}
+
+						Const_Iterator operator--(int) {
+							Const_Iterator tmp = *this;
+							--(*this);
+							return (tmp);
+						}
+
+						Const_Iterator& operator+(int n) {
+							Const_Iterator tmp = *this;
+							return (tmp += n);
+						}
+
+						Const_Iterator& operator+=(int n) {
+							m_ptr += n;
+							return (*this);
+						}
+
+						Const_Iterator& operator-(int n) {
+							Const_Iterator tmp = *this;
+							return (tmp -= n);
+						}
+
+						Const_Iterator& operator-=(int n) {
+							m_ptr -= n;
+							return (*this);
+						}
+
+						bool operator<(const Const_Iterator& b) {
+							return (m_ptr < b.m_ptr);
+						}
+
+						bool operator<=(const Const_Iterator& b) {
+							return (m_ptr <= b.m_ptr);
+						}
+
+						bool operator>(const Const_Iterator& b) {
+							return (m_ptr > b.m_ptr);
+						}
+
+						bool operator>=(const Const_Iterator& b) {
+							return (m_ptr >= b.m_ptr);
+						}
+
+						bool operator==(const Const_Iterator& b) {
+							return (m_ptr == b.m_ptr);
+						}
+
+						bool operator!=( const Const_Iterator& b) const {
+							return (m_ptr != b.m_ptr);
+						}
+				};
+
 				Iterator begin() {
 					return (Iterator(&_array[0]));
+				}
+
+				Const_Iterator begin() const {
+					return (Const_Iterator(&_array[0]));
 				}
 
 				Iterator end() {
 					return (Iterator(&_array[_size]));
 				}
 				
-				
+				Const_Iterator end() const {
+					return (Const_Iterator(&_array[_size]));
+				}
+
 				///////////////////////////////////////////
 				//                                       //
 				//               Capacity                //
