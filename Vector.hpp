@@ -30,7 +30,7 @@ namespace ft {
 							_size++;
 						_capacity = _size;
 						_array = _alloc.allocate(_capacity * sizeof(T));
-						for (int i = 0; (first + i) != last; i++)
+						for (int i = 0; first != last; i++)
 							_array[i] = *(first + i);
 						return ;
 					}
@@ -61,6 +61,15 @@ namespace ft {
 					_alloc.deallocate(_array,_capacity * sizeof(T));
 					return ;
 				}
+
+				T& operator[](size_t n) {
+					return (_array[n]);
+				}
+
+				T const& operator[](size_t n) const {
+					return (_array[n]);
+				}
+
 				size_t size() const {
 					return (_size);
 				}
@@ -68,10 +77,6 @@ namespace ft {
 				size_t capacity() const {
 					return (_capacity);
 				}
-				/*
-				~Vector()i {
-					alloc.deallocate(array, capacity + 1);
-					return ;
-				}*/
+
 		};
 }
