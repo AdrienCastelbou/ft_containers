@@ -54,6 +54,13 @@ namespace ft {
 					}
 					return (*this);
 				}
+
+				~Vector() {
+					for (int i = 0; i < _size; i++)
+						_array[i].~T();
+					_alloc.deallocate(_array,_capacity * sizeof(T));
+					return ;
+				}
 				size_t size() const {
 					return (_size);
 				}
@@ -62,20 +69,6 @@ namespace ft {
 					return (_capacity);
 				}
 				/*
-
-				Vector &operator=(ft::Vector<T> const &other) {
-					if (this != &other)
-					{
-						this->alloc.deallocate(array, capacity + 1);
-						this->size = other.size;
-						this->capacity = other.capacity;
-						this->array = alloc.allocate(capacity + 1);
-						for (int i = 0; i != size; i < size)
-							this->array[i] = other.array[i];
-						this->array[size] = 0;
-					}
-					return (*this);
-				}
 				~Vector()i {
 					alloc.deallocate(array, capacity + 1);
 					return ;
