@@ -207,7 +207,7 @@ namespace ft {
 							return (m_ptr);
 						}
 
-						T& operator[](int n) {
+						const T& operator[](int n) {
 							return (*(m_ptr + n));
 						}
 
