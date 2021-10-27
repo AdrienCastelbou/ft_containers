@@ -11,6 +11,13 @@ namespace ft {
 				size_t _capacity;
 				Alloc _alloc;
 			public:
+
+				///////////////////////////////////////////
+				//                                       //
+				//              Constructors             //
+				//                                       //
+				///////////////////////////////////////////
+				
 				explicit Vector(const Alloc& alloc = Alloc()) : _size(0), _capacity(0), _alloc(alloc) {
 					_array = _alloc.allocate(_capacity * sizeof(T));
 					return ;
@@ -18,7 +25,7 @@ namespace ft {
 
 				explicit Vector(size_t n, const T& val = T(), const Alloc& alloc = Alloc()) : _size(n), _capacity(n), _alloc(alloc) {
 					_array = _alloc.allocate(_capacity * sizeof(T));
-					for (int i = 0; i < n; i++)
+					for (size_t i = 0; i < n; i++)
 						_array[i] = val;
 					return ;
 				}
@@ -37,7 +44,7 @@ namespace ft {
 
 				Vector (const Vector& other) : _size(other._size), _capacity(other._capacity), _alloc(other._alloc){
 					_array = _alloc.allocate(_capacity * sizeof(T));
-					for (int i = 0; i < _size; i++)
+					for (size_t i = 0; i < _size; i++)
 						_array[i] = other._array[i];
 					return ;
 				}
@@ -49,19 +56,78 @@ namespace ft {
 						_size = other._size;
 						_capacity = other._capacity;
 						_array = _alloc.allocate(_capacity * sizeof(T));
-						for (int i = 0; i < _size; i++)
+						for (size_t i = 0; i < _size; i++)
 							_array[i] = other._array[i];
 					}
 					return (*this);
 				}
 
+				///////////////////////////////////////////
+				//                                       //
+				//              Destructor               //
+				//                                       //
+				///////////////////////////////////////////
+
+
 				~Vector() {
-					for (int i = 0; i < _size; i++)
+					for (size_t i = 0; i < _size; i++)
 						_array[i].~T();
 					_alloc.deallocate(_array,_capacity * sizeof(T));
 					return ;
 				}
 
+				///////////////////////////////////////////
+				//                                       //
+				//               Iterators               //
+				//                                       //
+				///////////////////////////////////////////
+
+				class Iterator {
+					private:
+						T* m_ptr;
+
+					public:
+						Iterator(T* ptr) : m_ptr(ptr) {
+							return ;
+						}
+						
+						T& operator*() const {
+							return (*m_ptr);
+						}
+						
+						T* operator->() {
+							return (m_ptr);
+						}
+
+						Iterator operator++() {
+							m_ptr++;
+							return (*this);
+						}
+
+						Iterator operator++(int) {
+							Iterator tmp = *this;
+							++(*this);
+							return (tmp);
+						}
+
+						bool operator==(const Iterator& b) {
+							return (m_ptr == b.m_ptr);
+						}
+
+						bool operator!=( const Iterator& b) const {
+							return (m_ptr != b.m_ptr);
+						}
+				};
+
+				Iterator begin() {
+					return (Iterator(&_array[0]));
+				}
+
+				Iterator end() {
+					return (Iterator(&_array[_size]));
+				}
+				
+				
 				///////////////////////////////////////////
 				//                                       //
 				//               Capacity                //
