@@ -42,6 +42,18 @@ namespace ft {
 					return ;
 				}
 
+				Vector& operator=(Vector const& other) {
+					if (this != &other)
+					{
+						_alloc.deallocate(_array, _capacity * sizeof(T));
+						_size = other._size;
+						_capacity = other._capacity;
+						_array = _alloc.allocate(_capacity * sizeof(T));
+						for (int i = 0; i < _size; i++)
+							_array[i] = other._array[i];
+					}
+					return (*this);
+				}
 				size_t size() const {
 					return (_size);
 				}
