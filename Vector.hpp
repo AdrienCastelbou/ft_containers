@@ -82,6 +82,7 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
+				/*
 				class Iterator {
 					private:
 						T* m_ptr;
@@ -297,6 +298,8 @@ namespace ft {
 				Const_Iterator end() const {
 					return (Const_Iterator(&_array[_size]));
 				}
+
+				*/
 
 				///////////////////////////////////////////
 				//                                       //
