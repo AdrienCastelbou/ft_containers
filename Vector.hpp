@@ -6,11 +6,12 @@ namespace ft {
 
 	template <class Category, class T, class Distance = std::ptrdiff_t, class Pointer = T*, class Reference = T&>
 		class Iterator {
-			typedef T value_type;
-			typedef Distance difference_type;
-			typedef Pointer pointer;
-			typedef Reference reference;
-			typedef Category iterator_category;
+			public:
+				typedef T value_type;
+				typedef Distance difference_type;
+				typedef Pointer pointer;
+				typedef Reference reference;
+				typedef Category iterator_category;
 		};
 
 	class random_access_iterator_tag {
@@ -18,21 +19,102 @@ namespace ft {
 
 	template <class T>
 		class RandIterator : public ft::Iterator<ft::random_access_iterator_tag, T> {
-			protected:
-				T* p;
 			public:
-
+				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::value_type value_type;
+				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::difference_type difference_type;
+				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::pointer pointer;
+				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::reference reference;
+				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::iterator_category iterator_category;
+			protected:
+				T* m_ptr;
+			public:
+				RandIterator(T* ptr = nullptr) : m_ptr(ptr) {}
+				RandIterator(const RandIterator<T>& other) : m_ptr(other.m_ptr) {}
+				~RandIterator() {}
+				RandIterator<T>& operator=(RandIterator<T>& other) {
+					m_ptr = other.m_ptr;
+					return (*this);
+				}
+				RandIterator<T>& operator=(const RandIterator<T>& other) {
+					m_ptr = other.m_ptr;
+					return (*this);
+				}
+				bool operator==(const RandIterator<T>& other) const {
+					return (m_ptr == other.m_ptr);
+				}
+				bool operator!=(const RandIterator<T>& other) const {
+					return (m_ptr != other.m_ptr);
+				}
+				RandIterator<T>& operator+=(const difference_type& movement) {
+					m_ptr += movement;
+					return (*this);
+				}
+				RandIterator<T>& operator-=(const difference_type& movement) {
+					m_ptr -= movement;
+					return (*this);
+				}
+				RandIterator<T>& operator++() {
+					++m_ptr;
+					return (*this);
+				}
+				RandIterator<T>& operator--() {
+					--m_ptr;
+					return (*this);
+				}
+				RandIterator<T> operator++(int) {
+					RandIterator<T> temp(*this);
+					++m_ptr;
+					return (temp);
+				}
+				RandIterator<T> operator--(int) {
+					RandIterator<T> temp(*this);
+					--m_ptr;
+					return temp;
+				}
+				RandIterator<T> operator+(const difference_type& movement) {
+					T oldPtr = m_ptr;
+					m_ptr+=movement;
+					RandIterator<T> temp(*this);
+					m_ptr = oldPtr;
+					return (temp);
+				}
+				RandIterator<T> operator-(const difference_type& movement) {
+					T oldPtr = m_ptr;
+					m_ptr-=movement;
+					RandIterator<T> temp(*this);
+					m_ptr = oldPtr;
+					return temp;
+				}
+				difference_type operator-(const RandIterator<T>& rawIterator) {
+					return std::distance(rawIterator.getPtr(),this->getPtr());
+				}
+				T& operator*() {
+					return *m_ptr;
+				}
+				const T& operator*()const {
+					return *m_ptr;
+				}
+				T* operator->(){
+					return m_ptr;
+				}
+				T* getPtr()const {
+					return m_ptr;
+				}
+				const T* getConstPtr()const {
+					return m_ptr;
+				}
 		};
-
 
 	template<class T, class Alloc = std::allocator<T> >
 		class Vector {
+
 			private:
 				T *_array;
 				size_t _size;
 				size_t _capacity;
 				Alloc _alloc;
 			public:
+
 
 				///////////////////////////////////////////
 				//                                       //
@@ -104,224 +186,24 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				/*
-				class Iterator {
-					private:
-						T* m_ptr;
+				typedef RandIterator<T> iterator;
+				typedef RandIterator<const T> const_iterator;
 
-					public:
-						Iterator(T* ptr) : m_ptr(ptr) {
-							return ;
-						}
-						
-						T& operator*() {
-							return (*m_ptr);
-						}
-
-						const T& operator*() const {
-							return (*m_ptr);
-						}
-
-						T* operator->() {
-							return (m_ptr);
-						}
-
-						const T* operator->() const {
-							return (m_ptr);
-						}
-
-						T& operator[](int n) {
-							return (*(m_ptr + n));
-						}
-
-						const T& operator[](int n) const {
-							return (*(m_ptr + n));
-						}
-
-						Iterator& operator++() {
-							m_ptr++;
-							return (*this);
-						}
-
-						Iterator operator++(int) {
-							Iterator tmp = *this;
-							++(*this);
-							return (tmp);
-						}
-
-						Iterator& operator--() {
-							m_ptr--;
-							return (*this);
-						}
-
-						Iterator operator--(int) {
-							Iterator tmp = *this;
-							--(*this);
-							return (tmp);
-						}
-
-						Iterator& operator+(int n) {
-							Iterator tmp = *this;
-							return (tmp += n);
-						}
-
-						Iterator& operator+=(int n) {
-							m_ptr += n;
-							return (*this);
-						}
-
-						Iterator& operator-(int n) {
-							Iterator tmp = *this;
-							return (tmp -= n);
-						}
-
-						Iterator& operator-=(int n) {
-							m_ptr -= n;
-							return (*this);
-						}
-
-						bool operator<(const Iterator& b) {
-							return (m_ptr < b.m_ptr);
-						}
-
-						bool operator<=(const Iterator& b) {
-							return (m_ptr <= b.m_ptr);
-						}
-
-						bool operator>(const Iterator& b) {
-							return (m_ptr > b.m_ptr);
-						}
-
-						bool operator>=(const Iterator& b) {
-							return (m_ptr >= b.m_ptr);
-						}
-
-						bool operator==(const Iterator& b) {
-							return (m_ptr == b.m_ptr);
-						}
-
-						bool operator!=( const Iterator& b) const {
-							return (m_ptr != b.m_ptr);
-						}
-				};
-
-				class Const_Iterator {
-					private:
-						const T* m_ptr;
-
-					public:
-						Const_Iterator(T* ptr) : m_ptr(ptr) {
-							return ;
-						}
-						
-						const T& operator*() {
-							return (*m_ptr);
-						}
-
-						const T& operator*() const {
-							return (*m_ptr);
-						}
-
-						const T* operator->() {
-							return (m_ptr);
-						}
-
-						const T* operator->() const {
-							return (m_ptr);
-						}
-
-						const T& operator[](int n) {
-							return (*(m_ptr + n));
-						}
-
-						const T& operator[](int n) const {
-							return (*(m_ptr + n));
-						}
-
-						Const_Iterator& operator++() {
-							m_ptr++;
-							return (*this);
-						}
-
-						Const_Iterator operator++(int) {
-							Const_Iterator tmp = *this;
-							++(*this);
-							return (tmp);
-						}
-
-						Const_Iterator& operator--() {
-							m_ptr--;
-							return (*this);
-						}
-
-						Const_Iterator operator--(int) {
-							Const_Iterator tmp = *this;
-							--(*this);
-							return (tmp);
-						}
-
-						Const_Iterator& operator+(int n) {
-							Const_Iterator tmp = *this;
-							return (tmp += n);
-						}
-
-						Const_Iterator& operator+=(int n) {
-							m_ptr += n;
-							return (*this);
-						}
-
-						Const_Iterator& operator-(int n) {
-							Const_Iterator tmp = *this;
-							return (tmp -= n);
-						}
-
-						Const_Iterator& operator-=(int n) {
-							m_ptr -= n;
-							return (*this);
-						}
-
-						bool operator<(const Const_Iterator& b) {
-							return (m_ptr < b.m_ptr);
-						}
-
-						bool operator<=(const Const_Iterator& b) {
-							return (m_ptr <= b.m_ptr);
-						}
-
-						bool operator>(const Const_Iterator& b) {
-							return (m_ptr > b.m_ptr);
-						}
-
-						bool operator>=(const Const_Iterator& b) {
-							return (m_ptr >= b.m_ptr);
-						}
-
-						bool operator==(const Const_Iterator& b) {
-							return (m_ptr == b.m_ptr);
-						}
-
-						bool operator!=( const Const_Iterator& b) const {
-							return (m_ptr != b.m_ptr);
-						}
-				};
-
-				Iterator begin() {
-					return (Iterator(&_array[0]));
+				iterator begin() {
+					return (iterator(&_array[0]));
 				}
 
-				Const_Iterator begin() const {
-					return (Const_Iterator(&_array[0]));
+				iterator end() {
+					return (iterator(&_array[_size]));
+				}
+				const_iterator begin() const {
+					return (const_iterator(&_array[0]));
 				}
 
-				Iterator end() {
-					return (Iterator(&_array[_size]));
-				}
-				
-				Const_Iterator end() const {
-					return (Const_Iterator(&_array[_size]));
+				const_iterator end() const {
+					return (const_iterator(&_array[_size]));
 				}
 
-				*/
 
 				///////////////////////////////////////////
 				//                                       //
