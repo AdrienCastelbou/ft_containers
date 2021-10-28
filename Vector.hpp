@@ -1,7 +1,29 @@
 #pragma once
 #include <iostream>
 #include <vector>
+
 namespace ft {
+
+	template <class Category, class T, class Distance = std::ptrdiff_t, class Pointer = T*, class Reference = T&>
+		class Iterator {
+			typedef T value_type;
+			typedef Distance difference_type;
+			typedef Pointer pointer;
+			typedef Reference reference;
+			typedef Category iterator_category;
+		};
+
+	class random_access_iterator_tag {
+	};
+
+	template <class T>
+		class RandIterator : public ft::Iterator<ft::random_access_iterator_tag, T> {
+			protected:
+				T* p;
+			public:
+
+		};
+
 
 	template<class T, class Alloc = std::allocator<T> >
 		class Vector {
