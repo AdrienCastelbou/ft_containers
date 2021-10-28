@@ -311,6 +311,10 @@ namespace ft {
 					return (_size);
 				}
 
+				size_t max_size() const {
+					return (std::numeric_limits<size_t>::max() / sizeof (T));
+				}
+
 				size_t capacity() const {
 					return (_capacity);
 				}
