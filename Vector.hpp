@@ -120,6 +120,9 @@ namespace ft {
 			protected:
 				T* m_ptr;
 			public:
+				operator RevRandIterator<const T>() {
+					return RevRandIterator<const T>(m_ptr);
+				}
 				RevRandIterator(T* ptr = nullptr) : m_ptr(ptr) {}
 				RevRandIterator(const RevRandIterator<T>& other) : m_ptr(other.m_ptr) {}
 				~RevRandIterator() {}
@@ -187,12 +190,6 @@ namespace ft {
 					return *m_ptr;
 				}
 				T* operator->(){
-					return m_ptr;
-				}
-				T* getPtr()const {
-					return m_ptr;
-				}
-				const T* getConstPtr()const {
 					return m_ptr;
 				}
 		};
