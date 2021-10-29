@@ -76,14 +76,14 @@ namespace ft {
 					return temp;
 				}
 				RandIterator<T> operator+(const difference_type& movement) {
-					T oldPtr = m_ptr;
+					T* oldPtr = m_ptr;
 					m_ptr+=movement;
 					RandIterator<T> temp(*this);
 					m_ptr = oldPtr;
 					return (temp);
 				}
 				RandIterator<T> operator-(const difference_type& movement) {
-					T oldPtr = m_ptr;
+					T* oldPtr = m_ptr;
 					m_ptr-=movement;
 					RandIterator<T> temp(*this);
 					m_ptr = oldPtr;

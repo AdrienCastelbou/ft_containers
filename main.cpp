@@ -6,10 +6,13 @@ int main()
 {
 	size_t n = 3;
 	const int val = 100;
-	std::vector<int> v(n, val);
-	std::vector<int>::iterator it = v.begin();
-	std::vector<int>::iterator ite = v.end();
-
+	ft::Vector<int> v(n, val);
+	ft::Vector<int>::iterator it = v.end();
+	it--;
+	std::cout << *v.insert(it, 4) << std::endl;;
+	ft::Vector<int>::iterator ite = v.end();
+	std::cout << "size = " << v.size() << ", capacity = " << v.capacity() << std::endl;
+	it = v.begin();
 	for(;it != ite;it++)
 		std::cout << *it << std::endl;
 }

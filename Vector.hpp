@@ -153,5 +153,41 @@ namespace ft {
 				T const& operator[](size_t n) const {
 					return (_array[n]);
 				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//              Modifiers                //
+				//                                       //
+				///////////////////////////////////////////
+				
+				iterator insert(iterator pos, const T& val) {
+					iterator it = this->begin();
+					iterator ite = this->end();
+					T *current = _array;
+					_size += 1;
+					int i = 0;
+					if (_size > _capacity)
+					{
+						_capacity *= 2;
+						current = _alloc.allocate(_capacity * sizeof(T));
+						for(iterator iter = it; iter != pos; iter++)
+						{
+							current[i] = *iter;
+							i++;
+						}
+					}
+					current[i] = val;
+					int ret = i;
+					i++;
+					for(;pos != ite; pos++)
+					{
+						current[i] = *pos;
+						i++;
+					}
+					_array = current;
+
+					return (this->begin() + ret);
+				}
+
 		};
 }
