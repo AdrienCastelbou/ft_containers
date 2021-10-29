@@ -105,6 +105,95 @@ namespace ft {
 				}
 		};
 
+	template <class T>
+		class RevRandIterator : public ft::RandIterator<T> {
+			public:
+				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::value_type value_type;
+				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::difference_type difference_type;
+				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::pointer pointer;
+				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::reference reference;
+				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::iterator_category iterator_category;
+			protected:
+				T* m_ptr;
+			public:
+				RevRandIterator(T* ptr = nullptr) : m_ptr(ptr) {}
+				RevRandIterator(const RevRandIterator<T>& other) : m_ptr(other.m_ptr) {}
+				~RevRandIterator() {}
+				RevRandIterator<T>& operator=(RevRandIterator<T>& other) {
+					m_ptr = other.m_ptr;
+					return (*this);
+				}
+				RevRandIterator<T>& operator=(const RevRandIterator<T>& other) {
+					m_ptr = other.m_ptr;
+					return (*this);
+				}
+				bool operator==(const RevRandIterator<T>& other) const {
+					return (m_ptr == other.m_ptr);
+				}
+				bool operator!=(const RevRandIterator<T>& other) const {
+					return (m_ptr != other.m_ptr);
+				}
+				RevRandIterator<T>& operator+=(const difference_type& movement) {
+					m_ptr -= movement;
+					return (*this);
+				}
+				RevRandIterator<T>& operator-=(const difference_type& movement) {
+					m_ptr += movement;
+					return (*this);
+				}
+				RevRandIterator<T>& operator++() {
+					--m_ptr;
+					return (*this);
+				}
+				RevRandIterator<T>& operator--() {
+					++m_ptr;
+					return (*this);
+				}
+				RevRandIterator<T> operator++(int) {
+					RevRandIterator<T> temp(*this);
+					--m_ptr;
+					return (temp);
+				}
+				RevRandIterator<T> operator--(int) {
+					RevRandIterator<T> temp(*this);
+					++m_ptr;
+					return temp;
+				}
+				RevRandIterator<T> operator+(const difference_type& movement) {
+					T oldPtr = m_ptr;
+					m_ptr-=movement;
+					RevRandIterator<T> temp(*this);
+					m_ptr = oldPtr;
+					return (temp);
+				}
+				RevRandIterator<T> operator-(const difference_type& movement) {
+					T oldPtr = m_ptr;
+					m_ptr+=movement;
+					RevRandIterator<T> temp(*this);
+					m_ptr = oldPtr;
+					return temp;
+				}
+				difference_type operator-(const RevRandIterator<T>& rawIterator) {
+					return std::distance(rawIterator.getPtr(),this->getPtr());
+				}
+				T& operator*() {
+					return *m_ptr;
+				}
+				const T& operator*()const {
+					return *m_ptr;
+				}
+				T* operator->(){
+					return m_ptr;
+				}
+				T* getPtr()const {
+					return m_ptr;
+				}
+				const T* getConstPtr()const {
+					return m_ptr;
+				}
+		};
+
+
 	template<class T, class Alloc = std::allocator<T> >
 		class Vector {
 
@@ -188,6 +277,8 @@ namespace ft {
 
 				typedef RandIterator<T> iterator;
 				typedef RandIterator<const T> const_iterator;
+				typedef RevRandIterator<T> reverse_iterator;
+				typedef RevRandIterator<const T> reverse_const_iterator;
 
 				iterator begin() {
 					return (iterator(&_array[0]));
@@ -202,6 +293,21 @@ namespace ft {
 
 				const_iterator end() const {
 					return (const_iterator(&_array[_size]));
+				}
+
+				reverse_iterator rbegin() {
+					return (reverse_iterator(&_array[_size - 1]));
+				}
+
+				reverse_iterator rend() {
+					return (reverse_iterator(&_array[-1]));
+				}
+				reverse_const_iterator rbegin() const {
+					return (const_iterator(&_array[_size - 1]));
+				}
+
+				reverse_const_iterator rend() const {
+					return (reverse_const_iterator(&_array[-1]));
 				}
 
 
