@@ -28,6 +28,10 @@ namespace ft {
 			protected:
 				T* m_ptr;
 			public:
+				operator RandIterator<const T>() {
+					return RandIterator<const T>(m_ptr);
+				}
+
 				RandIterator(T* ptr = nullptr) : m_ptr(ptr) {}
 				RandIterator(const RandIterator<T>& other) : m_ptr(other.m_ptr) {}
 				~RandIterator() {}
