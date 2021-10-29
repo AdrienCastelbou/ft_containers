@@ -110,7 +110,7 @@ namespace ft {
 		};
 
 	template <class T>
-		class RevRandIterator : public ft::RandIterator<T> {
+		class RevRandIterator : public ft::Iterator<ft::random_access_iterator_tag, T> {
 			public:
 				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::value_type value_type;
 				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::difference_type difference_type;
@@ -123,6 +123,7 @@ namespace ft {
 				operator RevRandIterator<const T>() {
 					return RevRandIterator<const T>(m_ptr);
 				}
+
 				RevRandIterator(T* ptr = nullptr) : m_ptr(ptr) {}
 				RevRandIterator(const RevRandIterator<T>& other) : m_ptr(other.m_ptr) {}
 				~RevRandIterator() {}
@@ -190,6 +191,13 @@ namespace ft {
 					return *m_ptr;
 				}
 				T* operator->(){
+					return m_ptr;
+				}
+
+				T* getPtr()const {
+					return m_ptr;
+				}
+				const T* getConstPtr()const {
 					return m_ptr;
 				}
 		};

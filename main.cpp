@@ -6,9 +6,9 @@ int main()
 {
 	size_t n = 3;
 	const int val = 100;
-	ft::Vector<int> v(n, val);
-	ft::Vector<int>::reverse_const_iterator it = v.rbegin();
-	ft::Vector<int>::reverse_const_iterator ite = v.rend();
+	std::vector<int> v(n, val);
+	std::vector<int>::iterator it = v.begin();
+	std::vector<int>::iterator ite = v.end();
 
 	for(;it != ite;it++)
 		std::cout << *it << std::endl;
