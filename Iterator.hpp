@@ -110,7 +110,7 @@ namespace ft {
 				RandIterator<T> operator--(int) {
 					RandIterator<T> temp(*this);
 					--m_ptr;
-					return temp;
+					return (temp);
 				}
 				RandIterator<T> operator+(const difference_type& movement) {
 					T* oldPtr = m_ptr;
@@ -130,19 +130,19 @@ namespace ft {
 					return (ft::distance(rawIterator.getPtr(),this->getPtr()));
 				}
 				T& operator*() {
-					return *m_ptr;
+					return (*m_ptr);
 				}
 				const T& operator*()const {
-					return *m_ptr;
+					return (*m_ptr);
 				}
 				T* operator->(){
-					return m_ptr;
+					return (m_ptr);
 				}
 				T* getPtr()const {
-					return m_ptr;
+					return (m_ptr);
 				}
 				const T* getConstPtr()const {
-					return m_ptr;
+					return (m_ptr);
 				}
 		};
 
@@ -202,7 +202,7 @@ namespace ft {
 				RevRandIterator<T> operator--(int) {
 					RevRandIterator<T> temp(*this);
 					++m_ptr;
-					return temp;
+					return (temp);
 				}
 				RevRandIterator<T> operator+(const difference_type& movement) {
 					T oldPtr = m_ptr;
@@ -216,26 +216,26 @@ namespace ft {
 					m_ptr+=movement;
 					RevRandIterator<T> temp(*this);
 					m_ptr = oldPtr;
-					return temp;
+					return (temp);
 				}
 				difference_type operator-(const RevRandIterator<T>& rawIterator) {
 					return (ft::distance(rawIterator.getPtr(),this->getPtr()));
 				}
 				T& operator*() {
-					return *m_ptr;
+					return (*m_ptr);
 				}
 				const T& operator*()const {
-					return *m_ptr;
+					return (*m_ptr);
 				}
 				T* operator->(){
-					return m_ptr;
+					return (m_ptr);
 				}
 
 				T* getPtr()const {
-					return m_ptr;
+					return (m_ptr);
 				}
 				const T* getConstPtr()const {
-					return m_ptr;
+					return (m_ptr);
 				}
 		};
 
