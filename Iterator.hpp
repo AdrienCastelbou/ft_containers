@@ -37,6 +37,12 @@ namespace ft {
 				typedef ft::random_access_iterator_tag iterator_category;
 		};
 
+	template<class InputIterator>
+		typename ft::Iterator_traits<InputIterator>::difference_type
+		distance(InputIterator first, InputIterator last) {
+				return (last - first);
+		}
+
 	template <class Category, class T, class Distance = std::ptrdiff_t, class Pointer = T*, class Reference = T&>
 		class Iterator {
 			public:
@@ -118,10 +124,10 @@ namespace ft {
 					m_ptr-=movement;
 					RandIterator<T> temp(*this);
 					m_ptr = oldPtr;
-					return temp;
+					return (temp);
 				}
 				difference_type operator-(const RandIterator<T>& rawIterator) {
-					return std::distance(rawIterator.getPtr(),this->getPtr());
+					return (ft::distance(rawIterator.getPtr(),this->getPtr()));
 				}
 				T& operator*() {
 					return *m_ptr;
@@ -213,7 +219,7 @@ namespace ft {
 					return temp;
 				}
 				difference_type operator-(const RevRandIterator<T>& rawIterator) {
-					return std::distance(rawIterator.getPtr(),this->getPtr());
+					return (ft::distance(rawIterator.getPtr(),this->getPtr()));
 				}
 				T& operator*() {
 					return *m_ptr;
