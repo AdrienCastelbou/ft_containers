@@ -2,17 +2,14 @@
 #include <vector>
 #include "Vector.hpp"
 
-int main()
-{
-	size_t n = 3;
-	const int val = 100;
-	ft::Vector<int> v(n, val);
-	ft::Vector<int>::iterator it = v.end();
-	it--;
-	std::cout << *v.insert(it, 4) << std::endl;;
-	ft::Vector<int>::iterator ite = v.end();
-	std::cout << "size = " << v.size() << ", capacity = " << v.capacity() << std::endl;
-	it = v.begin();
-	for(;it != ite;it++)
-		std::cout << *it << std::endl;
+#include <typeinfo>     // typeid
+
+int main() {
+	    typedef ft::Iterator_traits<std::vector<int>::iterator>::value_type value_type;
+
+	/*
+  typedef std::iterator_traits<ft::Vector<int> >::value_type traits;
+  if (typeid(traits::iterator_category)==typeid(std::random_access_iterator_tag))
+    std::cout << "int* is a random-access iterator";*/
+  return 0;
 }
