@@ -250,5 +250,16 @@ namespace ft {
 					return (this->begin() + ret);
 				}
 
+				///////////////////////////////////////////
+				//                                       //
+				//              Allocator                //
+				//                                       //
+				///////////////////////////////////////////
+
+				allocator_type get_allocator() const {
+					return (_alloc);
+				}
+
+
 		};
 }
