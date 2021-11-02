@@ -15,6 +15,24 @@ namespace ft {
 				Alloc _alloc;
 			public:
 
+				///////////////////////////////////////////
+				//                                       //
+				//             Member types              //
+				//                                       //
+				///////////////////////////////////////////
+
+				typedef T value_type;
+				typedef Alloc allocator_type;
+				typedef typename allocator_type::reference reference;
+				typedef typename allocator_type::const_reference const_reference;
+				typedef typename allocator_type::pointer pointer;
+				typedef typename allocator_type::const_pointer const_pointer;
+				typedef RandIterator<T> iterator;
+				typedef RandIterator<const T> const_iterator;
+				typedef RevRandIterator<T> reverse_iterator;
+				typedef RevRandIterator<const T> const_reverse_iterator;
+				typedef typename Iterator_traits<iterator>::difference_type difference_type;
+				typedef size_t size_type;
 
 				///////////////////////////////////////////
 				//                                       //
@@ -86,11 +104,6 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				typedef RandIterator<T> iterator;
-				typedef RandIterator<const T> const_iterator;
-				typedef RevRandIterator<T> reverse_iterator;
-				typedef RevRandIterator<const T> reverse_const_iterator;
-
 				iterator begin() {
 					return (iterator(&_array[0]));
 				}
@@ -113,12 +126,12 @@ namespace ft {
 				reverse_iterator rend() {
 					return (reverse_iterator(&_array[-1]));
 				}
-				reverse_const_iterator rbegin() const {
-					return (const_iterator(&_array[_size - 1]));
+				const_reverse_iterator rbegin() const {
+					return (const_reverse_iterator(&_array[_size - 1]));
 				}
 
-				reverse_const_iterator rend() const {
-					return (reverse_const_iterator(&_array[-1]));
+				const_reverse_iterator rend() const {
+					return (const_reverse_iterator(&_array[-1]));
 				}
 
 
