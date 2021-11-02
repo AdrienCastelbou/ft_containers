@@ -178,6 +178,21 @@ namespace ft {
 					return (_array[n]);
 				}
 
+				reference front() {
+					return (_array[0]);
+				}
+
+				const_reference front() const {
+					return (_array[0]);
+				}
+				reference back() {
+					return (_array[_size -1]);
+				}
+
+				const_reference back() const {
+					return (_array[_size -1]);
+				}
+
 				///////////////////////////////////////////
 				//                                       //
 				//              Modifiers                //
