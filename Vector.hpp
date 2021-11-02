@@ -153,6 +153,11 @@ namespace ft {
 					return (_capacity);
 				}
 
+				bool empty() const {
+					if (_size == 0)
+						return (true);
+					return (false);
+				}
 				void reserve(size_type n) {
 					if (n <= _capacity)
 						return ;

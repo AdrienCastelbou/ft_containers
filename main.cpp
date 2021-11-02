@@ -13,4 +13,5 @@ int main()
 	ft::Vector<int>::iterator ite = v.end();
 	for(;it != ite; it++)
 		std::cout << *it << std::endl;
+	std::cout << v.empty() << std::endl;
 }
