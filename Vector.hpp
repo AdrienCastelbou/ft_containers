@@ -8,29 +8,6 @@ namespace ft {
 	template<class T, class Alloc = std::allocator<T> >
 		class Vector {
 
-			private:
-				T *_array;
-				size_t _size;
-				size_t _capacity;
-				Alloc _alloc;
-
-				///////////////////////////////////////////
-				//                                       //
-				//                 Utils                 //
-				//                                       //
-				///////////////////////////////////////////
-
-				void alloc_new_array(size_t new_cap) {
-					value_type *_new = _alloc.allocate(new_cap * sizeof(T));
-					for(size_t i = 0; i < _size; i++)
-					{
-						_new[i] = _array[i];
-						_array[i].~value_type();
-					}
-					_alloc.deallocate(_array, _size * sizeof(value_type));
-					_capacity = new_cap;
-					_array = _new;
-				}
 			public:
 
 				///////////////////////////////////////////
@@ -52,6 +29,46 @@ namespace ft {
 				typedef typename Iterator_traits<iterator>::difference_type difference_type;
 				typedef size_t size_type;
 
+			private:
+				T *_array;
+				size_t _size;
+				size_t _capacity;
+				Alloc _alloc;
+
+				///////////////////////////////////////////
+				//                                       //
+				//                 Utils                 //
+				//                                       //
+				///////////////////////////////////////////
+
+				value_type *array_allocation(size_t cap) {
+					value_type *ptr;
+
+					try {
+						ptr = _alloc.allocate(cap * sizeof(value_type));
+					}
+					catch (std::bad_alloc& ba) {
+						std::cerr << "bad_alloc caught: " << ba.what() << std::endl;
+						return (NULL);
+					}
+					return (ptr);
+				}
+
+				void alloc_new_array(size_t new_cap) {
+					value_type *_new = array_allocation(new_cap);
+
+					for(size_t i = 0; i < _size; i++)
+					{
+						_new[i] = _array[i];
+						_array[i].~value_type();
+					}
+					_alloc.deallocate(_array, _size * sizeof(value_type));
+					_capacity = new_cap;
+					_array = _new;
+				}
+
+			public:
+
 				///////////////////////////////////////////
 				//                                       //
 				//              Constructors             //
@@ -59,12 +76,12 @@ namespace ft {
 				///////////////////////////////////////////
 				
 				explicit Vector(const Alloc& alloc = Alloc()) : _size(0), _capacity(0), _alloc(alloc) {
-					_array = _alloc.allocate(_capacity * sizeof(T));
+					_array = array_allocation(_capacity);
 					return ;
 				}
 
 				explicit Vector(size_t n, const T& val = T(), const Alloc& alloc = Alloc()) : _size(n), _capacity(n), _alloc(alloc) {
-					_array = _alloc.allocate(_capacity * sizeof(T));
+					_array = array_allocation(_capacity);
 					for (size_t i = 0; i < n; i++)
 						_array[i] = val;
 					return ;
@@ -76,14 +93,14 @@ namespace ft {
 						for (InputIt fcpy = first; fcpy != last; fcpy++)
 							_size++;
 						_capacity = _size;
-						_array = _alloc.allocate(_capacity * sizeof(T));
+						_array = array_allocation(_capacity);
 						for (int i = 0; first != last; i++)
 							_array[i] = *(first + i);
 						return ;
 					}
 
 				Vector (const Vector& other) : _size(other._size), _capacity(other._capacity), _alloc(other._alloc){
-					_array = _alloc.allocate(_capacity * sizeof(T));
+					_array = array_allocation(_capacity);
 					for (size_t i = 0; i < _size; i++)
 						_array[i] = other._array[i];
 					return ;
@@ -95,7 +112,7 @@ namespace ft {
 						_alloc.deallocate(_array, _capacity * sizeof(T));
 						_size = other._size;
 						_capacity = other._capacity;
-						_array = _alloc.allocate(_capacity * sizeof(T));
+						_array = array_allocation(_capacity);
 						for (size_t i = 0; i < _size; i++)
 							_array[i] = other._array[i];
 					}
@@ -182,7 +199,7 @@ namespace ft {
 					else if (n > max_size())
 						throw (std::length_error("Vector"));
 					value_type *_new;
-					_new = _alloc.allocate(n);
+					_new = array_allocation(n);
 					for(size_t i = 0; i != _size; i++)
 					{
 						_new[i] = _array[i];
@@ -250,6 +267,7 @@ namespace ft {
 					if (!this->empty())
 						_array[_size -= 1].~value_type();
 				}
+				
 				iterator insert(iterator pos, const T& val) {
 					iterator it = this->begin();
 					iterator ite = this->end();
