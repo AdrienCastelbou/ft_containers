@@ -167,6 +167,17 @@ namespace ft {
 					return (_array[n]);
 				}
 
+				reference at (size_type n) {
+					if (n >= _size)
+						throw std::out_of_range("Vector");
+					return (_array[n]);
+				}
+				const_reference at (size_type n) const {
+					if (n >= _size)
+						throw std::out_of_range("Vector");
+					return (_array[n]);
+				}
+
 				///////////////////////////////////////////
 				//                                       //
 				//              Modifiers                //
