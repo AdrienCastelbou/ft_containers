@@ -8,10 +8,13 @@ int main()
 	size_t n = 3;
 	const int val = 100;
 	ft::Vector<int> v(n, val);
-	v.reserve(10);
-	ft::Vector<int>::iterator it = v.begin();
-	ft::Vector<int>::iterator ite = v.end();
-	for(;it != ite; it++)
-		std::cout << *it << std::endl;
-	std::cout << v.empty() << std::endl;
+	std::cout << v.back() << ", size ="  << v.size() << ", cap = "<< v.capacity() << std::endl;
+	v.push_back(2);
+	std::cout << v.back() << ", size ="  << v.size() << ", cap = "<< v.capacity() << std::endl;
+	v.push_back(1);
+	std::cout << v.back() << ", size ="  << v.size() << ", cap = "<< v.capacity() << std::endl;
+		v.push_back(31);
+	std::cout << v.back() << ", size ="  << v.size() << ", cap = "<< v.capacity() << std::endl;
+	v.push_back(10);
+	std::cout << v.back() << ", size ="  << v.size() << ", cap = "<< v.capacity() << std::endl;
 }

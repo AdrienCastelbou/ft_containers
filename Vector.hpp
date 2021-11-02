@@ -13,6 +13,24 @@ namespace ft {
 				size_t _size;
 				size_t _capacity;
 				Alloc _alloc;
+
+				///////////////////////////////////////////
+				//                                       //
+				//                 Utils                 //
+				//                                       //
+				///////////////////////////////////////////
+
+				void alloc_new_array(size_t new_cap) {
+					value_type *_new = _alloc.allocate(new_cap * sizeof(T));
+					for(size_t i = 0; i < _size; i++)
+					{
+						_new[i] = _array[i];
+						_array[i].~value_type();
+					}
+					_alloc.deallocate(_array, _size * sizeof(value_type));
+					_capacity = new_cap;
+					_array = _new;
+				}
 			public:
 
 				///////////////////////////////////////////
@@ -220,7 +238,14 @@ namespace ft {
 				//              Modifiers                //
 				//                                       //
 				///////////////////////////////////////////
-				
+
+				void push_back(const value_type& val) {
+					if (_size == _capacity)
+						alloc_new_array(_capacity * 2);
+					_array[_size] = val;
+					_size++;
+				}
+
 				iterator insert(iterator pos, const T& val) {
 					iterator it = this->begin();
 					iterator ite = this->end();
