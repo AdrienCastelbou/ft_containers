@@ -153,6 +153,23 @@ namespace ft {
 					return (_capacity);
 				}
 
+				void reserve(size_type n) {
+					if (n <= _capacity)
+						return ;
+					else if (n > max_size())
+						throw (std::length_error("Vector"));
+					value_type *_new;
+					_new = _alloc.allocate(n);
+					for(size_t i = 0; i != _size; i++)
+					{
+						_new[i] = _array[i];
+						_array[i].~value_type();
+					}
+					_alloc.deallocate(_array, _capacity * sizeof(value_type));
+					_array = _new;
+					_capacity = n;
+				}
+
 				///////////////////////////////////////////
 				//                                       //
 				//            Element access             //
