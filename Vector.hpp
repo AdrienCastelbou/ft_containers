@@ -246,6 +246,13 @@ namespace ft {
 					_size++;
 				}
 
+				void pop_back() {
+					if (!this->empty())
+					{
+						_array[_size -= 1].~value_type();
+
+					}
+				}
 				iterator insert(iterator pos, const T& val) {
 					iterator it = this->begin();
 					iterator ite = this->end();

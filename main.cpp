@@ -9,12 +9,12 @@ int main()
 	const int val = 100;
 	ft::Vector<int> v(n, val);
 	std::cout << v.back() << ", size ="  << v.size() << ", cap = "<< v.capacity() << std::endl;
-	v.push_back(2);
+	v.pop_back();
 	std::cout << v.back() << ", size ="  << v.size() << ", cap = "<< v.capacity() << std::endl;
-	v.push_back(1);
+	v.pop_back();
 	std::cout << v.back() << ", size ="  << v.size() << ", cap = "<< v.capacity() << std::endl;
-		v.push_back(31);
+	v.pop_back();
 	std::cout << v.back() << ", size ="  << v.size() << ", cap = "<< v.capacity() << std::endl;
-	v.push_back(10);
+	v.pop_back();
 	std::cout << v.back() << ", size ="  << v.size() << ", cap = "<< v.capacity() << std::endl;
 }
