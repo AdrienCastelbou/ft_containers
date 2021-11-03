@@ -4,6 +4,14 @@
 
 namespace ft {
 
+	template<bool Cond, class T = void>
+		class enable_if { };
+
+	template<class T>
+		class enable_if<true, T> {
+			typedef T type;
+		};
+
 	class random_access_iterator_tag {
 	};
 
