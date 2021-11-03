@@ -2,6 +2,8 @@
 #include <vector>
 #include "Vector.hpp"
 
+
+/*
 int main ()
 {
 //	size_t n = 3;
@@ -29,4 +31,25 @@ int main ()
   //std::cout << "Size of second: " << int (second.size()) << '\n';
   return 0;
 }
+*/
 
+
+template<typename T>
+typename ft::enable_if<std::is_same<T, int>::value>::type
+f(T n) {
+	(void) n;
+	std::cout << "lol" << std::endl;
+}
+
+template<typename T>
+typename ft::enable_if<!std::is_same<T, int>::value>::type
+f(T n) {
+	(void) n;
+	std::cout << "Grrrr" << std::endl;
+}
+
+int main()
+{
+	size_t n = 3;
+	f(n);
+}
