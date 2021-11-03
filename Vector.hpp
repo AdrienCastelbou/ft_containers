@@ -41,6 +41,12 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
+				void array_deallocation(void) {
+					for (size_t i = 0; i < _size; i++)
+						_array[i].~T();
+					_alloc.deallocate(_array,_capacity * sizeof(T));
+				}
+
 				value_type *array_allocation(size_t cap) {
 					value_type *ptr;
 
@@ -255,6 +261,40 @@ namespace ft {
 				//              Modifiers                //
 				//                                       //
 				///////////////////////////////////////////
+
+
+				void assign (size_type n, const value_type& val) {
+					for (size_t i = 0; i < _size; i++)
+						_array[i].~T();
+					_size = n;
+					if (_size > _capacity)
+					{
+						_alloc.deallocate(_array,_capacity * sizeof(T));
+						_capacity = _size;
+						_array = array_allocation(_capacity);
+					}
+					for (size_t i = 0; i < _size; i++)
+						_array[i] = val;
+				}
+
+				/*template<class InputIterator>
+					void assign(InputIterator first, InputIterator last) {
+						typename ft::Iterator_traits<InputIterator>::value_type temp = *first;
+						for (size_t i = 0; i < _size; i++)
+							_array[i].~T();
+						size_t n = 0;
+						for (InputIterator fcpy = first; fcpy != last; fcpy++)
+							n++;
+						_size = n;
+						if (_size > _capacity)
+						{
+							_alloc.deallocate(_array,_capacity * sizeof(T));
+							_capacity = _size;
+							_array = array_allocation(_capacity);
+						}
+						for (size_t i = 0; i < _size; i++)
+							_array[i] = temp;
+					}*/
 
 				void push_back(const value_type& val) {
 					if (_size == _capacity)
