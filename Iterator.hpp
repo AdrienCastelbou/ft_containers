@@ -18,7 +18,7 @@ namespace ft {
 	};
 
 	template<class Iterator>
-		class Iterator_traits {
+		class iterator_traits {
 			public:
 				typedef typename Iterator::value_type value_type;
 				typedef typename Iterator::difference_type difference_type;
@@ -28,7 +28,7 @@ namespace ft {
 		};
 
 	template<class T>
-		class Iterator_traits<T*> {
+		class iterator_traits<T*> {
 			public:
 				typedef T value_type;
 				typedef std::ptrdiff_t difference_type;
@@ -38,7 +38,7 @@ namespace ft {
 		};
 
 	template<class T>
-		class Iterator_traits<const T*> {
+		class iterator_traits<const T*> {
 			public:
 				typedef const T value_type;
 				typedef std::ptrdiff_t difference_type;
@@ -48,7 +48,7 @@ namespace ft {
 		};
 
 	template<class InputIterator>
-		typename ft::Iterator_traits<InputIterator>::difference_type
+		typename ft::iterator_traits<InputIterator>::difference_type
 		distance(InputIterator first, InputIterator last) {
 				return (last - first);
 		}

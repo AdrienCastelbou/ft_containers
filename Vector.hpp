@@ -27,7 +27,7 @@ namespace ft {
 				typedef RandIterator<const T> const_iterator;
 				typedef RevRandIterator<T> reverse_iterator;
 				typedef RevRandIterator<const T> const_reverse_iterator;
-				typedef typename Iterator_traits<iterator>::difference_type difference_type;
+				typedef typename iterator_traits<iterator>::difference_type difference_type;
 				typedef size_t size_type;
 
 			private:
@@ -280,7 +280,7 @@ namespace ft {
 
 				/*template<class InputIterator>
 					void assign(InputIterator first, InputIterator last) {
-						typename ft::Iterator_traits<InputIterator>::value_type temp = *first;
+						typename ft::iterator_traits<InputIterator>::value_type temp = *first;
 						for (size_t i = 0; i < _size; i++)
 							_array[i].~value_type();
 						size_t n = 0;
