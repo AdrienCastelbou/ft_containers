@@ -25,14 +25,22 @@ void print_vector(NAMESPACE::vector<T> the_vector)
 
 int main()
 {
-    NAMESPACE::vector<int> myvector;
-    print_vector<int>(myvector);
-    for (int i=0; i<10; i++)
+    NAMESPACE::vector<int> myvector(1);
+	myvector.reserve(10);
+	NAMESPACE::vector<int>::iterator it = myvector.begin();
+	NAMESPACE::vector<int>::iterator ite = myvector.end();
+    for (int i=0; i<1; i++)
     {
         print_vector<int>(myvector);
-        myvector.push_back(i);
-        std::cout << myvector[i] << std::endl;
+        myvector.insert(myvector.end(), i);
+it = myvector.begin();
+ite = myvector.end();
+		for(; it != ite; it++)
+			std::cout << *it << std::endl;
     }
+
+	for(; it != ite; it++)
+		std::cout << *it << std::endl;
 }
 /*
 int main ()

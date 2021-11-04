@@ -74,6 +74,14 @@ namespace ft {
 					_array = _new;
 				}
 
+
+				value_type *copy_array(iterator pos) {
+					value_type *_new = array_allocation(_capacity + 1);
+					iterator it = this->begin();
+					for (int i = 0; it + i != pos; i++)
+						_new[i] = *(it + i);
+					return (_new);
+				}
 			public:
 
 				///////////////////////////////////////////
@@ -308,34 +316,25 @@ namespace ft {
 					if (!this->empty())
 						_array[_size -= 1].~value_type();
 				}
-				
-				iterator insert(iterator pos, const value_type& val) {
-					iterator it = this->begin();
-					iterator ite = this->end();
-					value_type *current = _array;
-					_size += 1;
-					int i = 0;
-					if (_size > _capacity)
-					{
-						_capacity *= 2;
-						current = _alloc.allocate(_capacity * sizeof(value_type));
-						for(iterator iter = it; iter != pos; iter++)
-						{
-							current[i] = *iter;
-							i++;
-						}
-					}
-					current[i] = val;
-					int ret = i;
-					i++;
-					for(;pos != ite; pos++)
-					{
-						current[i] = *pos;
-						i++;
-					}
-					_array = current;
 
-					return (this->begin() + ret);
+				iterator insert(iterator pos, const value_type& val) {
+					iterator ite = this->end();
+					iterator it = ite - 1;
+					value_type *_new = _array;
+					if (_size == _capacity)
+						_new = copy_array(pos);
+					int i = 0;
+					for (; ite - i != pos; i++)
+						_new[_size - i] = *(it - i);
+					_new[_size - i] = val;
+					if (_size == _capacity)
+					{
+						array_deallocation();
+						_array = _new;
+						_capacity += 1;
+					}
+					_size += 1;
+					return (iterator(&_array[i]));
 				}
 
 				///////////////////////////////////////////
