@@ -25,11 +25,11 @@ void print_vector(NAMESPACE::vector<T> the_vector)
 
 int main()
 {
-    NAMESPACE::vector<int> myvector(1);
+    NAMESPACE::vector<int> myvector;
 	myvector.reserve(10);
 	NAMESPACE::vector<int>::iterator it = myvector.begin();
 	NAMESPACE::vector<int>::iterator ite = myvector.end();
-    for (int i=0; i<1; i++)
+    for (int i=0; i<10; i++)
     {
         print_vector<int>(myvector);
         myvector.insert(myvector.end(), i);

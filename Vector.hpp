@@ -114,7 +114,7 @@ namespace ft {
 						return ;
 					}
 
-				vector (const vector& other) : _size(other._size), _capacity(other._capacity), _alloc(other._alloc){
+				vector (const vector& other) : _size(other._size), _capacity(other._size), _alloc(other._alloc){
 					_array = array_allocation(_capacity);
 					for (size_t i = 0; i < _size; i++)
 						_array[i] = other._array[i];

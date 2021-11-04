@@ -59,3 +59,65 @@ back_value 4
 3
 4
 5
+size : 6
+max_size : 4611686018427387903
+capacity : 6
+empty : 0
+front_value 0
+back_value 5
+--------------------------------------
+0
+1
+2
+3
+4
+5
+6
+size : 7
+max_size : 4611686018427387903
+capacity : 7
+empty : 0
+front_value 0
+back_value 6
+--------------------------------------
+0
+1
+2
+3
+4
+5
+6
+7
+size : 8
+max_size : 4611686018427387903
+capacity : 8
+empty : 0
+front_value 0
+back_value 7
+--------------------------------------
+0
+1
+2
+3
+4
+5
+6
+7
+8
+size : 9
+max_size : 4611686018427387903
+capacity : 9
+empty : 0
+front_value 0
+back_value 8
+--------------------------------------
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
