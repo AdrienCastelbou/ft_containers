@@ -7,7 +7,7 @@
 namespace ft {
 
 	template<class T, class Alloc = std::allocator<T> >
-		class Vector {
+		class vector {
 
 			public:
 
@@ -31,10 +31,10 @@ namespace ft {
 				typedef size_t size_type;
 
 			private:
-				T *_array;
+				value_type *_array;
 				size_t _size;
 				size_t _capacity;
-				Alloc _alloc;
+				allocator_type _alloc;
 
 				///////////////////////////////////////////
 				//                                       //
@@ -44,8 +44,8 @@ namespace ft {
 
 				void array_deallocation(void) {
 					for (size_t i = 0; i < _size; i++)
-						_array[i].~T();
-					_alloc.deallocate(_array,_capacity * sizeof(T));
+						_array[i].~value_type();
+					_alloc.deallocate(_array,_capacity * sizeof(value_type));
 				}
 
 				value_type *array_allocation(size_t cap) {
@@ -82,12 +82,12 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 				
-				explicit Vector(const Alloc& alloc = Alloc()) : _size(0), _capacity(0), _alloc(alloc) {
+				explicit vector(const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0), _alloc(alloc) {
 					_array = array_allocation(_capacity);
 					return ;
 				}
 
-				explicit Vector(size_t n, const T& val = T(), const Alloc& alloc = Alloc()) : _size(n), _capacity(n), _alloc(alloc) {
+				explicit vector(size_t n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _size(n), _capacity(n), _alloc(alloc) {
 					_array = array_allocation(_capacity);
 					for (size_t i = 0; i < n; i++)
 						_array[i] = val;
@@ -95,7 +95,7 @@ namespace ft {
 				}
 
 				template<class InputIt>
-					Vector(InputIt first, InputIt last, const Alloc& alloc = Alloc()) : _alloc(alloc) {
+					vector(InputIt first, InputIt last, const allocator_type& alloc = allocator_type()) : _alloc(alloc) {
 						_size = 0;
 						for (InputIt fcpy = first; fcpy != last; fcpy++)
 							_size++;
@@ -106,17 +106,17 @@ namespace ft {
 						return ;
 					}
 
-				Vector (const Vector& other) : _size(other._size), _capacity(other._capacity), _alloc(other._alloc){
+				vector (const vector& other) : _size(other._size), _capacity(other._capacity), _alloc(other._alloc){
 					_array = array_allocation(_capacity);
 					for (size_t i = 0; i < _size; i++)
 						_array[i] = other._array[i];
 					return ;
 				}
 
-				Vector& operator=(Vector const& other) {
+				vector& operator=(vector const& other) {
 					if (this != &other)
 					{
-						_alloc.deallocate(_array, _capacity * sizeof(T));
+						_alloc.deallocate(_array, _capacity * sizeof(value_type));
 						_size = other._size;
 						_capacity = other._capacity;
 						_array = array_allocation(_capacity);
@@ -133,10 +133,10 @@ namespace ft {
 				///////////////////////////////////////////
 
 
-				~Vector() {
+				~vector() {
 					for (size_t i = 0; i < _size; i++)
-						_array[i].~T();
-					_alloc.deallocate(_array,_capacity * sizeof(T));
+						_array[i].~value_type();
+					_alloc.deallocate(_array,_capacity * sizeof(value_type));
 					return ;
 				}
 
@@ -188,7 +188,7 @@ namespace ft {
 				}
 
 				size_t max_size() const {
-					return (std::numeric_limits<size_t>::max() / sizeof (T));
+					return (std::numeric_limits<size_t>::max() / sizeof (value_type));
 				}
 
 				size_t capacity() const {
@@ -204,7 +204,7 @@ namespace ft {
 					if (n <= _capacity)
 						return ;
 					else if (n > max_size())
-						throw (std::length_error("Vector"));
+						throw (std::length_error("vector"));
 					value_type *_new;
 					_new = array_allocation(n);
 					for(size_t i = 0; i != _size; i++)
@@ -223,22 +223,22 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				T& operator[](size_t n) {
+				value_type& operator[](size_t n) {
 					return (_array[n]);
 				}
 
-				T const& operator[](size_t n) const {
+				value_type const& operator[](size_t n) const {
 					return (_array[n]);
 				}
 
 				reference at (size_type n) {
 					if (n >= _size)
-						throw std::out_of_range("Vector");
+						throw std::out_of_range("vector");
 					return (_array[n]);
 				}
 				const_reference at (size_type n) const {
 					if (n >= _size)
-						throw std::out_of_range("Vector");
+						throw std::out_of_range("vector");
 					return (_array[n]);
 				}
 
@@ -266,11 +266,11 @@ namespace ft {
 
 				void assign (size_type n, const value_type& val) {
 					for (size_t i = 0; i < _size; i++)
-						_array[i].~T();
+						_array[i].~value_type();
 					_size = n;
 					if (_size > _capacity)
 					{
-						_alloc.deallocate(_array,_capacity * sizeof(T));
+						_alloc.deallocate(_array,_capacity * sizeof(value_type));
 						_capacity = _size;
 						_array = array_allocation(_capacity);
 					}
@@ -282,14 +282,14 @@ namespace ft {
 					void assign(InputIterator first, InputIterator last) {
 						typename ft::Iterator_traits<InputIterator>::value_type temp = *first;
 						for (size_t i = 0; i < _size; i++)
-							_array[i].~T();
+							_array[i].~value_type();
 						size_t n = 0;
 						for (InputIterator fcpy = first; fcpy != last; fcpy++)
 							n++;
 						_size = n;
 						if (_size > _capacity)
 						{
-							_alloc.deallocate(_array,_capacity * sizeof(T));
+							_alloc.deallocate(_array,_capacity * sizeof(value_type));
 							_capacity = _size;
 							_array = array_allocation(_capacity);
 						}
@@ -309,16 +309,16 @@ namespace ft {
 						_array[_size -= 1].~value_type();
 				}
 				
-				iterator insert(iterator pos, const T& val) {
+				iterator insert(iterator pos, const value_type& val) {
 					iterator it = this->begin();
 					iterator ite = this->end();
-					T *current = _array;
+					value_type *current = _array;
 					_size += 1;
 					int i = 0;
 					if (_size > _capacity)
 					{
 						_capacity *= 2;
-						current = _alloc.allocate(_capacity * sizeof(T));
+						current = _alloc.allocate(_capacity * sizeof(value_type));
 						for(iterator iter = it; iter != pos; iter++)
 						{
 							current[i] = *iter;
