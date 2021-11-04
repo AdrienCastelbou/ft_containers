@@ -299,7 +299,7 @@ namespace ft {
 
 				void push_back(const value_type& val) {
 					if (_size == _capacity)
-						alloc_new_array(_capacity * 2);
+						alloc_new_array(_capacity + 1);
 					_array[_size] = val;
 					_size++;
 				}
