@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "Iterator.hpp"
+#include "utils.hpp"
 
 namespace ft {
 
