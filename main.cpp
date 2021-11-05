@@ -25,6 +25,13 @@ void print_vector(NAMESPACE::vector<T> the_vector)
 
 int main()
 {
+	NAMESPACE::vector<int> v;
+	v.push_back(1);
+	v.push_back(2);
+	v.push_back(3);
+	NAMESPACE::vector<int>::iterator vit = v.begin();
+	NAMESPACE::vector<int>::iterator vite = v.end();
+
     NAMESPACE::vector<int> myvector;
 	myvector.reserve(10);
 	NAMESPACE::vector<int>::iterator it = myvector.begin();
@@ -32,7 +39,7 @@ int main()
     for (int i=0; i<5; i++)
     {
         print_vector<int>(myvector);
-        myvector.insert(myvector.end() - i, i + 1, i);
+        myvector.insert(myvector.end(), vit, vite);
 it = myvector.begin();
 ite = myvector.end();
 		for(; it != ite; it++)
