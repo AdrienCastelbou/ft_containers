@@ -383,13 +383,27 @@ namespace ft {
 					}
 
 				iterator erase(iterator position) {
-					iterator ite = this->end();
 					iterator it = position;
+					iterator ite = this->end();
 					(*position).~value_type();
 					for (; it + 1 != ite; it++)
 						*it = *(it + 1);
 					_size -= 1;
 					return (position);
+				}
+
+				iterator erase(iterator first, iterator last) {
+					size_t distance = last.getPtr() - first.getPtr();
+
+					iterator it = first;
+					iterator ite = this->end();
+					for(;it != last; it++)
+						(*it).~value_type();
+					it = first;
+					for (int i = 0; last + i != ite; i++)
+						*(it + i) = *(last + i);
+					_size -= distance;
+					return (first);
 				}
 				///////////////////////////////////////////
 				//                                       //

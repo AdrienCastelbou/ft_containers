@@ -48,9 +48,12 @@ ite = myvector.end();
 	it = myvector.begin();
 	ite = myvector.end();
 	std::cout << "-------" << std::endl;
-	myvector.erase(it + 3);
+	std::cout << *myvector.erase(it + 4, it + 6) << std::endl;
+/*it = myvector.begin();
+	ite = myvector.end();
 		for(; it != ite; it++)
 			std::cout << *it << std::endl;
+        print_vector<int>(myvector);*/
 
 }
 /*
