@@ -75,8 +75,8 @@ namespace ft {
 				}
 
 
-				value_type *copy_array(iterator pos) {
-					value_type *_new = array_allocation(_capacity + 1);
+				value_type *copy_array(iterator pos, size_t n) {
+					value_type *_new = array_allocation(_capacity + n);
 					iterator it = this->begin();
 					for (int i = 0; it + i != pos; i++)
 						_new[i] = *(it + i);
@@ -317,14 +317,14 @@ namespace ft {
 						_array[_size -= 1].~value_type();
 				}
 
-				iterator insert(iterator pos, const value_type& val) {
+				iterator insert(iterator position, const value_type& val) {
 					iterator ite = this->end();
 					iterator it = ite - 1;
 					value_type *_new = _array;
 					if (_size == _capacity)
-						_new = copy_array(pos);
+						_new = copy_array(position, 1);
 					int i = 0;
-					for (; ite - i != pos; i++)
+					for (; ite - i != position; i++)
 						_new[_size - i] = *(it - i);
 					_new[_size - i] = val;
 					if (_size == _capacity)
@@ -334,9 +334,30 @@ namespace ft {
 						_capacity += 1;
 					}
 					_size += 1;
-					return (iterator(&_array[i]));
+					return (iterator(&_array[(_size - 1) - i]));
 				}
 
+				void insert(iterator position, size_type n, const value_type& val) {
+					iterator ite = this->end();
+					iterator it = ite - 1;
+					value_type *_new = _array;
+					size_type n_size = _size + n;
+
+					if (n_size > _capacity)
+						_new = copy_array(position, n_size - _capacity);
+					int i = 0;
+					for (; ite - i != position; i++)
+						_new[n_size - 1 - i] = *(it - i);
+					for (size_type j = 0; n - j != 0; j++)
+						_new[n_size - 1 - i - j] = val;
+					if (n_size > _capacity)
+					{
+						array_deallocation();
+						_array = _new;
+						_capacity = n_size;
+					}
+					_size = n_size;
+				}
 				///////////////////////////////////////////
 				//                                       //
 				//              Allocator                //

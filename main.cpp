@@ -29,18 +29,15 @@ int main()
 	myvector.reserve(10);
 	NAMESPACE::vector<int>::iterator it = myvector.begin();
 	NAMESPACE::vector<int>::iterator ite = myvector.end();
-    for (int i=0; i<10; i++)
+    for (int i=0; i<5; i++)
     {
         print_vector<int>(myvector);
-        myvector.insert(myvector.end(), i);
+        myvector.insert(myvector.end() - i, i + 1, i);
 it = myvector.begin();
 ite = myvector.end();
 		for(; it != ite; it++)
 			std::cout << *it << std::endl;
     }
-
-	for(; it != ite; it++)
-		std::cout << *it << std::endl;
 }
 /*
 int main ()

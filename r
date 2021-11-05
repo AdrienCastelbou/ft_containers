@@ -11,113 +11,58 @@ empty : 0
 front_value 0
 back_value 0
 --------------------------------------
-0
 1
-size : 2
-max_size : 4611686018427387903
-capacity : 2
-empty : 0
-front_value 0
-back_value 1
---------------------------------------
-0
 1
-2
+0
 size : 3
 max_size : 4611686018427387903
 capacity : 3
 empty : 0
-front_value 0
-back_value 2
+front_value 1
+back_value 0
 --------------------------------------
-0
 1
 2
-3
-size : 4
-max_size : 4611686018427387903
-capacity : 4
-empty : 0
-front_value 0
-back_value 3
---------------------------------------
-0
-1
 2
-3
-4
-size : 5
-max_size : 4611686018427387903
-capacity : 5
-empty : 0
-front_value 0
-back_value 4
---------------------------------------
-0
-1
 2
-3
-4
-5
+1
+0
 size : 6
 max_size : 4611686018427387903
 capacity : 6
 empty : 0
-front_value 0
-back_value 5
+front_value 1
+back_value 0
 --------------------------------------
-0
 1
 2
+2
 3
-4
-5
-6
-size : 7
+3
+3
+3
+2
+1
+0
+size : 10
 max_size : 4611686018427387903
-capacity : 7
+capacity : 10
 empty : 0
-front_value 0
-back_value 6
+front_value 1
+back_value 0
 --------------------------------------
-0
 1
 2
-3
-4
-5
-6
-7
-size : 8
-max_size : 4611686018427387903
-capacity : 8
-empty : 0
-front_value 0
-back_value 7
---------------------------------------
-0
-1
 2
 3
-4
-5
-6
-7
-8
-size : 9
-max_size : 4611686018427387903
-capacity : 9
-empty : 0
-front_value 0
-back_value 8
---------------------------------------
-0
-1
-2
+3
 3
 4
-5
-6
-7
-8
-9
+4
+4
+4
+4
+3
+2
+1
+0
