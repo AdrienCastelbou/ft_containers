@@ -381,6 +381,16 @@ namespace ft {
 						}
 						_size = n_size;
 					}
+
+				iterator erase(iterator position) {
+					iterator ite = this->end();
+					iterator it = position;
+					(*position).~value_type();
+					for (; it + 1 != ite; it++)
+						*it = *(it + 1);
+					_size -= 1;
+					return (position);
+				}
 				///////////////////////////////////////////
 				//                                       //
 				//              Allocator                //

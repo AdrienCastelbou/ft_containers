@@ -3,7 +3,7 @@
 #include "Vector.hpp"
 
 #ifndef NAMESPACE
-# define NAMESPACE std
+# define NAMESPACE ft
 #endif
 
 #define FALSE 0
@@ -45,6 +45,13 @@ ite = myvector.end();
 		for(; it != ite; it++)
 			std::cout << *it << std::endl;
     }
+	it = myvector.begin();
+	ite = myvector.end();
+	std::cout << "-------" << std::endl;
+	myvector.erase(it + 3);
+		for(; it != ite; it++)
+			std::cout << *it << std::endl;
+
 }
 /*
 int main ()
