@@ -427,6 +427,10 @@ namespace ft {
 					this->_size = tmp_size;
 					this->_capacity = tmp_capacity;
 				}
+
+				void clear() {
+					this->erase(this->begin(), this->end());
+				}
 				///////////////////////////////////////////
 				//                                       //
 				//              Allocator                //

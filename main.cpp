@@ -3,7 +3,7 @@
 #include "Vector.hpp"
 
 #ifndef NAMESPACE
-# define NAMESPACE std
+# define NAMESPACE ft
 #endif
 
 #define FALSE 0
@@ -29,13 +29,10 @@ int main()
 {
 
 	NAMESPACE::vector<int> myvector;
-	NAMESPACE::vector<int> vv;
-	vv.resize(10, 21);
+	myvector.resize(5, 42);
 	print_vector<int>(myvector);
-	print_vector<int>(vv);
-	myvector.swap(vv);
+	myvector.clear();
 	print_vector<int>(myvector);
-	print_vector<int>(vv);
 }
 /*
 int main ()
