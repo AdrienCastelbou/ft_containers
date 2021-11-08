@@ -217,6 +217,7 @@ namespace ft {
 						return (true);
 					return (false);
 				}
+
 				void reserve(size_type n) {
 					if (n <= _capacity)
 						return ;
@@ -413,6 +414,18 @@ namespace ft {
 						*(it + i) = *(last + i);
 					_size -= distance;
 					return (first);
+				}
+
+				void swap(ft::vector<value_type>& x) {
+					size_t tmp_size = x._size;
+					size_t tmp_capacity = x._capacity;
+					value_type* tmp_array = x._array;
+					x._array = this->_array;
+					x._size = this->_size;
+					x._capacity = this->_capacity;
+					this->_array = tmp_array;
+					this->_size = tmp_size;
+					this->_capacity = tmp_capacity;
 				}
 				///////////////////////////////////////////
 				//                                       //

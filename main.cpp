@@ -17,8 +17,10 @@ void print_vector(NAMESPACE::vector<T> &the_vector)
     std::cout << "empty : " << the_vector.empty() << std::endl;
     if (the_vector.empty() == FALSE)
     {
-        std::cout << "front_value " << the_vector.front() << std::endl;
-        std::cout << "back_value " << the_vector.back() << std::endl;
+		NAMESPACE::vector<int>::iterator it = the_vector.begin();
+		NAMESPACE::vector<int>::iterator ite = the_vector.end();
+		for(; it != ite; it++)
+			std::cout << *it << std::endl;
     }
     std::cout << "--------------------------------------" << std::endl;
 };
@@ -27,22 +29,13 @@ int main()
 {
 
 	NAMESPACE::vector<int> myvector;
-	NAMESPACE::vector<int>::iterator it = myvector.begin();
-	NAMESPACE::vector<int>::iterator ite = myvector.end();
-	myvector.resize(5, 42);
-	myvector.reserve(10);
-	for (int i=0; i<1; i++)
-	{
-		print_vector<int>(myvector);
-		myvector.resize(8, 33);
-		it = myvector.begin();
-		ite = myvector.end();
-		for(; it != ite; it++)
-			std::cout << *it << std::endl;
-	}
-	it = myvector.begin();
-	ite = myvector.end();
+	NAMESPACE::vector<int> vv;
+	vv.resize(10, 21);
 	print_vector<int>(myvector);
+	print_vector<int>(vv);
+	myvector.swap(vv);
+	print_vector<int>(myvector);
+	print_vector<int>(vv);
 }
 /*
 int main ()
