@@ -416,7 +416,7 @@ namespace ft {
 					return (first);
 				}
 
-				void swap(ft::vector<value_type>& x) {
+				void swap(ft::vector<value_type, allocator_type>& x) {
 					size_t tmp_size = x._size;
 					size_t tmp_capacity = x._capacity;
 					value_type* tmp_array = x._array;
@@ -440,7 +440,10 @@ namespace ft {
 				allocator_type get_allocator() const {
 					return (_alloc);
 				}
-
-
 		};
+
+	template<class T, class Alloc>
+		void swap(ft::vector<T, Alloc>&x, ft::vector<T, Alloc>& y) {
+			x.swap(y);
+		}
 }

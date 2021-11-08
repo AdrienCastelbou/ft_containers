@@ -30,9 +30,13 @@ int main()
 
 	NAMESPACE::vector<int> myvector;
 	myvector.resize(5, 42);
+	NAMESPACE::vector<int> vv;
+	vv.resize(10, 21);
 	print_vector<int>(myvector);
-	myvector.clear();
+	print_vector<int>(vv);
+	NAMESPACE::swap(myvector, vv);
 	print_vector<int>(myvector);
+	print_vector<int>(vv);
 }
 /*
 int main ()
