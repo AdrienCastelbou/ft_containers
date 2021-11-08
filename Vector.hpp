@@ -440,10 +440,29 @@ namespace ft {
 				allocator_type get_allocator() const {
 					return (_alloc);
 				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//     Non-member function overloads     //
+				//                                       //
+				///////////////////////////////////////////
+
+				friend bool operator==(const ft::vector<value_type, allocator_type>& lhs, const ft::vector<value_type, allocator_type>& rhs){
+			if (lhs._size != rhs._size)
+				return (false);
+			typename ft::vector<T, Alloc>::const_iterator itl = lhs.begin();
+			typename ft::vector<T, Alloc>::const_iterator itle = lhs.end();
+			typename ft::vector<T, Alloc>::const_iterator itr = rhs.begin();
+			for (int i = 0; itl + i != itle; i++)
+				if (*(itl + i) != *(itr + i))
+					return (false);
+			return (true);
+		}
 		};
 
 	template<class T, class Alloc>
 		void swap(ft::vector<T, Alloc>&x, ft::vector<T, Alloc>& y) {
 			x.swap(y);
 		}
+
 }
