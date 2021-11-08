@@ -469,6 +469,17 @@ namespace ft {
 					return (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 				}
 
+				friend bool operator<=(const ft::vector<value_type, allocator_type>& lhs, const ft::vector<value_type, allocator_type>& rhs) {
+					return (!(rhs < lhs));
+				}
+
+				friend bool operator>(const ft::vector<value_type, allocator_type>& lhs, const ft::vector<value_type, allocator_type>& rhs) {
+					return (rhs < lhs);
+				}
+
+				friend bool operator>=(const ft::vector<value_type, allocator_type>& lhs, const ft::vector<value_type, allocator_type>& rhs) {
+					return (!(lhs < rhs));
+				}
 		};
 
 	template<class T, class Alloc>
