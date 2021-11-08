@@ -447,7 +447,7 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				friend bool operator==(const ft::vector<value_type, allocator_type>& lhs, const ft::vector<value_type, allocator_type>& rhs){
+				friend bool operator==(const ft::vector<value_type, allocator_type>& lhs, const ft::vector<value_type, allocator_type>& rhs) {
 			if (lhs._size != rhs._size)
 				return (false);
 			typename ft::vector<T, Alloc>::const_iterator itl = lhs.begin();
@@ -457,7 +457,13 @@ namespace ft {
 				if (*(itl + i) != *(itr + i))
 					return (false);
 			return (true);
-		}
+				}
+
+				friend bool operator!=(const ft::vector<value_type, allocator_type>& lhs, const ft::vector<value_type, allocator_type>& rhs) {
+					if (lhs == rhs)
+						return (false);
+					return (true);
+				}
 		};
 
 	template<class T, class Alloc>
