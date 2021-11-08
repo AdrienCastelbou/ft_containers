@@ -199,6 +199,15 @@ namespace ft {
 					return (std::numeric_limits<size_t>::max() / sizeof (value_type));
 				}
 
+				void resize(size_type n, value_type val = value_type()) {
+					iterator it = this->begin();
+					iterator ite = this->end();
+					if (n < _size)
+						this->erase(it + n, ite);
+					else if (n > _size)
+						this->insert(ite, n - _size, val);
+				}
+
 				size_t capacity() const {
 					return (_capacity);
 				}
