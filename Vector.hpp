@@ -464,6 +464,11 @@ namespace ft {
 						return (false);
 					return (true);
 				}
+
+				friend bool operator<(const ft::vector<value_type, allocator_type>& lhs, const ft::vector<value_type, allocator_type>& rhs) {
+					return (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+				}
+
 		};
 
 	template<class T, class Alloc>
