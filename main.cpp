@@ -29,7 +29,7 @@ int main()
 {
 
 	NAMESPACE::vector<int> myvector;
-	myvector.assign((size_t)4, (int)32);
+	myvector.assign(4, 32);
 	NAMESPACE::vector<int>::iterator it = myvector.begin();
 	NAMESPACE::vector<int>::iterator ite = myvector.end();
 	print_vector(myvector);

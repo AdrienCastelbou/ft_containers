@@ -282,7 +282,7 @@ namespace ft {
 				///////////////////////////////////////////
 
 				template<class InputIterator>
-					void assign(InputIterator first, InputIterator last) {
+	void assign(typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last) {
 						for (size_t i = 0; i < _size; i++)
 							_array[i].~value_type();
 						_size = 0;
