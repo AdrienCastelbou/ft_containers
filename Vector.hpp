@@ -102,15 +102,15 @@ namespace ft {
 					return ;
 				}
 
-				template<class InputIt>
-					vector(InputIt first, InputIt last, const allocator_type& alloc = allocator_type()) : _alloc(alloc) {
+				template<class InputIterator>
+					vector(typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last, const allocator_type& alloc = allocator_type()) : _alloc(alloc) {
 						_size = 0;
-						for (InputIt fcpy = first; fcpy != last; fcpy++)
+						for (InputIterator fcpy = first; fcpy != last; fcpy++)
 							_size++;
 						_capacity = _size;
 						_array = array_allocation(_capacity);
 						for (int i = 0; first != last; i++)
-							_array[i] = *(first + i);
+							_array[i] = *(first++);
 						return ;
 					}
 

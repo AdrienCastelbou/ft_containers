@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
-#include "Vector.hpp"
-
+#include "vector.hpp"
+#include <list>
 #ifndef NAMESPACE
 # define NAMESPACE ft
 #endif
@@ -25,17 +25,27 @@ void print_vector(NAMESPACE::vector<T> &the_vector)
     std::cout << "--------------------------------------" << std::endl;
 };
 
-int main()
-{
+#define TESTED_TYPE int
 
-	NAMESPACE::vector<int> myvector;
-	myvector.assign(4, 32);
-	NAMESPACE::vector<int>::iterator it = myvector.begin();
-	NAMESPACE::vector<int>::iterator ite = myvector.end();
-	print_vector(myvector);
-	NAMESPACE::vector<int> vv;
-	vv.assign(it, ite);
-	vv.assign(it, it);
-	print_vector(vv);
+int		main(void)
+{
+	std::list<TESTED_TYPE> lst;
+	std::list<TESTED_TYPE>::iterator lst_it;
+	for (int i = 1; i < 5; ++i)
+		lst.push_back(i * 3);
+	NAMESPACE::vector<TESTED_TYPE> v(3, 100);
+
+	NAMESPACE::vector<TESTED_TYPE> vct(lst.begin(), lst.end());
+	print_vector(vct);
+/*
+	lst_it = lst.begin();
+	for (int i = 1; lst_it != lst.end(); ++i)
+		*lst_it++ = i * 5;
+	vct.assign(lst.begin(), lst.end());
+	print_vector(vct);
+
+	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+	print_vector(vct);*/
+	return (0);
 }
 
