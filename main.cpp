@@ -29,17 +29,13 @@ int main()
 {
 
 	NAMESPACE::vector<int> myvector;
-	myvector.resize(4, 42);
+	myvector.assign((size_t)4, (int)32);
+	NAMESPACE::vector<int>::iterator it = myvector.begin();
+	NAMESPACE::vector<int>::iterator ite = myvector.end();
+	print_vector(myvector);
 	NAMESPACE::vector<int> vv;
-	vv.resize(5, 42);
-	print_vector<int>(myvector);
-	print_vector<int>(vv);
-	NAMESPACE::swap(myvector, vv);
-	print_vector<int>(myvector);
-	print_vector<int>(vv);
-	if (myvector < vv)
-		std::cout << "my < vv" << std::endl;
-	else
-		std::cout << "my >= vv" << std::endl;
+	vv.assign(it, ite);
+	vv.assign(it, it);
+	print_vector(vv);
 }
 
