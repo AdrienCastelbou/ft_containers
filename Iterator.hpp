@@ -179,7 +179,8 @@ namespace ft {
 					reverse_iterator(const reverse_iterator<Iter>& rev_it) : _it(rev_it) {}
 
 				iterator_type base() const {
-					return (iterator_type(--_it));
+					iterator_type it = _it;
+					return (iterator_type(--it));
 				}
 				
 				reference operator*() const {
@@ -187,7 +188,53 @@ namespace ft {
 				}
 
 				reverse_iterator operator+(difference_type n) const {
-					return ()
+					iterator_type it = _it - n;
+					return (reverse_iterator(it));
+				}
+
+				reverse_iterator& operator++() {
+					--_it;
+					return (*this);
+				}
+
+				reverse_iterator operator++(int) {
+					reverse_iterator temp = *this;
+					++(*this);
+					return (temp);
+				}
+
+				reverse_iterator& operator+=(difference_type n) {
+					_it -= n;
+					return (*this);
+				}
+
+				reverse_iterator operator-(difference_type n) const {
+					iterator_type it = _it + n;
+					return (reverse_iterator(it));
+				}
+
+				reverse_iterator& operator--() {
+					++_it;
+					return (*this);
+				}
+
+				reverse_iterator operator--(int) {
+					reverse_iterator temp = *this;
+					--(*this);
+					return (temp);
+				}
+
+				reverse_iterator& operator-=(difference_type n) {
+					_it += n;
+					return (*this);
+				}
+
+				pointer operator->() const {
+					return (&(this->operator*()));
+				}
+
+				reference operator[](difference_type n) {
+					return (this->base()[-n]);
 				}
 		};
 }

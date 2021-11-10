@@ -29,11 +29,13 @@ void print_vector(TESTED_NAMESPACE::vector<T> &the_vector)
 
 int		main(void)
 {
-	std::vector<int> v(3, 100);
-	std::vector<int>::iterator it = v.begin();
-	ft::reverse_iterator<std::vector<int>::iterator> r(it);
-	ft::reverse_iterator<std::vector<int>::iterator> rr(r);
-	(void) rr;
+	std::vector<int> v;
+	for (int i = 0; i < 10; i++)
+		v.push_back(i);
+	//std::vector<int>::iterator it = v.begin();
+	std::vector<int>::iterator ite = v.end();
+	ft::reverse_iterator<std::vector<int>::iterator> r(ite);
+	std::cout << r[4] << std::endl;
 	/*TESTED_NAMESPACE::vector<TESTED_TYPE> vct;
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator cit = vct.begin();
