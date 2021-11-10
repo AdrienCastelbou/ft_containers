@@ -174,9 +174,18 @@ namespace ft {
 				typedef typename iterator_traits<Iterator>::reference reference;
 
 				reverse_iterator() : _it(iterator_type()) {};
+
 				explicit reverse_iterator(iterator_type it) : _it(iterator_type(it)){}
+
 				template <class Iter>
 					reverse_iterator(const reverse_iterator<Iter>& rev_it) : _it(rev_it) {}
+
+
+				///////////////////////////////////////////
+				//                                       //
+				//       Member functions overloads      //
+				//                                       //
+				///////////////////////////////////////////
 
 				iterator_type base() const {
 					iterator_type it = _it;
@@ -235,6 +244,44 @@ namespace ft {
 
 				reference operator[](difference_type n) {
 					return (this->base()[-n]);
+				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//     Non-member function overloads     //
+				//                                       //
+				///////////////////////////////////////////
+
+				friend bool operator==(const reverse_iterator& lhs, const reverse_iterator& rhs) {
+					return (lhs._it == rhs._it);
+				}
+
+				friend bool operator!=(const reverse_iterator& lhs, const reverse_iterator& rhs) {
+					return (lhs._it != rhs._it);
+				}
+
+				friend bool operator<=(const reverse_iterator& lhs, const reverse_iterator& rhs) {
+					return (lhs._it >= rhs._it);
+				}
+
+				friend bool operator<(const reverse_iterator& lhs, const reverse_iterator& rhs) {
+					return (lhs._it > rhs._it);
+				}
+
+				friend bool operator>(const reverse_iterator& lhs, const reverse_iterator& rhs) {
+					return (lhs._it < rhs._it);
+				}
+
+				friend bool operator>=(const reverse_iterator& lhs, const reverse_iterator& rhs) {
+					return (lhs._it <= rhs._it);
+				}
+
+				friend reverse_iterator operator+ (difference_type n, const reverse_iterator& rev_it) {
+					return (rev_it + n);
+				}
+
+				friend difference_type operator-(const reverse_iterator& lhs, const reverse_iterator& rhs) {
+					return (lhs._it - rhs._it);
 				}
 		};
 }
