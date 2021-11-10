@@ -50,7 +50,5 @@ int		main(void)
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it2(rit);
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator cit2(crit);
 	*/
-
-	std::cout << "OK" << std::endl;
 	return (0);
 }

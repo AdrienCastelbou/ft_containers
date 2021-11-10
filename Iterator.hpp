@@ -50,7 +50,12 @@ namespace ft {
 	template<class InputIterator>
 		typename ft::iterator_traits<InputIterator>::difference_type
 		distance(InputIterator first, InputIterator last) {
+			if (typeid(InputIterator::iterator_category) == typeid(ft::random_access_iterator_tag) || typeid(InputIterator::iterator_category) == typeid(std::random_access_iterator_tag))
 				return (last - first);
+			int i = 0;
+			for(; first != last; i++)
+				first++;
+			return (i);
 		}
 
 	template <class Category, class T, class Distance = std::ptrdiff_t, class Pointer = T*, class Reference = T&>
