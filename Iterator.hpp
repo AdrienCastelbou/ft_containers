@@ -177,5 +177,17 @@ namespace ft {
 				explicit reverse_iterator(iterator_type it) : _it(iterator_type(it)){}
 				template <class Iter>
 					reverse_iterator(const reverse_iterator<Iter>& rev_it) : _it(rev_it) {}
+
+				iterator_type base() const {
+					return (iterator_type(--_it));
+				}
+				
+				reference operator*() const {
+					return (*(this->base()));
+				}
+
+				reverse_iterator operator+(difference_type n) const {
+					return ()
+				}
 		};
 }
