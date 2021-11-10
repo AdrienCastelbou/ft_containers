@@ -295,7 +295,7 @@ namespace ft {
 							_array = array_allocation(_capacity);
 						}
 						for(size_t i = 0; i < _size; i++)
-							_array[i] = *(first + i);
+							_array[i] = *(first++);
 					}
 
 
