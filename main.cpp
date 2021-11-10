@@ -43,7 +43,7 @@ int		main(void)
 	vct.assign(lst.begin(), lst.end());
 	print_vector(vct);
 
-	vct.insert(vct.end(), lst.rbegin(), lst.rend());
+	vct.insert(vct.end(), lst.begin(), lst.end());
 	print_vector(vct);
 	return (0);
 }
