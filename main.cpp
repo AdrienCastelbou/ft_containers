@@ -29,21 +29,28 @@ void print_vector(TESTED_NAMESPACE::vector<T> &the_vector)
 
 int		main(void)
 {
-	std::list<TESTED_TYPE> lst;
-	std::list<TESTED_TYPE>::iterator lst_it;
-	for (int i = 1; i < 5; ++i)
-		lst.push_back(i * 3);
+	std::vector<int> v(3, 100);
+	std::vector<int>::iterator it = v.begin();
+	ft::reverse_iterator<std::vector<int>::iterator> r(it);
+	ft::reverse_iterator<std::vector<int>::iterator> rr(r);
+	(void) rr;
+	/*TESTED_NAMESPACE::vector<TESTED_TYPE> vct;
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator cit = vct.begin();
 
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(lst.begin(), lst.end());
-	print_vector(vct);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator rit(it);
 
-	lst_it = lst.begin();
-	for (int i = 1; lst_it != lst.end(); ++i)
-		*lst_it++ = i * 5;
-	vct.assign(lst.begin(), lst.end());
-	print_vector(vct);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator crit(rit);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator crit_(it);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator crit_2(cit);
+*/
+	/* error expected
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator rit_(crit);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator rit2(cit);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it2(rit);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator cit2(crit);
+	*/
 
-	vct.insert(vct.end(), lst.rbegin(), lst.rend());
-	print_vector(vct);
+	std::cout << "OK" << std::endl;
 	return (0);
 }
