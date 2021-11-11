@@ -100,14 +100,6 @@ namespace ft {
 					return (*this);
 				}
 
-				bool operator==(const RandIterator& other) const {
-					return (m_ptr == other.m_ptr);
-				}
-				
-				bool operator!=(const RandIterator& other) const {
-					return (m_ptr != other.m_ptr);
-				}
-
 				RandIterator& operator+=(const difference_type& movement) {
 					m_ptr += movement;
 					return (*this);
@@ -151,7 +143,7 @@ namespace ft {
 					return (temp);
 				}
 
-				difference_type operator-(const RandIterator<T>& rawIterator) const {
+				difference_type operator-(const RandIterator& rawIterator) const {
 					return (this->m_ptr - rawIterator.m_ptr);
 				}
 
@@ -174,6 +166,31 @@ namespace ft {
 				friend RandIterator operator+ (difference_type n, const RandIterator& it) {
 					return (it + n);
 				}
+
+				friend bool operator==(const RandIterator& lhs, const RandIterator& rhs) {
+					return (lhs.m_ptr == rhs.m_ptr);
+				}
+				
+				friend bool operator!=(const RandIterator& lhs, const RandIterator& rhs) {
+					return (lhs.m_ptr != rhs.m_ptr);
+				}
+
+				friend bool operator<=(const RandIterator& lhs, const RandIterator& rhs) {
+					return (lhs.m_ptr <= rhs.m_ptr);
+				}
+
+				friend bool operator<(const RandIterator& lhs, const RandIterator& rhs) {
+					return (lhs.m_ptr < rhs.m_ptr);
+				}
+
+				friend bool operator>(const RandIterator& lhs, const RandIterator& rhs) {
+					return (lhs.m_ptr > rhs.m_ptr);
+				}
+
+				friend bool operator>=(const RandIterator& lhs, const RandIterator& rhs) {
+					return (lhs.m_ptr >= rhs.m_ptr);
+				}
+
 		};
 
 	template<class Iterator>
