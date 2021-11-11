@@ -87,11 +87,11 @@ namespace ft {
 				RandIterator(T* ptr = nullptr) : m_ptr(ptr) {}
 				RandIterator(const RandIterator<T>& other) : m_ptr(other.m_ptr) {}
 				~RandIterator() {}
-				RandIterator<T>& operator=(RandIterator<T>& other) {
+				RandIterator& operator=(RandIterator<T>& other) {
 					m_ptr = other.m_ptr;
 					return (*this);
 				}
-				RandIterator<T>& operator=(const RandIterator<T>& other) {
+				RandIterator& operator=(const RandIterator<T>& other) {
 					m_ptr = other.m_ptr;
 					return (*this);
 				}
@@ -101,46 +101,41 @@ namespace ft {
 				bool operator!=(const RandIterator<T>& other) const {
 					return (m_ptr != other.m_ptr);
 				}
-				RandIterator<T>& operator+=(const difference_type& movement) {
+				RandIterator& operator+=(const difference_type& movement) {
 					m_ptr += movement;
 					return (*this);
 				}
-				RandIterator<T>& operator-=(const difference_type& movement) {
+				RandIterator& operator-=(const difference_type& movement) {
 					m_ptr -= movement;
 					return (*this);
 				}
-				RandIterator<T>& operator++() {
+				RandIterator& operator++() {
 					++m_ptr;
 					return (*this);
 				}
-				RandIterator<T>& operator--() {
+				RandIterator& operator--() {
 					--m_ptr;
 					return (*this);
 				}
-				RandIterator<T> operator++(int) {
+				RandIterator operator++(int) {
 					RandIterator<T> temp(*this);
 					++m_ptr;
 					return (temp);
 				}
-				RandIterator<T> operator--(int) {
+				RandIterator operator--(int) {
 					RandIterator<T> temp(*this);
 					--m_ptr;
 					return (temp);
 				}
-				RandIterator<T> operator+(const difference_type& movement) {
-					T* oldPtr = m_ptr;
-					m_ptr+=movement;
-					RandIterator<T> temp(*this);
-					m_ptr = oldPtr;
+				RandIterator operator+(difference_type movement) const {
+					RandIterator temp(m_ptr + movement);
 					return (temp);
 				}
-				RandIterator<T> operator-(const difference_type& movement) {
-					T* oldPtr = m_ptr;
-					m_ptr-=movement;
-					RandIterator<T> temp(*this);
-					m_ptr = oldPtr;
+				RandIterator operator-(difference_type movement) const {
+					RandIterator temp(m_ptr - movement);
 					return (temp);
 				}
+
 				difference_type operator-(const RandIterator<T>& rawIterator) {
 					return (ft::distance(rawIterator.getPtr(),this->getPtr()));
 				}
