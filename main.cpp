@@ -3,7 +3,7 @@
 #include "vector.hpp"
 #include <list>
 
-#define TESTED_NAMESPACE ft
+#define TESTED_NAMESPACE std
 #define FALSE 0
 
 template<class T>
@@ -36,8 +36,10 @@ int		main(void)
 		vct[i] = (i + 1) * 5;
 	print_vector(vct);
 
+
 	std::cout << (it_ == it.base()) << std::endl;
-	std::cout << (it_ == (it + 3).base()) << std::endl;
+	std::cout << *it_ << ", " << *it << ", " << *(it.base()) << std::endl;
+	/*std::cout << (it_ == (it + 3).base()) << std::endl;
 
 	std::cout << *(it.base() + 1) << std::endl;
 	std::cout << *(it - 3) << std::endl;
@@ -50,7 +52,7 @@ int		main(void)
 	std::cout << *(it).base() << std::endl;
 	std::cout << *(it - 0) << std::endl;
 	std::cout << *(it - 0).base() << std::endl;
-	std::cout << *(it - 1).base() << std::endl;
+	std::cout << *(it - 1).base() << std::endl;*/
 
 	return (0);
 }
