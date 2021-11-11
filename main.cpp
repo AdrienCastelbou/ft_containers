@@ -29,13 +29,10 @@ void print_vector(TESTED_NAMESPACE::vector<T> &the_vector)
 
 int		main(void)
 {
-  std::vector<int> myvector;
+  ft::vector<int> myvector;
   for (int i=0; i<10; i++) myvector.push_back(i);
 
-  ft::reverse_iterator<std::vector<int>::iterator> from(myvector.begin()), until(myvector.end());
-
-
-  std::cout << "myvector has " << (until-from) << " elements.\n";
+  std::cout << *(myvector.rend()).base() << std::endl;
 	/*TESTED_NAMESPACE::vector<TESTED_TYPE> vct;
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator cit = vct.begin();
