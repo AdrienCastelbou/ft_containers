@@ -3,7 +3,7 @@
 #include "vector.hpp"
 #include <list>
 
-#define TESTED_NAMESPACE std
+#define TESTED_NAMESPACE ft
 #define FALSE 0
 
 template<class T>
@@ -27,32 +27,14 @@ void print_vector(TESTED_NAMESPACE::vector<T> &the_vector)
 
 int		main(void)
 {
-	const int size = 5;
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(size);
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it_ = vct.begin();
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator it(it_);
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct;
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator cit = vct.begin();
 
-	for (int i = 0; i < size; ++i)
-		vct[i] = (i + 1) * 5;
-	print_vector(vct);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator rit(it);
+	std::cout << "mmm" << std::endl;
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator crit(rit);
 
-
-	std::cout << (it_ == it.base()) << std::endl;
-	std::cout << *it_ << ", " << *it << ", " << *(it.base()) << std::endl;
-	/*std::cout << (it_ == (it + 3).base()) << std::endl;
-
-	std::cout << *(it.base() + 1) << std::endl;
-	std::cout << *(it - 3) << std::endl;
-	std::cout << *(it - 3).base() << std::endl;
-	it -= 3;
-	std::cout << *it.base() << std::endl;
-
-	std::cout << "TEST OFFSET" << std::endl;
-	std::cout << *(it) << std::endl;
-	std::cout << *(it).base() << std::endl;
-	std::cout << *(it - 0) << std::endl;
-	std::cout << *(it - 0).base() << std::endl;
-	std::cout << *(it - 1).base() << std::endl;*/
-
+	std::cout << "OK" << std::endl;
 	return (0);
 }
