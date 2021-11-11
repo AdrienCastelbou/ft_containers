@@ -95,12 +95,14 @@ namespace ft {
 					m_ptr = other.m_ptr;
 					return (*this);
 				}
+
 				bool operator==(const RandIterator<T>& other) const {
 					return (m_ptr == other.m_ptr);
 				}
 				bool operator!=(const RandIterator<T>& other) const {
 					return (m_ptr != other.m_ptr);
 				}
+
 				RandIterator& operator+=(const difference_type& movement) {
 					m_ptr += movement;
 					return (*this);
@@ -122,11 +124,17 @@ namespace ft {
 					++m_ptr;
 					return (temp);
 				}
+
+				reference operator[](difference_type n) {
+					return (this->m_ptr[n]);
+				}
+
 				RandIterator operator--(int) {
 					RandIterator<T> temp(*this);
 					--m_ptr;
 					return (temp);
 				}
+
 				RandIterator operator+(difference_type movement) const {
 					RandIterator temp(m_ptr + movement);
 					return (temp);
@@ -155,6 +163,10 @@ namespace ft {
 				}
 				const T* getConstPtr()const {
 					return (m_ptr);
+				}
+
+				friend RandIterator operator+ (difference_type n, const RandIterator& it) {
+					return (it + n);
 				}
 		};
 
