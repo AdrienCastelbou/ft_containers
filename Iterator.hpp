@@ -175,11 +175,6 @@ namespace ft {
 				template <class Iter>
 					reverse_iterator(const reverse_iterator<Iter>& rev_it) : _it(rev_it) {}
 
-				reverse_iterator& operator=(reverse_iterator const & other) {
-					if (this != &other)
-						_it = other._it;
-					return (*this);
-				}
 				///////////////////////////////////////////
 				//                                       //
 				//       Member functions overloads      //
