@@ -131,14 +131,16 @@ namespace ft {
 					RandIterator temp(m_ptr + movement);
 					return (temp);
 				}
+
 				RandIterator operator-(difference_type movement) const {
 					RandIterator temp(m_ptr - movement);
 					return (temp);
 				}
 
-				difference_type operator-(const RandIterator<T>& rawIterator) {
-					return (ft::distance(rawIterator.getPtr(),this->getPtr()));
+				difference_type operator-(const RandIterator<T>& rawIterator) const {
+					return (this->m_ptr - rawIterator.m_ptr);
 				}
+
 				T& operator*() {
 					return (*m_ptr);
 				}

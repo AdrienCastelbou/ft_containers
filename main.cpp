@@ -5,36 +5,65 @@
 
 #define TESTED_NAMESPACE ft
 #define FALSE 0
+#define T_SIZE_TYPE typename TESTED_NAMESPACE::vector<T>::size_type
 
-template<class T>
-void print_vector(TESTED_NAMESPACE::vector<T> &the_vector)
+template <typename T>
+void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = true)
 {
-    std::cout << "size : " << the_vector.size() << std::endl;
-    std::cout << "max_size : " << the_vector.max_size() << std::endl;
-    std::cout << "capacity : " << the_vector.capacity() << std::endl;
-    std::cout << "empty : " << the_vector.empty() << std::endl;
-    if (the_vector.empty() == FALSE)
-    {
-		TESTED_NAMESPACE::vector<int>::iterator it = the_vector.begin();
-		TESTED_NAMESPACE::vector<int>::iterator ite = the_vector.end();
-		for(; it != ite; it++)
-			std::cout << *it << std::endl;
-    }
-    std::cout << "--------------------------------------" << std::endl;
-};
+	const T_SIZE_TYPE size = vct.size();
+	const T_SIZE_TYPE capacity = vct.capacity();
+	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
+	// Cannot limit capacity's max value because it's implementation dependent
 
+	std::cout << "size: " << size << std::endl;
+	std::cout << "capacity: " << isCapacityOk << std::endl;
+	std::cout << "max_size: " << vct.max_size() << std::endl;
+	if (print_content)
+	{
+		typename TESTED_NAMESPACE::vector<T>::const_iterator it = vct.begin();
+		typename TESTED_NAMESPACE::vector<T>::const_iterator ite = vct.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		for (; it != ite; ++it)
+			std::cout << "- " << *it << std::endl;
+	}
+	std::cout << "###############################################" << std::endl;
+}
 #define TESTED_TYPE int
 
 int		main(void)
 {
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct;
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator cit = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(5);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin(), ite = vct.end();
 
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator rit(it);
-	std::cout << "mmm" << std::endl;
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator crit(rit);
+	std::cout << "len: " << (ite - it) << std::endl;
+	for (; it != ite; ++it)
+		*it = (ite - it);
 
-	std::cout << "OK" << std::endl;
+	it = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct_range(it, --(--ite));
+	for (int i = 0; it != ite; ++it)
+		*it = ++i * 5;
+
+	it = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct_copy(vct);
+	for (int i = 0; it != ite; ++it)
+		*it = ++i * 7;
+	vct_copy.push_back(42);
+	vct_copy.push_back(21);
+
+	std::cout << "\t-- PART ONE --" << std::endl;
+	printSize(vct);
+	printSize(vct_range);
+	printSize(vct_copy);
+
+	vct = vct_copy;
+	vct_copy = vct_range;
+	vct_range.clear();
+
+	std::cout << "\t-- PART TWO --" << std::endl;
+	printSize(vct);
+	printSize(vct_range);
+	printSize(vct_copy);
 	return (0);
 }
+
