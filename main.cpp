@@ -2,10 +2,8 @@
 #include <vector>
 #include "vector.hpp"
 #include <list>
-#ifndef NAMESPACE
-# define TESTED_NAMESPACE ft
-#endif
 
+#define TESTED_NAMESPACE ft
 #define FALSE 0
 
 template<class T>
@@ -29,25 +27,30 @@ void print_vector(TESTED_NAMESPACE::vector<T> &the_vector)
 
 int		main(void)
 {
-  ft::vector<int> myvector;
-  for (int i=0; i<10; i++) myvector.push_back(i);
+	const int size = 5;
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(size);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it_ = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator it(it_);
 
-  std::cout << *(myvector.rend()).base() << std::endl;
-	/*TESTED_NAMESPACE::vector<TESTED_TYPE> vct;
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator cit = vct.begin();
+	for (int i = 0; i < size; ++i)
+		vct[i] = (i + 1) * 5;
+	print_vector(vct);
 
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator rit(it);
+	std::cout << (it_ == it.base()) << std::endl;
+	std::cout << (it_ == (it + 3).base()) << std::endl;
 
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator crit(rit);
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator crit_(it);
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_reverse_iterator crit_2(cit);
-*/
-	/* error expected
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator rit_(crit);
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::reverse_iterator rit2(cit);
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it2(rit);
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator cit2(crit);
-	*/
+	std::cout << *(it.base() + 1) << std::endl;
+	std::cout << *(it - 3) << std::endl;
+	std::cout << *(it - 3).base() << std::endl;
+	it -= 3;
+	std::cout << *it.base() << std::endl;
+
+	std::cout << "TEST OFFSET" << std::endl;
+	std::cout << *(it) << std::endl;
+	std::cout << *(it).base() << std::endl;
+	std::cout << *(it - 0) << std::endl;
+	std::cout << *(it - 0).base() << std::endl;
+	std::cout << *(it - 1).base() << std::endl;
+
 	return (0);
 }
