@@ -85,21 +85,26 @@ namespace ft {
 				}
 
 				RandIterator(T* ptr = nullptr) : m_ptr(ptr) {}
+
 				RandIterator(const RandIterator<T>& other) : m_ptr(other.m_ptr) {}
+				
 				~RandIterator() {}
-				RandIterator& operator=(RandIterator<T>& other) {
+				
+				RandIterator& operator=(RandIterator& other) {
 					m_ptr = other.m_ptr;
 					return (*this);
 				}
-				RandIterator& operator=(const RandIterator<T>& other) {
+				
+				RandIterator& operator=(const RandIterator& other) {
 					m_ptr = other.m_ptr;
 					return (*this);
 				}
 
-				bool operator==(const RandIterator<T>& other) const {
+				bool operator==(const RandIterator& other) const {
 					return (m_ptr == other.m_ptr);
 				}
-				bool operator!=(const RandIterator<T>& other) const {
+				
+				bool operator!=(const RandIterator& other) const {
 					return (m_ptr != other.m_ptr);
 				}
 
@@ -107,6 +112,7 @@ namespace ft {
 					m_ptr += movement;
 					return (*this);
 				}
+				
 				RandIterator& operator-=(const difference_type& movement) {
 					m_ptr -= movement;
 					return (*this);
@@ -120,7 +126,7 @@ namespace ft {
 					return (*this);
 				}
 				RandIterator operator++(int) {
-					RandIterator<T> temp(*this);
+					RandIterator temp(*this);
 					++m_ptr;
 					return (temp);
 				}
@@ -130,7 +136,7 @@ namespace ft {
 				}
 
 				RandIterator operator--(int) {
-					RandIterator<T> temp(*this);
+					RandIterator temp(*this);
 					--m_ptr;
 					return (temp);
 				}
@@ -149,19 +155,19 @@ namespace ft {
 					return (this->m_ptr - rawIterator.m_ptr);
 				}
 
-				T& operator*() {
+				reference operator*() {
 					return (*m_ptr);
 				}
-				const T& operator*()const {
+				const reference operator*() const {
 					return (*m_ptr);
 				}
-				T* operator->(){
+				pointer operator->(){
 					return (m_ptr);
 				}
-				T* getPtr()const {
+				pointer getPtr() const {
 					return (m_ptr);
 				}
-				const T* getConstPtr()const {
+				const pointer getConstPtr() const {
 					return (m_ptr);
 				}
 
