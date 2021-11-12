@@ -281,63 +281,138 @@ namespace ft {
 
 				///////////////////////////////////////////
 				//                                       //
-				//     Non-member function overloads     //
+				//  Friend Non-member function overloads //
 				//                                       //
 				///////////////////////////////////////////
 
 				friend bool operator==(const reverse_iterator& lhs, const reverse_iterator& rhs);
+				template<class L, class R>
+					friend bool operator==(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs);
 
 				friend bool operator!=(const reverse_iterator& lhs, const reverse_iterator& rhs) ;
+				template<class L, class R>
+					friend bool operator!=(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs);
+
 				friend bool operator<=(const reverse_iterator& lhs, const reverse_iterator& rhs) ;
+				template<class L, class R>
+					friend bool operator<=(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs);
 
 				friend bool operator<(const reverse_iterator& lhs, const reverse_iterator& rhs) ;
+				template<class L, class R>
+					friend bool operator<(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs);
 
 				friend bool operator>(const reverse_iterator& lhs, const reverse_iterator& rhs) ;
+				template<class L, class R>
+					friend bool operator>(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs);
 
 				friend bool operator>=(const reverse_iterator& lhs, const reverse_iterator& rhs) ;
+				template<class L, class R>
+					friend bool operator>=(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs);
 
-				friend reverse_iterator operator+ (difference_type n, const reverse_iterator& rev_it);
+				friend reverse_iterator operator+ (difference_type n, const reverse_iterator& rev_it) {
+			return (rev_it + n);
+		}
 
 				friend difference_type operator-(const reverse_iterator& lhs, const reverse_iterator& rhs);
+				template<class L, class R>
+					friend bool operator-(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs);
 		};
 
+	///////////////////////////////////////////
+	//                                       //
+	//Rev_iter Non-member function overloads //
+	//                                       //
+	///////////////////////////////////////////
+
+
+	///		Equal Operator		///
+	
 	template<class Iterator>
 		bool operator==(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
-			return (lhs._it == rhs._it);
+			return (lhs.base() == rhs.base());
 		}
+
+	template<class L, class R>
+		bool operator==(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs) {
+			return (lhs.base() == rhs.base());
+		}
+
+	///		Inequal Operator	///
 
 	template<class Iterator>
 		bool operator!=(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
 			return (lhs._it != rhs._it);
 		}
 
+	template<class L, class R>
+		bool operator!=(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs) {
+			return (lhs.base() != rhs.base());
+		}
+
+	///	Equal or Less Operator	///
+
 	template<class Iterator> 
 		bool operator<=(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
 			return (lhs._it >= rhs._it);
 		}
+
+	template<class L, class R>
+		bool operator<=(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs) {
+			return (lhs.base() <= rhs.base());
+		}
+
+	///		Less Operator		///
 
 	template<class Iterator> 
 		bool operator<(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
 			return (lhs._it > rhs._it);
 		}
 
+	template<class L, class R>
+		bool operator<(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs) {
+			return (lhs.base() < rhs.base());
+		}
+
+	///		More Operator		///
+
 	template<class Iterator> 
 		bool operator>(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
 			return (lhs._it < rhs._it);
 		}
+
+	template<class L, class R>
+		bool operator>(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs) {
+			return (lhs.base() > rhs.base());
+		}
+
+	///	Equal or More Operator	///
 
 	template<class Iterator> 
 		bool operator>=(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
 			return (lhs._it <= rhs._it);
 		}
 
-	template<class Iterator> 
+	template<class L, class R>
+		bool operator>=(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs) {
+			return (lhs.base() >= rhs.base());
+		}
+
+	///		Add Operator	///
+
+/*	template<class Iterator> 
 		reverse_iterator<Iterator> operator+ (typename iterator_traits<Iterator>::difference_type n, const reverse_iterator<Iterator>& rev_it) {
 			return (rev_it + n);
-		}
+		}*/
+
+	//	Substract Operator	///
 
 	template<class Iterator> 
 		typename iterator_traits<Iterator>::difference_type operator-(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
-			return (lhs._it - rhs._it);
+			return (lhs.base() - rhs.base());
 		}
+
+		template<class L, class R>
+			bool operator-(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs) {
+				return (lhs.base() - rhs.base());
+			}
 }
