@@ -276,7 +276,7 @@ namespace ft {
 				}
 
 				reference operator[](difference_type n) {
-					return (this->base()[-n]);
+					return (this->base()[-n-1]);
 				}
 
 				///////////////////////////////////////////
