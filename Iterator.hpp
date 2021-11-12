@@ -315,7 +315,7 @@ namespace ft {
 
 				friend difference_type operator-(const reverse_iterator& lhs, const reverse_iterator& rhs);
 				template<class L, class R>
-					friend bool operator-(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs);
+					friend typename iterator_traits<L>::difference_type  operator-(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs);
 		};
 
 	///////////////////////////////////////////
@@ -408,11 +408,12 @@ namespace ft {
 
 	template<class Iterator> 
 		typename iterator_traits<Iterator>::difference_type operator-(const reverse_iterator<Iterator>& lhs, const reverse_iterator<Iterator>& rhs) {
-			return (lhs.base() - rhs.base());
+			return (&(*rhs.base()) - &(*(lhs.base())));
+
 		}
 
 		template<class L, class R>
-			bool operator-(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs) {
-				return (lhs.base() - rhs.base());
+			typename iterator_traits<L>::difference_type  operator-(const reverse_iterator<L>& lhs, const reverse_iterator<R>& rhs) {
+				return (&(*rhs.base()) - &(*(lhs.base())));
 			}
 }

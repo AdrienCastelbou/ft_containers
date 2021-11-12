@@ -43,8 +43,8 @@ int		main(void)
 	it = it + 5;
 	it = 1 + it;
 	it = it - 4;
-	it += 2;
-	it -= 1;
+	std::cout << *(it += 2) << std::endl;
+	std::cout << *(it -= 1) << std::endl;
 
 	*(it -= 2) = 42;
 	*(it += 2) = 21;
