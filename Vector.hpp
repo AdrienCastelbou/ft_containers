@@ -369,8 +369,8 @@ namespace ft {
 				}
 
 				template<class InputIterator>
-					void insert(iterator position, InputIterator first, InputIterator last) {
-						size_t distance = last.getPtr() - first.getPtr();
+					void insert(iterator position, typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last) {
+						size_t distance = last - first;
 						iterator ite = this->end();
 						iterator it = ite - 1;
 						value_type *_new = _array;
