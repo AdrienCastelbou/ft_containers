@@ -3,50 +3,105 @@
 #include "vector.hpp"
 #include <list>
 
-#define TESTED_NAMESPACE ft
-#define FALSE 0
-#define T_SIZE_TYPE typename TESTED_NAMESPACE::vector<T>::size_type
+#include "vector.hpp"
+#ifndef TESTS_HPP
+# define TESTS_HPP
+
+# include <vector>
+# include <list>
+# include <map>
+# include <stack>
+# include <queue>
+# include <iostream>
+
+# ifdef __linux__
+#  define RESET "\e[0m"
+#  define GREEN "\e[92m"
+#  define BLUE "\e[94m"
+#  define BOLD "\e[1m"
+# endif
+
+# ifdef __APPLE__
+#  define RESET "\e[0m"
+#  define GREEN "\e[92m"
+#  define BLUE "\e[94m"
+#  define BOLD "\e[1m"
+# endif
+
+# define GOOD "✓"
+# define FAIL "❌"
 
 template <typename T>
-void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = true)
+bool operator==(ft::vector<T> &a, std::vector<T> &b)
 {
-	const T_SIZE_TYPE size = vct.size();
-	const T_SIZE_TYPE capacity = vct.capacity();
-	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
-	// Cannot limit capacity's max value because it's implementation dependent
-
-	std::cout << "size: " << size << std::endl;
-	std::cout << "capacity: " << isCapacityOk << std::endl;
-	std::cout << "max_size: " << vct.max_size() << std::endl;
-	if (print_content)
+	if (a.size() != b.size())
+		return (false);
+	if (a.empty() != b.empty())
+		return (false);
+	for (size_t i = 0; i < a.size(); i++)
 	{
-		typename TESTED_NAMESPACE::vector<T>::const_iterator it = vct.begin();
-		typename TESTED_NAMESPACE::vector<T>::const_iterator ite = vct.end();
-		std::cout << std::endl << "Content is:" << std::endl;
-		for (; it != ite; ++it)
-			std::cout << "- " << *it << std::endl;
+		if (a[i] != b[i])
+			return (false);
 	}
-	std::cout << "###############################################" << std::endl;
-}
-#define TESTED_TYPE int
+	return (true);
+};
+
+void	test_vector(void);
+void	test_list(void);
+void	test_map(void);
+void	test_stack(void);
+void	test_queue(void);
+
+inline void print_header(std::string str)
+{
+	int margin = (40 - str.length()) / 2;
+	int width = (margin * 2 + str.length()) + 2;
+	std::cout << BLUE << std::endl;
+	std::cout << std::string(width, '*') << std::endl;
+	std::cout << "*" << std::string(margin, ' ') << str << std::string(margin, ' ') << "*" << std::endl;
+	std::cout << std::string(width, '*') << std::endl;
+	std::cout << RESET;
+};
+
+template <typename T>
+inline void check(std::string name, T a, T b)
+{
+	std::string margin(38 - name.length(), ' ');
+	if (a == b)
+		std::cout << name << ": " << margin << BOLD << GREEN << GOOD << RESET << std::endl;
+	else
+		std::cout << name << ": " << margin << FAIL << std::endl;
+};
+
+inline void check(std::string name, bool good)
+{
+	std::string margin(38 - name.length(), ' ');
+	if (good)
+		std::cout << name << ": " << margin << BOLD << GREEN << GOOD << RESET << std::endl;
+	else
+		std::cout << name << ": " << margin << FAIL << std::endl;
+};
+
+#endif
 
 int		main(void)
 {
-	std::list<TESTED_TYPE> lst;
-	std::list<TESTED_TYPE>::iterator lst_it;
-	for (int i = 1; i < 5; ++i)
-		lst.push_back(i * 3);
-
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(lst.begin(), lst.end());
-	//printSize(vct);
-
-	lst_it = lst.begin();
-	for (int i = 1; lst_it != lst.end(); ++i)
-		*lst_it++ = i * 5;
-	vct.assign(lst.begin(), lst.end());
-	printSize(vct);
-
-	vct.insert(vct.end(), lst.rbegin(), lst.rend());
-	printSize(vct);
-	return (0);
+	print_header("Insert");
+	int test[] = {1, 2, 3};
+	(void) test;
+	ft::vector<int> v1;
+	std::vector<int> v2;
+	v1.insert(v1.begin(), 42);
+	v1.insert(v1.end(), 21);
+	v1.insert(v1.begin(), 10);
+	v1.insert(v1.begin() + 1, 11);
+	v1.insert(v1.begin() + 2, (size_t)3, 0);
+	v1.insert(v1.begin() + 1, test, test + 3);
+	v2.insert(v2.begin(), 42);
+	v2.insert(v2.end(), 21);
+	v2.insert(v2.begin(), 10);
+	v2.insert(v2.begin() + 1, 11);
+	v2.insert(v2.begin() + 2, (size_t)3, 0);
+	v2.insert(v2.begin() + 1, test, test + 3);
+	check("v1 == v2", v1 == v2);
 }
