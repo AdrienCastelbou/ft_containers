@@ -468,7 +468,7 @@ namespace ft {
 				}
 
 				friend bool operator<(const ft::vector<value_type, allocator_type>& lhs, const ft::vector<value_type, allocator_type>& rhs) {
-					return (lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+					return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 				}
 
 				friend bool operator<=(const ft::vector<value_type, allocator_type>& lhs, const ft::vector<value_type, allocator_type>& rhs) {
