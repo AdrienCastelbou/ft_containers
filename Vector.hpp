@@ -34,7 +34,7 @@ namespace ft {
 				value_type *_array;
 				size_t _size;
 				size_t _capacity;
-				allocator_type _alloc;
+				allocator_type _allocator;
 
 				///////////////////////////////////////////
 				//                                       //
@@ -45,14 +45,14 @@ namespace ft {
 				void array_deallocation(void) {
 					for (size_t i = 0; i < _size; i++)
 						_array[i].~value_type();
-					_alloc.deallocate(_array,_capacity * sizeof(value_type));
+					_allocator.deallocate(_array,_capacity * sizeof(value_type));
 				}
 
 				value_type *array_allocation(size_t cap) {
 					value_type *ptr;
 
 					try {
-						ptr = _alloc.allocate(cap * sizeof(value_type));
+						ptr = _allocator.allocate(cap * sizeof(value_type));
 					}
 					catch (std::bad_alloc& ba) {
 						std::cerr << "bad_alloc caught: " << ba.what() << std::endl;
@@ -69,7 +69,7 @@ namespace ft {
 						_new[i] = _array[i];
 						_array[i].~value_type();
 					}
-					_alloc.deallocate(_array, _size * sizeof(value_type));
+					_allocator.deallocate(_array, _size * sizeof(value_type));
 					_capacity = new_cap;
 					_array = _new;
 				}
@@ -90,12 +90,12 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 				
-				explicit vector(const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0), _alloc(alloc) {
+				explicit vector(const allocator_type& alloc = allocator_type()) : _size(0), _capacity(0), _allocator(alloc) {
 					_array = array_allocation(_capacity);
 					return ;
 				}
 
-				explicit vector(size_t n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _size(n), _capacity(n), _alloc(alloc) {
+				explicit vector(size_t n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _size(n), _capacity(n), _allocator(alloc) {
 					_array = array_allocation(_capacity);
 					for (size_t i = 0; i < n; i++)
 						_array[i] = val;
@@ -103,7 +103,7 @@ namespace ft {
 				}
 
 				template<class InputIterator>
-					vector(typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last, const allocator_type& alloc = allocator_type()) : _alloc(alloc) {
+					vector(typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last, const allocator_type& alloc = allocator_type()) : _allocator(alloc) {
 						_size = 0;
 						for (InputIterator fcpy = first; fcpy != last; fcpy++)
 							_size++;
@@ -114,7 +114,7 @@ namespace ft {
 						return ;
 					}
 
-				vector (const vector& other) : _size(other._size), _capacity(other._size), _alloc(other._alloc){
+				vector (const vector& other) : _size(other._size), _capacity(other._size), _allocator(other._allocator){
 					_array = array_allocation(_capacity);
 					for (size_t i = 0; i < _size; i++)
 						_array[i] = other._array[i];
@@ -124,7 +124,7 @@ namespace ft {
 				vector& operator=(vector const& other) {
 					if (this != &other)
 					{
-						_alloc.deallocate(_array, _capacity * sizeof(value_type));
+						_allocator.deallocate(_array, _capacity * sizeof(value_type));
 						_size = other._size;
 						_capacity = other._capacity;
 						_array = array_allocation(_capacity);
@@ -144,7 +144,7 @@ namespace ft {
 				~vector() {
 					for (size_t i = 0; i < _size; i++)
 						_array[i].~value_type();
-					_alloc.deallocate(_array,_capacity * sizeof(value_type));
+					_allocator.deallocate(_array,_capacity * sizeof(value_type));
 					return ;
 				}
 
@@ -231,7 +231,7 @@ namespace ft {
 						_new[i] = _array[i];
 						_array[i].~value_type();
 					}
-					_alloc.deallocate(_array, _capacity * sizeof(value_type));
+					_allocator.deallocate(_array, _capacity * sizeof(value_type));
 					_array = _new;
 					_capacity = n;
 				}
@@ -291,7 +291,7 @@ namespace ft {
 							_size++;
 						if (_size > _capacity)
 						{
-							_alloc.deallocate(_array,_capacity * sizeof(value_type));
+							_allocator.deallocate(_array,_capacity * sizeof(value_type));
 							_capacity = _size;
 							_array = array_allocation(_capacity);
 						}
@@ -305,7 +305,7 @@ namespace ft {
 					_size = n;
 					if (_size > _capacity)
 					{
-						_alloc.deallocate(_array,_capacity * sizeof(value_type));
+						_allocator.deallocate(_array,_capacity * sizeof(value_type));
 						_capacity = _size;
 						_array = array_allocation(_capacity * sizeof(value_type));
 					}
@@ -439,7 +439,7 @@ namespace ft {
 				///////////////////////////////////////////
 
 				allocator_type get_allocator() const {
-					return (_alloc);
+					return (_allocator);
 				}
 
 				///////////////////////////////////////////
