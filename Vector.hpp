@@ -414,8 +414,9 @@ namespace ft {
 				}
 
 				iterator erase(iterator first, iterator last) {
-					size_t distance = last.getPtr() - first.getPtr();
-
+					size_t distance = 0;
+					for (iterator f = first; f != last; f++)
+							distance++;
 					iterator it = first;
 					iterator ite = this->end();
 					for(;it != last; it++)

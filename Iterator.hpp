@@ -156,12 +156,6 @@ namespace ft {
 				pointer operator->(){
 					return (m_ptr);
 				}
-				pointer getPtr() const {
-					return (m_ptr);
-				}
-				const pointer getConstPtr() const {
-					return (m_ptr);
-				}
 
 				friend RandIterator operator+ (difference_type n, const RandIterator& it) {
 					return (it + n);
