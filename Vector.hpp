@@ -301,14 +301,13 @@ namespace ft {
 
 
 				void assign (size_type n, const value_type& val) {
-					for (size_t i = 0; i < _size; i++)
-						_array[i].~value_type();
+					this->clear();
 					_size = n;
 					if (_size > _capacity)
 					{
 						_alloc.deallocate(_array,_capacity * sizeof(value_type));
 						_capacity = _size;
-						_array = array_allocation(_capacity);
+						_array = array_allocation(_capacity * sizeof(value_type));
 					}
 					for (size_t i = 0; i < _size; i++)
 						_array[i] = val;
