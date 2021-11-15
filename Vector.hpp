@@ -370,6 +370,32 @@ namespace ft {
 
 				template<class InputIterator>
 					void insert(iterator position, typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last) {
+						size_t distance = 0;
+						for (InputIterator f = first; f != last; f++)
+							distance++;
+						iterator ite = this->end();
+						iterator it = ite - 1;
+						value_type *_new = _array;
+						size_type n_size = _size + distance;
+						if (n_size > _capacity)
+							_new = copy_array(position, n_size - _capacity);
+
+						int i = 0;
+						for (; ite - i != position; i++)
+							_new[n_size - 1 - i] = *(it - i);
+						for (iterator n_pos(&_new[n_size -i - distance]) ;first != last; first++)
+							*(n_pos++) = *first;
+						if (n_size > _capacity)
+						{
+							array_deallocation();
+							_array = _new;
+							_capacity = n_size;
+						}
+						_size = n_size;
+					}
+
+				/*template<class InputIterator>
+					void insert(iterator position, typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last) {
 						size_t distance = last - first;
 						iterator ite = this->end();
 						iterator it = ite - 1;
@@ -389,7 +415,7 @@ namespace ft {
 							_capacity = n_size;
 						}
 						_size = n_size;
-					}
+					}*/
 
 				iterator erase(iterator position) {
 					iterator it = position;
