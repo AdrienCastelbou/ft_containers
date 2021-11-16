@@ -3,105 +3,82 @@
 #include "vector.hpp"
 #include <list>
 
-#include "vector.hpp"
-#ifndef TESTS_HPP
-# define TESTS_HPP
 
-# include <vector>
-# include <list>
-# include <map>
-# include <stack>
-# include <queue>
-# include <iostream>
-
-# ifdef __linux__
-#  define RESET "\e[0m"
-#  define GREEN "\e[92m"
-#  define BLUE "\e[94m"
-#  define BOLD "\e[1m"
-# endif
-
-# ifdef __APPLE__
-#  define RESET "\e[0m"
-#  define GREEN "\e[92m"
-#  define BLUE "\e[94m"
-#  define BOLD "\e[1m"
-# endif
-
-# define GOOD "✓"
-# define FAIL "❌"
+#define TESTED_TYPE int
+#define TESTED_NAMESPACE ft
+#define T_SIZE_TYPE typename TESTED_NAMESPACE::vector<T>::size_type
 
 template <typename T>
-bool operator==(ft::vector<T> &a, std::vector<T> &b)
+void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = true)
 {
-	if (a.size() != b.size())
-		return (false);
-	if (a.empty() != b.empty())
-		return (false);
-	for (size_t i = 0; i < a.size(); i++)
+	const T_SIZE_TYPE size = vct.size();
+	const T_SIZE_TYPE capacity = vct.capacity();
+	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
+	// Cannot limit capacity's max value because it's implementation dependent
+
+	std::cout << "size: " << size << std::endl;
+	std::cout << "capacity: " << isCapacityOk << std::endl;
+	std::cout << "max_size: " << vct.max_size() << std::endl;
+	if (print_content)
 	{
-		if (a[i] != b[i])
-			return (false);
+		typename TESTED_NAMESPACE::vector<T>::const_iterator it = vct.begin();
+		typename TESTED_NAMESPACE::vector<T>::const_iterator ite = vct.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		for (; it != ite; ++it)
+			std::cout << "- " << *it << std::endl;
 	}
-	return (true);
-};
-
-void	test_vector(void);
-void	test_list(void);
-void	test_map(void);
-void	test_stack(void);
-void	test_queue(void);
-
-inline void print_header(std::string str)
+	std::cout << "###############################################" << std::endl;
+}
+void	prepost_incdec(TESTED_NAMESPACE::vector<TESTED_TYPE> &vct)
 {
-	int margin = (40 - str.length()) / 2;
-	int width = (margin * 2 + str.length()) + 2;
-	std::cout << BLUE << std::endl;
-	std::cout << std::string(width, '*') << std::endl;
-	std::cout << "*" << std::string(margin, ' ') << str << std::string(margin, ' ') << "*" << std::endl;
-	std::cout << std::string(width, '*') << std::endl;
-	std::cout << RESET;
-};
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it_tmp;
 
-template <typename T>
-inline void check(std::string name, T a, T b)
-{
-	std::string margin(38 - name.length(), ' ');
-	if (a == b)
-		std::cout << name << ": " << margin << BOLD << GREEN << GOOD << RESET << std::endl;
-	else
-		std::cout << name << ": " << margin << FAIL << std::endl;
-};
+	std::cout << "Pre inc" << std::endl;
+	it_tmp = ++it;
+	std::cout << *it_tmp << " | " << *it << std::endl;
 
-inline void check(std::string name, bool good)
-{
-	std::string margin(38 - name.length(), ' ');
-	if (good)
-		std::cout << name << ": " << margin << BOLD << GREEN << GOOD << RESET << std::endl;
-	else
-		std::cout << name << ": " << margin << FAIL << std::endl;
-};
+	std::cout << "Pre dec" << std::endl;
+	it_tmp = --it;
+	std::cout << *it_tmp << " | " << *it << std::endl;
 
-#endif
+	std::cout << "Post inc" << std::endl;
+	it_tmp = it++;
+	std::cout << *it_tmp << " | " << *it << std::endl;
+
+	std::cout << "Post dec" << std::endl;
+	it_tmp = it--;
+	std::cout << *it_tmp << " | " << *it << std::endl;
+	std::cout << "###############################################" << std::endl;
+}
 
 int		main(void)
 {
-	print_header("Insert");
-	int test[] = {1, 2, 3};
-	(void) test;
-	ft::vector<int> v1;
-	std::vector<int> v2;
-	v1.insert(v1.begin(), 42);
-	v1.insert(v1.end(), 21);
-	v1.insert(v1.begin(), 10);
-	v1.insert(v1.begin() + 1, 11);
-	v1.insert(v1.begin() + 2, (size_t)3, 0);
-	v1.insert(v1.begin() + 1, test, test + 3);
-	v2.insert(v2.begin(), 42);
-	v2.insert(v2.end(), 21);
-	v2.insert(v2.begin(), 10);
-	v2.insert(v2.begin() + 1, 11);
-	v2.insert(v2.begin() + 2, (size_t)3, 0);
-	v2.insert(v2.begin() + 1, test, test + 3);
-	check("v1 == v2", v1 == v2);
+	const int size = 5;
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(size);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator ite = vct.begin();
+
+	for (int i = 0; i < size; ++i)
+		it[i] = (size - i) * 5;
+	prepost_incdec(vct);
+
+	it = it + 5;
+	it = 1 + it;
+	it = it - 4;
+	std::cout << *(it += 2) << std::endl;
+	std::cout << *(it -= 1) << std::endl;
+
+	*(it -= 2) = 42;
+	*(it += 2) = 21;
+
+	std::cout << "const_ite +=: " << *(ite += 2) << std::endl;
+	std::cout << "const_ite -=: " << *(ite -= 2) << std::endl;
+
+	std::cout << "(it == const_it): " << (ite == it) << std::endl;
+	std::cout << "(const_ite - it): " << (ite - it) << std::endl;
+	std::cout << "(ite + 3 == it): " << (ite + 3 == it) << std::endl;
+
+	printSize(vct, true);
+	return (0);
 }

@@ -156,7 +156,7 @@ namespace ft {
 				pointer operator->(){
 					return (m_ptr);
 				}
-
+/*
 				friend RandIterator operator+ (difference_type n, const RandIterator& it) {
 					return (it + n);
 				}
@@ -183,9 +183,102 @@ namespace ft {
 
 				friend bool operator>=(const RandIterator& lhs, const RandIterator& rhs) {
 					return (lhs.m_ptr >= rhs.m_ptr);
-				}
+				}*/
 
 		};
+
+	///////////////////////////////////////////
+	//                                       //
+	// RanIter Non-member function overloads //
+	//                                       //
+	///////////////////////////////////////////
+
+
+	//	Add Operator		//
+	template<class T>
+		RandIterator<T> operator+ (typename iterator_traits<RandIterator<T> >::difference_type n, const RandIterator<T>& it) {
+			return (it + n);
+		}
+
+
+	//	Equal Operator		//
+
+	template<class T>
+		bool operator==(const RandIterator<T>& lhs, const RandIterator<T>& rhs) {
+			return (&(*lhs) == &(*rhs));
+		}
+
+	template<class L, class R>
+		bool operator==(const RandIterator<L>& lhs, const RandIterator<R>& rhs) {
+			return (&(*lhs) == &(*rhs));
+		}
+
+	//	Inequal Operator	//
+	template<class T>
+		bool operator!=(const RandIterator<T>& lhs, const RandIterator<T>& rhs) {
+			return (&(*lhs) != &(*rhs));
+		}
+
+	template<class L, class R>
+		bool operator!=(const RandIterator<L>& lhs, const RandIterator<R>& rhs) {
+			return (&(*lhs) != &(*rhs));
+		}
+
+
+	//	Less/Equal Operator	//
+
+	template<class T>
+		bool operator<=(const RandIterator<T>& lhs, const RandIterator<T>& rhs) {
+			return (&(*lhs) <= &(*rhs));
+		}
+
+	template<class L, class R>
+		bool operator<=(const RandIterator<L>& lhs, const RandIterator<R>& rhs) {
+			return (&(*lhs) <= &(*rhs));
+		}
+
+	//	Less Operator		//
+
+	template<class T>
+		bool operator<(const RandIterator<T>& lhs, const RandIterator<T>& rhs) {
+			return (&(*lhs) < &(*rhs));
+		}
+
+	template<class L, class R>
+		bool operator<(const RandIterator<L>& lhs, const RandIterator<R>& rhs) {
+			return (&(*lhs) < &(*rhs));
+		}
+
+
+	//	More Operator		//
+
+	template<class T>
+		bool operator>(const RandIterator<T>& lhs, const RandIterator<T>& rhs) {
+			return (&(*lhs) > &(*rhs));
+		}
+
+	template<class L, class R>
+		bool operator>(const RandIterator<L>& lhs, const RandIterator<R>& rhs) {
+			return (&(*lhs) > &(*rhs));
+		}
+
+	//	More/Equal Operator	//
+
+	template<class T>
+		bool operator>=(const RandIterator<T>& lhs, const RandIterator<T>& rhs) {
+			return (&(*lhs) >= &(*rhs));
+		}
+
+	template<class L, class R>
+		bool operator>=(const RandIterator<L>& lhs, const RandIterator<R>& rhs) {
+			return (&(*lhs) >= &(*rhs));
+		}
+
+				///////////////////////////////////////////
+				//                                       //
+				//           reverse_iterator            //
+				//                                       //
+				///////////////////////////////////////////
 
 	template<class Iterator>
 		class reverse_iterator {
