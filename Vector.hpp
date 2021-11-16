@@ -67,7 +67,6 @@ namespace ft {
 					for(size_t i = 0; i < _size; i++)
 					{
 						_allocator.construct(&_new[i], _array[i]);
-						//_new[i] = _array[i];
 						_allocator.destroy(&_array[i]);
 					}
 					_allocator.deallocate(_array, _size * sizeof(value_type));
@@ -81,7 +80,6 @@ namespace ft {
 					iterator it = this->begin();
 					for (int i = 0; it + i != pos; i++)
 						_allocator.construct(&_new[i], *(it + i));
-						//_new[i] = *(it + i);
 					return (_new);
 				}
 			public:
@@ -101,7 +99,6 @@ namespace ft {
 					_array = array_allocation(_capacity);
 					for (size_t i = 0; i < n; i++)
 						_allocator.construct(&_array[i], val);
-						//_array[i] = val;
 					return ;
 				}
 
@@ -114,7 +111,6 @@ namespace ft {
 						_array = array_allocation(_capacity);
 						for (int i = 0; first != last; i++)
 							_allocator.construct(&_array[i], *(first++));
-							//_array[i] = *(first++);
 						return ;
 					}
 
@@ -122,7 +118,6 @@ namespace ft {
 					_array = array_allocation(_capacity);
 					for (size_t i = 0; i < _size; i++)
 						_allocator.construct(&_array[i], other._array[i]);
-						//_array[i] = other._array[i];
 					return ;
 				}
 
@@ -135,7 +130,6 @@ namespace ft {
 						_array = array_allocation(_capacity);
 						for (size_t i = 0; i < _size; i++)
 							_allocator.construct(&_array[i], other._array[i]);
-							//_array[i] = other._array[i];
 					}
 					return (*this);
 				}
@@ -235,7 +229,6 @@ namespace ft {
 					for(size_t i = 0; i != _size; i++)
 					{
 						_allocator.construct(&_new[i], _array[i]);
-						//_new[i] = _array[i];
 						_allocator.destroy(&_array[i]);
 					}
 					_allocator.deallocate(_array, _capacity * sizeof(value_type));
@@ -304,7 +297,6 @@ namespace ft {
 						}
 						for(size_t i = 0; i < _size; i++)
 							_allocator.construct(&_array[i], *(first++));
-							//_array[i] = *(first++);
 					}
 
 
@@ -319,14 +311,12 @@ namespace ft {
 					}
 					for (size_t i = 0; i < _size; i++)
 						_allocator.construct(&_array[i], val);
-						//_array[i] = val;
 				}
 
 				void push_back(const value_type& val) {
 					if (_size == _capacity)
 						alloc_new_array(_capacity + 1);
 					_allocator.construct(&_array[_size], val);
-					//_array[_size] = val;
 					_size++;
 				}
 
@@ -344,9 +334,7 @@ namespace ft {
 					int i = 0;
 					for (; ite - i != position; i++)
 						_allocator.construct(&_new[_size - i], *(it - i));
-						//_new[_size - i] = *(it - i);
 					_allocator.construct(&_new[_size - i], val);
-					//_new[_size - i] = val;
 					if (_size == _capacity)
 					{
 						array_deallocation();
@@ -368,10 +356,8 @@ namespace ft {
 					int i = 0;
 					for (; ite - i != position; i++)
 						_allocator.construct(&_new[n_size - 1 - i], *(it - i));
-						//_new[n_size - 1 - i] = *(it - i);
 					for (size_type j = 0; n - j != 0; j++)
 						_allocator.construct(&_new[n_size - 1 - i - j], val);
-						//_new[n_size - 1 - i - j] = val;
 					if (n_size > _capacity)
 					{
 						array_deallocation();
@@ -396,10 +382,8 @@ namespace ft {
 						int i = 0;
 						for (; ite - i != position; i++)
 							_allocator.construct(&_new[n_size - 1 - i], *(it - i));
-							//_new[n_size - 1 - i] = *(it - i);
 						for (iterator n_pos(&_new[n_size -i - distance]) ;first != last; first++)
 							_allocator.construct(&(*(n_pos++)), *first);
-							//*(n_pos++) = *first;
 						if (n_size > _capacity)
 						{
 							array_deallocation();
@@ -415,7 +399,6 @@ namespace ft {
 					_allocator.destroy(&(*position));
 					for (; it + 1 != ite; it++)
 						_allocator.construct(&(*it), *(it + 1));
-						//*it = *(it + 1);
 					_size -= 1;
 					return (position);
 				}
@@ -431,7 +414,6 @@ namespace ft {
 					it = first;
 					for (int i = 0; last + i != ite; i++)
 						_allocator.construct(&(*(it + i)), *(last + i));
-						//*(it + i) = *(last + i);
 					_size -= distance;
 					return (first);
 				}
