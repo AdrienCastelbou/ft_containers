@@ -105,7 +105,8 @@ namespace ft {
 
 	template <class Type, class Container_type>
 		friend bool operator>= (const stack<Type, Container_type>& lhs, const stack<Type, Container_type>& rhs);
-			private:
+
+			protected:
 				container_type c;
 		};
 
