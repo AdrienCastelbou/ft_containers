@@ -82,7 +82,54 @@ namespace ft {
 					c.pop_back();
 				}
 
+	template <class Type, class Container_type>
+		friend bool operator== (const stack<Type, Container_type>& lhs, const stack<Type, Container_type>& rhs);
+
+	template <class Type, class Container_type>
+		friend bool operator!= (const stack<Type, Container_type>& lhs, const stack<Type, Container_type>& rhs);
+
+	template <class Type, class Container_type>
+		friend bool operator< (const stack<Type, Container_type>& lhs, const stack<Type, Container_type>& rhs);
+
+	template <class Type, class Container_type>
+		friend bool operator<= (const stack<Type, Container_type>& lhs, const stack<Type, Container_type>& rhs);
+
+	template <class Type, class Container_type>
+		friend bool operator> (const stack<Type, Container_type>& lhs, const stack<Type, Container_type>& rhs);
+
+	template <class Type, class Container_type>
+		friend bool operator>= (const stack<Type, Container_type>& lhs, const stack<Type, Container_type>& rhs);
 			private:
 				container_type c;
 		};
+
+	template <class T, class Container>
+		bool operator== (const ft::stack<T,Container>& lhs, const ft::stack<T,Container>& rhs) {
+			return (lhs.c == rhs.c);
+		}
+
+	template <class T, class Container>
+		bool operator!= (const ft::stack<T,Container>& lhs, const ft::stack<T,Container>& rhs) {
+			return (lhs.c != rhs.c);
+		}
+
+	template <class Type, class Container_type>
+		bool operator< (const ft::stack<Type, Container_type>& lhs, const ft::stack<Type, Container_type>& rhs) {
+			return (lhs.c < rhs.c);
+		}
+
+	template <class Type, class Container_type>
+		bool operator<= (const ft::stack<Type, Container_type>& lhs, const ft::stack<Type, Container_type>& rhs) {
+			return (lhs.c <= rhs.c);
+		}
+
+	template <class Type, class Container_type>
+		bool operator> (const ft::stack<Type, Container_type>& lhs, const ft::stack<Type, Container_type>& rhs) {
+			return (lhs.c > rhs.c);
+		}
+
+	template <class Type, class Container_type>
+		bool operator>= (const ft::stack<Type, Container_type>& lhs, const ft::stack<Type, Container_type>& rhs) {
+			return (lhs.c >= rhs.c);
+		}
 }

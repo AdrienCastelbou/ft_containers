@@ -11,16 +11,11 @@
 int main ()
 {
   ft::stack<int, std::deque<int> > mystack;
-
-  for (int i=0; i<5; ++i) mystack.push(i);
-
-  std::cout << "Popping out elements...";
-  while (!mystack.empty())
-  {
-     std::cout << ' ' << mystack.top();
-     mystack.pop();
-  }
-  std::cout << '\n';
+  ft::stack<int, std::deque<int> > s(mystack);
+  if (mystack >= s)
+	  std::cout << "moore" << std::endl;
+  else
+	  std::cout << "same" << std::endl;
 
   return 0;
 }
