@@ -82,6 +82,12 @@ namespace ft {
 					c.pop_back();
 				}
 
+				///////////////////////////////////////////
+				//                                       //
+				// Friends Non-member function overloads //
+				//                                       //
+				///////////////////////////////////////////
+
 	template <class Type, class Container_type>
 		friend bool operator== (const stack<Type, Container_type>& lhs, const stack<Type, Container_type>& rhs);
 
@@ -102,6 +108,12 @@ namespace ft {
 			private:
 				container_type c;
 		};
+
+				///////////////////////////////////////////
+				//                                       //
+				//     Non-member function overloads     //
+				//                                       //
+				///////////////////////////////////////////
 
 	template <class T, class Container>
 		bool operator== (const ft::stack<T,Container>& lhs, const ft::stack<T,Container>& rhs) {
