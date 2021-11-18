@@ -34,6 +34,7 @@ namespace ft {
 					pair& operator=(const pair<U, V>& pr) {
 						first = pr.first;
 						second = pr.second;
+						return (*this);
 					}
 		};
 
@@ -72,7 +73,18 @@ namespace ft {
 		bool operator>=(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs) {
 			return (!(lhs<rhs));
 		}
-	
+
+	///////////////////////////////////////////
+	//                                       //
+	//               Make Pair               //
+	//                                       //
+	///////////////////////////////////////////
+
+	template <class T1,class T2>
+		pair<T1,T2> make_pair (T1 x, T2 y) {
+			return ( pair<T1,T2>(x,y) );
+		}
+
 	///////////////////////////////////////////
 	//                                       //
 	//        Lexicographical compare        //

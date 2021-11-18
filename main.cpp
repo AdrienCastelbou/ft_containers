@@ -8,17 +8,15 @@
 #define NAMESPACE ft
 
 
-int main ()
-{
-	ft::pair<int,char> foo (10,'z');
-  ft::pair<int,char> bar (90,'a');
+int main () {
+  ft::pair <int,int> foo;
+  ft::pair <int,int> bar;
 
-  if (foo==bar) std::cout << "foo and bar are equal\n";
-  if (foo!=bar) std::cout << "foo and bar are not equal\n";
-  if (foo< bar) std::cout << "foo is less than bar\n";
-  if (foo> bar) std::cout << "foo is greater than bar\n";
-  if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
-  if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+  foo = ft::make_pair (10,20);
+  bar = ft::make_pair (10.5,'A'); // ok: implicit conversion from pair<double,char>
+
+  std::cout << "foo: " << foo.first << ", " << foo.second << '\n';
+  std::cout << "bar: " << bar.first << ", " << bar.second << '\n';
 
   return 0;
 }
