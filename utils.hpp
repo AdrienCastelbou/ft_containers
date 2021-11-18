@@ -4,6 +4,81 @@
 
 namespace ft {
 
+	///////////////////////////////////////////
+	//                                       //
+	//                 Pair                  //
+	//                                       //
+	///////////////////////////////////////////
+
+	template<class T1, class T2>
+		class pair {
+			public:
+				typedef T1 first_type;
+				typedef T2 second_type;
+
+				first_type first;
+				second_type second;
+
+				///////////////////////////////////////////
+				//                                       //
+				//             Constructors              //
+				//                                       //
+				///////////////////////////////////////////
+
+				pair() : first(), second() {}
+				template<class U, class V>
+					pair(const pair<U, V>& pr) : first(pr.first), second(pr.second) {}
+				pair(const first_type& a, const second_type& b) : first(a), second(b) {}
+
+				template<class U, class V>
+					pair& operator=(const pair<U, V>& pr) {
+						first = pr.first;
+						second = pr.second;
+					}
+		};
+
+	///////////////////////////////////////////
+	//                                       //
+	//   Pair Non-member function overloads  //
+	//                                       //
+	///////////////////////////////////////////
+
+	template <class T1, class T2>
+		bool operator==(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs) {
+			return (lhs.first == rhs.first && lhs.second == rhs.second);
+		}
+
+	template <class T1, class T2>
+		bool operator!=(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs) {
+			return (!(lhs==rhs));
+		}
+
+	template <class T1, class T2>
+		bool operator<(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs) {
+			return (lhs.first<rhs.first || (!(rhs.first<lhs.first) && lhs.second<rhs.second));
+		}
+
+	template <class T1, class T2>
+		bool operator<=(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs) {
+			return (!(rhs<lhs));
+		}
+
+	template <class T1, class T2>
+		bool operator>(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs) {
+			return (rhs<lhs);
+		}
+
+	template <class T1, class T2>
+		bool operator>=(const ft::pair<T1,T2>& lhs, const ft::pair<T1,T2>& rhs) {
+			return (!(lhs<rhs));
+		}
+	
+	///////////////////////////////////////////
+	//                                       //
+	//        Lexicographical compare        //
+	//                                       //
+	///////////////////////////////////////////
+
 	template<class InputIterator1, class InputIterator2>
 		bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1, InputIterator2 first2, InputIterator2 last2) {
 			while (first1 != last1)
@@ -31,6 +106,13 @@ namespace ft {
 			}
 			return (first2!=last2);
 		}
+
+	///////////////////////////////////////////
+	//                                       //
+	//              Is_integral              //
+	//                                       //
+	///////////////////////////////////////////
+
 
 	template<bool Cond, class T>
 		class set_is_integral {
@@ -90,6 +172,13 @@ namespace ft {
 
 	template<class T>
 		class is_integral : public is_integral_type<T> {};
+
+	///////////////////////////////////////////
+	//                                       //
+	//               Enable_if               //
+	//                                       //
+	///////////////////////////////////////////
+
 
 	template<bool Cond, class T>
 		class enable_if { };
