@@ -54,10 +54,9 @@ namespace ft {
 				}
 
 				void show() const {
-					std::cout << _p.first << ", " << _p.second << std::endl;
 					if (_left)
 						_left->show();
-					std::cout << "--" << std::endl;
+					std::cout << _p.first << std::endl;
 					if (_right)
 						_right->show();
 				}
