@@ -37,12 +37,12 @@ namespace ft {
 						if (current->_p.first > n._p.first && !current->_left)
 						{
 							current->_left = new BST(n);
-							n._prev = current;
+							current->_left->_prev = current;
 						}
 						else if (current->_p.first < n._p.first && !current->_right)
 						{
 							current->_right = new  BST(n);
-							n._prev = current;
+							current->_right->_prev = current;
 						}
 						else if (current->_p.first == n._p.first)
 							return ;
@@ -50,6 +50,55 @@ namespace ft {
 							current = current->_left;
 						else
 							current = current->_right;
+					}
+				}
+
+				void erase(first_type key) {
+					BST* current = &(this->search(key));
+					BST* prev= current->_prev;
+					BST** branch;
+
+					if (prev && prev->_left == current)
+						branch = &prev->_left;
+					else if (prev)
+						branch = &prev->_right;
+					if (current == this && current->_p.first != key)
+						return ;
+					*branch = NULL;
+					if (this == current)
+					{
+						BST* left = current->_left;
+						if (current->_right)
+						{
+							*this = *current->_right;
+							current->_right->_prev = prev;
+							prev = this;
+						}
+						if (current->_left)
+						{
+							if (current->_right)
+							{
+								this->_left = left;
+							}
+							else
+								*this = *left;
+							current->_left->_prev = prev;
+						}
+						return;
+					}
+					if (current->_right)
+					{
+						*branch = current->_right;
+						current->_right->_prev = prev;
+						prev = current->_right;
+						while (prev->_left)
+							prev = prev->_left;
+						branch = &prev->_left;
+					}
+					if (current->_left)
+					{
+						*branch = current->_left;
+						current->_left->_prev = prev;
 					}
 				}
 

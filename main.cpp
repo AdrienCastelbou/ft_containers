@@ -24,6 +24,15 @@ int main () {
   b.insert(c);
   ft::BST<int, int> d(ft::make_pair (11, 4));
   b.insert(d);
+  d = (ft::make_pair (12, 12));
+  b.insert(d);
+  d = (ft::make_pair (16, 12));
+  b.insert(d);
+  d = (ft::make_pair (15, 12));
+  b.insert(d);
+
+  b.show();
+  b.erase(14);
   b.show();
   return 0;
 }
