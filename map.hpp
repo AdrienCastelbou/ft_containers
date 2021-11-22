@@ -32,7 +32,7 @@ namespace ft {
 
 				void insert(BST<first_type, second_type> n) {
 					BST* current = this;
-					while (current != &n)
+					while (current != NULL)
 					{
 						if (current->_p.first > n._p.first && !current->_left)
 						{
