@@ -11,17 +11,9 @@ namespace ft {
 				typedef T1 first_type;
 				typedef T2 second_type;
 
-				BST(pair<first_type, second_type> p) : _p(p) {
-					_prev = NULL;
-					_left  = NULL;
-					_right = NULL;
-				}
+				BST(pair<first_type, second_type> p) : _p(p), _prev(NULL), _left(NULL), _right(NULL) {}
 
-				BST(BST<first_type, second_type> &other) : _p(other._p) {
-					_prev = other._prev;
-					_left  = other._left;
-					_right = other._right;
-				}
+				BST(BST<first_type, second_type> &other) : _p(other._p), _prev (other._prev), _left(other._left), _right(other._right) {}
 
 				BST& search(first_type key)
 				{
