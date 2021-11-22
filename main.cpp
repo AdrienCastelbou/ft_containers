@@ -14,7 +14,7 @@ int main () {
   ft::pair <int,int> bar;
 
   foo = ft::make_pair (10,20);
-  bar = ft::make_pair (11,'A');
+  bar = ft::make_pair (14,'A');
 
   ft::BST<int, int> b(foo);
 
@@ -22,6 +22,8 @@ int main () {
   b.insert(c);
   c = ft::make_pair (3, 3);
   b.insert(c);
+  ft::BST<int, int> d(ft::make_pair (11, 4));
+  b.insert(d);
   b.show();
   return 0;
 }

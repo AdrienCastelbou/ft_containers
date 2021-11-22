@@ -21,7 +21,21 @@ namespace ft {
 					_prev = other._prev;
 					_left  = other._left;
 					_right = other._right;
+				}
 
+				BST& search(first_type key)
+				{
+					BST* current = this;
+					while (current != NULL && current->_p.first != key)
+					{
+						if (current->_p.first < key)
+							current = current->_right;
+						else
+							current = current->_left;
+					}
+					if (!current)
+						return (*this);
+					return (*current);
 				}
 
 				void insert(BST<first_type, second_type> n) {
