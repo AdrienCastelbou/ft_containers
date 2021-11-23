@@ -33,6 +33,7 @@ int main () {
 
   b.show();
   b.erase(14);
+  std::cout << "---" << std::endl;
   b.show();
   return 0;
 }

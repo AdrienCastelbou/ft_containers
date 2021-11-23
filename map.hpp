@@ -73,16 +73,17 @@ namespace ft {
 							*this = *current->_right;
 							current->_right->_prev = prev;
 							prev = this;
+							while (prev->_left)
+								prev = prev->_left;
 						}
 						if (current->_left)
 						{
 							if (current->_right)
-							{
-								this->_left = left;
-							}
+								prev->_left = left;
 							else
 								*this = *left;
-							current->_left->_prev = prev;
+							left->_prev = prev;
+							std::cout << this->_p.first << std::endl;
 						}
 						return;
 					}
@@ -106,6 +107,8 @@ namespace ft {
 					if (_left)
 						_left->show();
 					std::cout << _p.first << std::endl;
+					if (_prev)
+						std::cout << "prev of" <<  _p.first << " :" <<  _prev->_p.first << std::endl;
 					if (_right)
 						_right->show();
 				}
