@@ -22,6 +22,9 @@ int main () {
   b.insert(c);
   c = ft::make_pair (12, 3);
   b.insert(c);
+
+  b.show();
+  b.left_rotation(&b);
   b.show();
   /*ft::BST<int, int> d(ft::make_pair (11, 4));
   b.insert(d);

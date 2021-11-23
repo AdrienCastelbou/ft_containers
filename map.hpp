@@ -68,36 +68,36 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				void left_rotation() {
-					BST* y = this->_right;
-					this->_right = y->_left;
+				void left_rotation(BST* x) {
+					BST* y = x->_right;
+					x->_right = y->_left;
 					if (y->_left != NULL)
-						y->_left->_parent = this;
-					y->_parent = this->_parent;
-					if (this->_parent == NULL)
-						this = y;
-					else if (this == this->_parent->_left)
-						this->parent->_left = y;
+						y->_left->_parent = x;
+					y->_parent = x->_parent;
+					if (x->_parent == NULL)
+						x = y;
+					else if (x == x->_parent->_left)
+						x->_parent->_left = y;
 					else
-						this->_parent->_right = y;
-					y->_left = this;
-					this->_parent = y;
+						x->_parent->_right = y;
+					y->_left = x;
+					x->_parent = y;
 				}
 
-				void right_rotation() {
-					BST* y = this->_left;
-					this->_left = y->_right;
+				void right_rotation(BST* x) {
+					BST* y = x->_left;
+					x->_left = y->_right;
 					if (y->_right != NULL)
-						y->_right->_parent = this;
-					y->_parent = this->_parent;
-					if (this->_parent == NULL)
-						this = y;
-					else if (this == this->_parent->_right)
-						this->_parent->_right = y;
+						y->_right->_parent = x;
+					y->_parent = x->_parent;
+					if (x->_parent == NULL)
+						x = y;
+					else if (x == x->_parent->_right)
+						x->_parent->_right = y;
 					else
-						this->_parent->_left = y;
-					y->_right = this;
-					this->_parent = y;
+						x->_parent->_left = y;
+					y->_right = x;
+					x->_parent = y;
 				}
 
 				///////////////////////////////////////////
@@ -196,11 +196,18 @@ namespace ft {
 				}
 
 				void show() const {
+					std::cout << _p.first << std::endl;
 					if (_left)
+						_left->show();
+					std::cout << "--" << std::endl;
+					if (_right)
+						_right->show();
+
+					/*if (_left)
 						_left->show();
 					std::cout << _p.first << std::endl;
 					if (_right)
-						_right->show();
+						_right->show();*/
 				}
 
 			private:
