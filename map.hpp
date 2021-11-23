@@ -64,14 +64,13 @@ namespace ft {
 						branch = &prev->_right;
 					if (current == this && current->_p.first != key)
 						return ;
-					*branch = NULL;
 					if (this == current)
 					{
 						BST* left = current->_left;
 						if (current->_right)
 						{
 							*this = *current->_right;
-							current->_right->_prev = prev;
+							current->_prev = prev;
 							prev = this;
 							while (prev->_left)
 								prev = prev->_left;
@@ -83,13 +82,13 @@ namespace ft {
 							else
 								*this = *left;
 							left->_prev = prev;
-							std::cout << this->_p.first << std::endl;
 						}
 						return;
 					}
 					if (current->_right)
 					{
-						*branch = current->_right;
+						if (branch)
+							*branch = current->_right;
 						current->_right->_prev = prev;
 						prev = current->_right;
 						while (prev->_left)
@@ -98,7 +97,8 @@ namespace ft {
 					}
 					if (current->_left)
 					{
-						*branch = current->_left;
+						if (branch)
+							*branch = current->_left;
 						current->_left->_prev = prev;
 					}
 				}
