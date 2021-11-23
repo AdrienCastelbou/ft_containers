@@ -32,7 +32,7 @@ int main () {
   b.insert(d);
 
   b.show();
-  b.erase(10);
+  b.erase(14);
   std::cout << "---" << std::endl;
   b.show();
   return 0;

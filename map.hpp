@@ -101,14 +101,13 @@ namespace ft {
 							*branch = current->_left;
 						current->_left->_prev = prev;
 					}
+					delete current;
 				}
 
 				void show() const {
 					if (_left)
 						_left->show();
 					std::cout << _p.first << std::endl;
-					if (_prev)
-						std::cout << "prev of" <<  _p.first << " :" <<  _prev->_p.first << std::endl;
 					if (_right)
 						_right->show();
 				}
