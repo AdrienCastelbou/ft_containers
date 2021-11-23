@@ -11,9 +11,100 @@ namespace ft {
 				typedef T1 first_type;
 				typedef T2 second_type;
 
-				BST(pair<first_type, second_type> p) : _p(p), _prev(NULL), _left(NULL), _right(NULL) {}
+				///////////////////////////////////////////
+				//                                       //
+				//              Constructors             //
+				//                                       //
+				///////////////////////////////////////////
 
-				BST(BST<first_type, second_type> &other) : _p(other._p), _prev (other._prev), _left(other._left), _right(other._right) {}
+				BST(pair<first_type, second_type> p) : _p(p), _parent(NULL), _left(NULL), _right(NULL), _key(1) {}
+
+				BST(BST<first_type, second_type> &other) : _p(other._p), _parent (other._parent), _left(other._left), _right(other._right), _key(other._key) {}
+
+				///////////////////////////////////////////
+				//                                       //
+				//              Helpers                  //
+				//                                       //
+				///////////////////////////////////////////
+
+				///////////////////////////////////////////
+				//                                       //
+				//                Family                 //
+				//                                       //
+				///////////////////////////////////////////
+
+				BST *parent() const {
+					return (this->_parent);
+				}
+
+				BST *grandparent() const {
+					BST* parent = this->parent();
+					if (parent == NULL)
+						return (NULL);
+					return (parent->parent());
+				}
+
+				BST *brother() const {
+					BST* parent = this->parent();
+					if (parent == NULL)
+						return (NULL);
+					if (parent->_left == this)
+						return (parent->_right);
+					else
+						return (parent->_left);
+				}
+
+				BST *uncle() const {
+					BST* parent = this->parent();
+					BST* grandparent = this->grandparent();
+					if (parent == NULL)
+						return (NULL);
+					return (parent->brother());
+				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//             Roatation                 //
+				//                                       //
+				///////////////////////////////////////////
+
+				void left_rotation() {
+					BST* y = this->_right;
+					this->_right = y->_left;
+					if (y->_left != NULL)
+						y->_left->_parent = this;
+					y->_parent = this->_parent;
+					if (this->_parent == NULL)
+						this = y;
+					else if (this == this->_parent->_left)
+						this->parent->_left = y;
+					else
+						this->_parent->_right = y;
+					y->_left = this;
+					this->_parent = y;
+				}
+
+				void right_rotation() {
+					BST* y = this->_left;
+					this->_left = y->_right;
+					if (y->_right != NULL)
+						y->_right->_parent = this;
+					y->_parent = this->_parent;
+					if (this->_parent == NULL)
+						this = y;
+					else if (this == this->_parent->_right)
+						this->_parent->_right = y;
+					else
+						this->_parent->_left = y;
+					y->_right = this;
+					this->_parent = y;
+				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//              Operations               //
+				//                                       //
+				///////////////////////////////////////////
 
 				BST& search(first_type key)
 				{
@@ -37,12 +128,12 @@ namespace ft {
 						if (current->_p.first > n._p.first && !current->_left)
 						{
 							current->_left = new BST(n);
-							current->_left->_prev = current;
+							current->_left->_parent = current;
 						}
 						else if (current->_p.first < n._p.first && !current->_right)
 						{
 							current->_right = new  BST(n);
-							current->_right->_prev = current;
+							current->_right->_parent = current;
 						}
 						else if (current->_p.first == n._p.first)
 							return ;
@@ -55,7 +146,7 @@ namespace ft {
 
 				void erase(first_type key) {
 					BST* current = &(this->search(key));
-					BST* prev= current->_prev;
+					BST* prev= current->_parent;
 					BST** branch;
 
 					if (prev && prev->_left == current)
@@ -70,7 +161,7 @@ namespace ft {
 						if (current->_right)
 						{
 							*this = *current->_right;
-							current->_prev = prev;
+							current->_parent = prev;
 							prev = this;
 							while (prev->_left)
 								prev = prev->_left;
@@ -81,7 +172,7 @@ namespace ft {
 								prev->_left = left;
 							else
 								*this = *left;
-							left->_prev = prev;
+							left->_parent = prev;
 						}
 						return;
 					}
@@ -89,7 +180,7 @@ namespace ft {
 					{
 						if (branch)
 							*branch = current->_right;
-						current->_right->_prev = prev;
+						current->_right->_parent = prev;
 						prev = current->_right;
 						while (prev->_left)
 							prev = prev->_left;
@@ -99,7 +190,7 @@ namespace ft {
 					{
 						if (branch)
 							*branch = current->_left;
-						current->_left->_prev = prev;
+						current->_left->_parent = prev;
 					}
 					delete current;
 				}
@@ -114,8 +205,9 @@ namespace ft {
 
 			private:
 				pair<first_type, second_type> _p;
-				BST<first_type, second_type>* _prev;
+				BST<first_type, second_type>* _parent;
 				BST<first_type, second_type>* _left;
 				BST<first_type, second_type>* _right;
+				int _key;
 		};
 }
