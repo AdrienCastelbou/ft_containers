@@ -68,14 +68,14 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				void left_rotation(BST* x) {
+				void left_rotation(BST* x, BST** root) {
 					BST* y = x->_right;
 					x->_right = y->_left;
 					if (y->_left != NULL)
 						y->_left->_parent = x;
 					y->_parent = x->_parent;
 					if (x->_parent == NULL)
-						x = y;
+						*root = y;
 					else if (x == x->_parent->_left)
 						x->_parent->_left = y;
 					else
@@ -84,14 +84,14 @@ namespace ft {
 					x->_parent = y;
 				}
 
-				void right_rotation(BST* x) {
+				void right_rotation(BST* x, BST** root) {
 					BST* y = x->_left;
 					x->_left = y->_right;
 					if (y->_right != NULL)
 						y->_right->_parent = x;
 					y->_parent = x->_parent;
 					if (x->_parent == NULL)
-						x = y;
+						*root = y;
 					else if (x == x->_parent->_right)
 						x->_parent->_right = y;
 					else

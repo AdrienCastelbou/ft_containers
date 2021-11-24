@@ -22,11 +22,9 @@ int main () {
   b.insert(c);
   c = ft::make_pair (12, 3);
   b.insert(c);
+  ft::BST<int, int>* start = &b;
 
-  b.show();
-  b.left_rotation(&b);
-  b.show();
-  /*ft::BST<int, int> d(ft::make_pair (11, 4));
+  ft::BST<int, int> d(ft::make_pair (11, 4));
   b.insert(d);
   d = (ft::make_pair (12, 12));
   b.insert(d);
@@ -36,8 +34,8 @@ int main () {
   b.insert(d);
 
   b.show();
-  b.erase(14);
-  std::cout << "---" << std::endl;
-  b.show();*/
+  std::cout << "<;;;;;;>" << std::endl;
+  b.right_rotation(&b.search(12), &start);
+  start->show();
   return 0;
 }
