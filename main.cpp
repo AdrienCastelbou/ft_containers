@@ -16,26 +16,21 @@ int main () {
   foo = ft::make_pair (10,20);
   bar = ft::make_pair (14,'A');
 
-  ft::BST<int, int> b(foo);
-
-  ft::BST<int, int> c(bar);
-  b.insert(c);
-  c = ft::make_pair (12, 3);
-  b.insert(c);
-  ft::BST<int, int>* start = &b;
-
-  ft::BST<int, int> d(ft::make_pair (11, 4));
-  b.insert(d);
-  d = (ft::make_pair (12, 12));
-  b.insert(d);
-  d = (ft::make_pair (16, 12));
-  b.insert(d);
-  d = (ft::make_pair (15, 12));
-  b.insert(d);
-
-  b.show();
+  ft::BST<int, int> *b = new ft::BST<int, int>(foo);
+  ft::BST<int, int>* start = b;
+  ft::BST<int, int> *c = new ft::BST<int, int>(bar);
+  start->insert(c, start);
+  c = new ft::BST<int, int>(ft::make_pair (12, 3));
+  start->insert(c, start);
+  c = new ft::BST<int, int>(ft::make_pair (11, 3));
+  start->insert(c, start);
+  c = new ft::BST<int, int>(ft::make_pair (16, 3));
+  start->insert(c, start);
+  c = new ft::BST<int, int>(ft::make_pair (15, 3));
+  start->insert(c, start);
+  start->show();
   std::cout << "<;;;;;;>" << std::endl;
-  b.left_rotation(&b.search(12), &start);
+  start->left_rotation(&start->search(14), &start);
   start->show();
   return 0;
 }

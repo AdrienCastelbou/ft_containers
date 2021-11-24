@@ -125,7 +125,34 @@ namespace ft {
 					return (*current);
 				}
 
-				void insert(BST<first_type, second_type> n) {
+				void rec_insert(BST *n, BST* root) {
+					if (root != NULL && n->_p.first < root->_p.first) {
+						if (root->_left != NULL){
+							rec_insert(n, root->_left);
+							return ;
+						}
+						else
+							root->_left = n;
+					}
+					else if (root != NULL && n->_p.first > root->_p.first) {
+						if (root->_right != NULL) {
+							rec_insert(n , root->_right);
+							return;
+						}
+						else
+							root->_right = n;
+					}
+					else if (root != NULL && n->_p.first == root->_p.first)
+						return ;
+					n->_parent = root;
+				}
+
+				void insert(BST *n, BST *root) {
+					rec_insert(n , root);
+				}
+				/*
+				void insert(BST *n, BST** root) {
+					(void) root;
 					BST* current = this;
 					while (current != NULL)
 					{
@@ -146,7 +173,8 @@ namespace ft {
 						else
 							current = current->_right;
 					}
-				}
+
+				}*/
 
 				void erase(first_type key) {
 					BST* current = &(this->search(key));
