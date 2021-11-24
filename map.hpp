@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include "utils.hpp"
+#define BLACK 0
+#define RED 1
 
 namespace ft {
 
@@ -17,9 +19,9 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				BST(pair<first_type, second_type> p) : _p(p), _parent(NULL), _left(NULL), _right(NULL), _key(1) {}
+				BST(pair<first_type, second_type> p) : _p(p), _parent(NULL), _left(NULL), _right(NULL), _color(RED) {}
 
-				BST(BST<first_type, second_type> &other) : _p(other._p), _parent (other._parent), _left(other._left), _right(other._right), _key(other._key) {}
+				BST(BST<first_type, second_type> &other) : _p(other._p), _parent (other._parent), _left(other._left), _right(other._right), _color(other._color) {}
 
 				///////////////////////////////////////////
 				//                                       //
@@ -56,7 +58,6 @@ namespace ft {
 
 				BST *uncle() const {
 					BST* parent = this->parent();
-					BST* grandparent = this->grandparent();
 					if (parent == NULL)
 						return (NULL);
 					return (parent->brother());
@@ -147,8 +148,66 @@ namespace ft {
 					n->_parent = root;
 				}
 
+				void reorder_case1(BST* n) {
+					n->_color = BLACK;
+				}
+
+				void reorder_case2(BST *n) {
+					(void) n;
+					return ;
+				}
+
+				void reorder_case3(BST *n, BST *root) {
+					n->_parent->_color = BLACK;
+					n->uncle()->_color = BLACK;
+					BST* grandpa = n->grandparent();
+					grandpa->_color = RED;
+					reorder_tree(grandpa, root);
+				}
+
+				void reorder_case4(BST *n, BST *root) {
+					BST* parent = n->_parent;
+					BST* grandpa = n->grandparent();
+
+					if (n == grandpa->_left->_right) {
+						left_rotation(parent, &root);
+						n = n->_left;
+					}
+					else if (n == grandpa->_right->_left) {
+						right_rotation(parent , &root);
+						n = n ->_right;
+					}
+					reorder_case5(n , root);
+				}
+
+				void reorder_case5(BST *n, BST *root) {
+					BST* parent = n->_parent;
+					BST* grandpa = n->grandparent();
+
+					if (n == parent->_left)
+						right_rotation(n, &root);
+					else
+						left_rotation(n, &root);
+					parent->_color = BLACK;
+					grandpa->_color = RED;
+				}
+
+				void reorder_tree(BST* n, BST *root) {
+					if (n->_parent == NULL)
+						reorder_case1(n);
+					else if (n->_parent->_color == BLACK)
+						reorder_case2(n);
+					else if (n->uncle() && n->uncle()->_color == RED)
+						reorder_case3(n, root);
+					else if (n->uncle() == NULL && n->_parent->_color == RED)
+						n->_color = BLACK;
+					else
+						reorder_case4(n, root);
+				}
+
 				void insert(BST *n, BST *root) {
 					rec_insert(n , root);
+					reorder_tree(n, root);
 				}
 				/*
 				void insert(BST *n, BST** root) {
@@ -247,6 +306,6 @@ namespace ft {
 				BST<first_type, second_type>* _parent;
 				BST<first_type, second_type>* _left;
 				BST<first_type, second_type>* _right;
-				int _key;
+				int _color;
 		};
 }
