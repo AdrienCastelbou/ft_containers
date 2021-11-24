@@ -35,7 +35,7 @@ int main () {
 
   b.show();
   std::cout << "<;;;;;;>" << std::endl;
-  b.right_rotation(&b.search(12), &start);
+  b.left_rotation(&b.search(12), &start);
   start->show();
   return 0;
 }

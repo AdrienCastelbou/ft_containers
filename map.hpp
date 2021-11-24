@@ -69,6 +69,8 @@ namespace ft {
 				///////////////////////////////////////////
 
 				void left_rotation(BST* x, BST** root) {
+					if (x->_right == NULL)
+						return ;
 					BST* y = x->_right;
 					x->_right = y->_left;
 					if (y->_left != NULL)
@@ -85,6 +87,8 @@ namespace ft {
 				}
 
 				void right_rotation(BST* x, BST** root) {
+					if (x->_left == NULL)
+						return ;
 					BST* y = x->_left;
 					x->_left = y->_right;
 					if (y->_right != NULL)
