@@ -149,7 +149,8 @@ namespace ft {
 				}
 
 				void reorder_case1(BST* n) {
-					n->_color = BLACK;
+					if (n->_parent == NULL)
+						n->_color = BLACK;
 				}
 
 				void reorder_case2(BST *n) {
@@ -158,6 +159,7 @@ namespace ft {
 				}
 
 				void reorder_case3(BST *n, BST *root) {
+
 					n->_parent->_color = BLACK;
 					n->uncle()->_color = BLACK;
 					BST* grandpa = n->grandparent();
@@ -169,11 +171,11 @@ namespace ft {
 					BST* parent = n->_parent;
 					BST* grandpa = n->grandparent();
 
-					if (n == grandpa->_left->_right) {
+					if (grandpa && grandpa->_left && n == grandpa->_left->_right) {
 						left_rotation(parent, &root);
 						n = n->_left;
 					}
-					else if (n == grandpa->_right->_left) {
+					else if (grandpa && grandpa->_right && n == grandpa->_right->_left) {
 						right_rotation(parent , &root);
 						n = n ->_right;
 					}
@@ -185,22 +187,23 @@ namespace ft {
 					BST* grandpa = n->grandparent();
 
 					if (n == parent->_left)
-						right_rotation(n, &root);
+						right_rotation(grandpa, &root);
 					else
-						left_rotation(n, &root);
+						left_rotation(grandpa, &root);
 					parent->_color = BLACK;
 					grandpa->_color = RED;
 				}
 
 				void reorder_tree(BST* n, BST *root) {
-					if (n->_parent == NULL)
+					BST* parent = n->parent();
+					BST* uncle = n->uncle();
+
+					if (parent == NULL)
 						reorder_case1(n);
-					else if (n->_parent->_color == BLACK)
+					else if (parent->_color == BLACK)
 						reorder_case2(n);
-					else if (n->uncle() && n->uncle()->_color == RED)
+					else if (uncle && uncle->_color == RED)
 						reorder_case3(n, root);
-					else if (n->uncle() == NULL && n->_parent->_color == RED)
-						n->_color = BLACK;
 					else
 						reorder_case4(n, root);
 				}
@@ -209,31 +212,6 @@ namespace ft {
 					rec_insert(n , root);
 					reorder_tree(n, root);
 				}
-				/*
-				void insert(BST *n, BST** root) {
-					(void) root;
-					BST* current = this;
-					while (current != NULL)
-					{
-						if (current->_p.first > n._p.first && !current->_left)
-						{
-							current->_left = new BST(n);
-							current->_left->_parent = current;
-						}
-						else if (current->_p.first < n._p.first && !current->_right)
-						{
-							current->_right = new  BST(n);
-							current->_right->_parent = current;
-						}
-						else if (current->_p.first == n._p.first)
-							return ;
-						if (current->_p.first > n._p.first)
-							current = current->_left;
-						else
-							current = current->_right;
-					}
-
-				}*/
 
 				void erase(first_type key) {
 					BST* current = &(this->search(key));
@@ -287,7 +265,8 @@ namespace ft {
 				}
 
 				void show() const {
-					std::cout << _p.first << std::endl;
+					std::cout << _parent->_left->_p.first << std::endl;
+					std::cout << _p.first << ", color : " << _color << std::endl;
 					if (_left)
 						_left->show();
 					std::cout << "--" << std::endl;
