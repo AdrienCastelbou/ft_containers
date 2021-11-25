@@ -35,8 +35,12 @@ int main () {
   start->insert(c, start);
   //start->right_rotation(&start->search(12), &start);
   start->show();*/
-
-	std::map<int, int> m;
-		std::cout << m.max_size() << std::endl;
+	ft::pair <int,int> foo = ft::make_pair (3,20);
+	ft::BST<int, int> *b = new ft::BST<int, int>(foo);
+	ft::BidIterator<ft::BST<int, int> > it(b);
+	//std::map<int, int> m;
+	//m[1] = 2;
+	//std::map<int, int>::iterator it = m.begin();
+	std::cout << it->second << std::endl;
   return 0;
 }
