@@ -41,7 +41,7 @@ int main () {
 	ft::pair <int,int> fo = ft::make_pair (3,20);
 	ft::BST<int, int> *c = new ft::BST<int, int>(fo);
 	ft::BidIterator<ft::BST<int, int> > itt(c);
-	std::cout << (it != itt) << std::endl;
+	std::cout << (*it).first << std::endl;
 	/*std::map<int, int> m;
 	m[1] = 2;
 	std::map<int, int>::iterator it = m.begin();*/

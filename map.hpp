@@ -334,6 +334,10 @@ namespace ft {
 					return (*this);
 				}
 
+				pair_type operator*() {
+					return (*_node->getPair());
+				}
+
 				pair_type* operator->() {
 					return (_node->getPair());
 				}
