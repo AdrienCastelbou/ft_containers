@@ -311,8 +311,40 @@ namespace ft {
 				// Iterators
 				// to complete...
 
+				///////////////////////////////////////////
+				//                                       //
+				//              Constructors             //
+				//                                       //
+				///////////////////////////////////////////
+
+				explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _size(0),  _allocator(alloc), _comparator(comp){
+					_tree = NULL;
+				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//               Capacity                //
+				//                                       //
+				///////////////////////////////////////////
+
+				bool empty() const {
+					if (_tree)
+						return (false);
+					return (true);
+				}
+
+				size_t size() const {
+					return (_size);
+				}
+
+				size_t  max_size() const {
+					return (_allocator.max_size());
+				}
+
 			private:
 				BST<key_type, mapped_type> *_tree;
 				size_t _size;
+				allocator_type _allocator;
+				key_compare _comparator;
 		};
 }

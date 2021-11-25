@@ -4,6 +4,7 @@
 #include <stack>          // std::stack
 #include <vector>         // std::vector
 #include <deque>          // std::deque
+#include <map>
 #include "map.hpp"
 
 #define NAMESPACE ft
@@ -35,5 +36,7 @@ int main () {
   //start->right_rotation(&start->search(12), &start);
   start->show();*/
 
+	std::map<int, int> m;
+		std::cout << m.max_size() << std::endl;
   return 0;
 }
