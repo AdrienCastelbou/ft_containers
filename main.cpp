@@ -42,6 +42,7 @@ int main () {
 	ft::BST<int, int> *c = new ft::BST<int, int>(fo);
 	ft::BidIterator<ft::BST<int, int> > itt(c);
 	std::cout << (*it).first << std::endl;
+	it++;
 	/*std::map<int, int> m;
 	m[1] = 2;
 	std::map<int, int>::iterator it = m.begin();*/

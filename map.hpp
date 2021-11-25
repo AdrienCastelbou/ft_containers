@@ -342,6 +342,27 @@ namespace ft {
 					return (_node->getPair());
 				}
 
+				BidIterator& operator++(int) {
+					BidIterator copy(*this);
+					value_type *previous = NULL;
+					while (this->_node != NULL)
+					{
+						if (this->_node->_right)
+							this->_node = this->_node->_right;
+						if (this->node->_left)
+							this->_node = this->_node->_left;
+						if (!this->node->_left && !this->_node->>_right && (!this->_node->_parent ||  this->_node == this->_node->_parent->_right))
+							return (copy);
+						else if (!this->node->_left && !this->_node->>_right && (this->_node->_parent &&  this->_node == this->_node->_parent->_left))
+						{
+							this->_node = this->_node->_parent;
+							return (copy);
+						}
+
+					}
+					return (copy);
+				}
+
 				template <class Type>
 					friend bool operator==(const BidIterator<Type>& lhs, const BidIterator<Type>& rhs);
 
