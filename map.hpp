@@ -338,9 +338,30 @@ namespace ft {
 					return (_node->getPair());
 				}
 
+				template <class Type>
+					friend bool operator==(const BidIterator<Type>& lhs, const BidIterator<Type>& rhs);
+
+				template <class Type>
+					friend bool operator!=(const BidIterator<Type>& lhs, const BidIterator<Type>& rhs);
 			protected:
 				value_type *_node;
 		};
+
+	///////////////////////////////////////////
+	//                                       //
+	// BidIter Non-member function overloads //
+	//                                       //
+	///////////////////////////////////////////
+
+	template<class T>
+		bool operator==(const BidIterator<T>& lhs, const BidIterator<T>& rhs) {
+			return (lhs._node == rhs._node);
+		}
+
+	template<class T>
+		bool operator!=(const BidIterator<T>& lhs, const BidIterator<T>& rhs) {
+			return (lhs._node != rhs._node);
+		}
 
 	template<class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
 		class map {
