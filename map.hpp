@@ -351,13 +351,14 @@ namespace ft {
 							this->_node = this->_node->_right;
 						if (this->node->_left)
 							this->_node = this->_node->_left;
-						if (!this->node->_left && !this->_node->>_right && (!this->_node->_parent ||  this->_node == this->_node->_parent->_right))
+						if (!this->node->_left && !this->_node->>_right && (!this->_node->_parent || (this->_node->_parent && this->_node == this->_node->_parent->_right)))
 							return (copy);
 						else if (!this->node->_left && !this->_node->>_right && (this->_node->_parent &&  this->_node == this->_node->_parent->_left))
 						{
 							this->_node = this->_node->_parent;
 							return (copy);
 						}
+						else if 
 
 					}
 					return (copy);
