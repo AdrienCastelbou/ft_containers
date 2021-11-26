@@ -50,24 +50,23 @@ int main () {
 
   start->show();
 
-  ft::BidIterator<ft::BST<int, int> > it(&start->search(2));
-  std::cout <<  (++it)->first << std::endl;
-  std::cout <<  (++it)->first << std::endl;
-  std::cout <<  (++it)->first << std::endl;
-  std::cout <<  (++it)->first << std::endl;
+  ft::BidIterator<ft::BST<int, int> > it(&start->search(19));
+  std::cout <<  (--it)->first << std::endl;
+  std::cout <<  (--it)->first << std::endl;
+  std::cout <<  (--it)->first << std::endl;
+  std::cout <<  (--it)->first << std::endl;
   
-  std::cout <<  (++it)->first << std::endl;
-  std::cout <<  (++it)->first << std::endl;
+  std::cout <<  (--it)->first << std::endl;
+  std::cout <<  (--it)->first << std::endl;
 
-  std::cout <<  (++it)->first << std::endl;
-  std::cout <<  (++it)->first << std::endl;
-  std::cout <<  (++it)->first << std::endl;
-  std::cout <<  (++it)->first << std::endl;
-  std::cout <<  (++it)->first << std::endl;
-  std::cout <<  (++it)->first << std::endl;
+  std::cout <<  (--it)->first << std::endl;
+  std::cout <<  (--it)->first << std::endl;
+  std::cout <<  (--it)->first << std::endl;
+  std::cout <<  (--it)->first << std::endl;
+  std::cout <<  (--it)->first << std::endl;
+  std::cout <<  (--it)->first << std::endl;
 
-  std::cout <<  (++it)->first << std::endl;
-
+  std::cout <<  (--it)->first << std::endl;
 
   return 0;
 }

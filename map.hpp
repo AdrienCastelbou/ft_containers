@@ -368,6 +368,24 @@ namespace ft {
 					return (*this);
 				}
 
+				BidIterator& operator--() {
+					if (!this->_node->leftChild())
+					{
+						if (!this->_node->parent())
+							return (*this);
+						while (this->_node->parent() && this->_node->parent()->leftChild() == this->_node)
+							this->_node = this->_node->parent();
+						if (this->_node->parent())
+							this->_node = this->_node->parent();
+						return (*this);
+					}
+					this->_node = this->_node->leftChild();
+					while (this->_node->rightChild())
+						this->_node = this->_node->rightChild();
+					return (*this);
+				}
+
+
 				template <class Type>
 					friend bool operator==(const BidIterator<Type>& lhs, const BidIterator<Type>& rhs);
 
