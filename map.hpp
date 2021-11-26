@@ -224,7 +224,7 @@ namespace ft {
 
 				void insert(BST *n, BST *root) {
 					rec_insert(n , root);
-					reorder_tree(n, root);
+					//reorder_tree(n, root);
 				}
 
 				void erase(first_type key) {
@@ -279,10 +279,9 @@ namespace ft {
 				}
 
 				void show() const {
-					std::cout << _parent->_left->_p.first << std::endl;
-					std::cout << _p.first << ", color : " << _color << std::endl;
 					if (_left)
 						_left->show();
+					std::cout << _p.first << std::endl;
 					std::cout << "--" << std::endl;
 					if (_right)
 						_right->show();
@@ -354,6 +353,7 @@ namespace ft {
 
 				BidIterator& operator++(int) {
 					BidIterator& tmp = *this;
+
 					if (!this->_node->rightChild())
 					{
 						if (!this->_node->parent())
@@ -365,9 +365,8 @@ namespace ft {
 						return (tmp);
 					}
 					this->_node = this->_node->rightChild();
-					if (tmp._node != this->_node)
-						while (this->_node->leftChild())
-							this->_node = this->_node->leftChild();
+					while (this->_node->leftChild())
+						this->_node = this->_node->leftChild();
 					return (tmp);
 				}
 
