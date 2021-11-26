@@ -351,7 +351,7 @@ namespace ft {
 					return (_node->getPair());
 				}
 
-				BidIterator& operator++() {
+				BidIterator operator++() {
 					if (!this->_node->rightChild())
 					{
 						if (!this->_node->parent())
@@ -366,6 +366,12 @@ namespace ft {
 					while (this->_node->leftChild())
 						this->_node = this->_node->leftChild();
 					return (*this);
+				}
+
+				BidIterator operator++(int) {
+					BidIterator tmp(*this);
+					operator++();
+					return (tmp);
 				}
 
 				BidIterator& operator--() {
@@ -385,6 +391,11 @@ namespace ft {
 					return (*this);
 				}
 
+				BidIterator operator--(int) {
+					BidIterator tmp(*this);
+					operator--();
+					return (tmp);
+				}
 
 				template <class Type>
 					friend bool operator==(const BidIterator<Type>& lhs, const BidIterator<Type>& rhs);

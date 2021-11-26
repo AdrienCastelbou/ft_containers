@@ -51,22 +51,28 @@ int main () {
   start->show();
 
   ft::BidIterator<ft::BST<int, int> > it(&start->search(19));
-  std::cout <<  (--it)->first << std::endl;
-  std::cout <<  (--it)->first << std::endl;
-  std::cout <<  (--it)->first << std::endl;
-  std::cout <<  (--it)->first << std::endl;
+  std::cout <<  (it--)->first << std::endl;
+  std::cout <<  (it--)->first << std::endl;
+  std::cout <<  (it--)->first << std::endl;
+  std::cout <<  (it--)->first << std::endl;
   
-  std::cout <<  (--it)->first << std::endl;
-  std::cout <<  (--it)->first << std::endl;
+  std::cout <<  (it--)->first << std::endl;
+  std::cout <<  (it--)->first << std::endl;
 
-  std::cout <<  (--it)->first << std::endl;
-  std::cout <<  (--it)->first << std::endl;
-  std::cout <<  (--it)->first << std::endl;
-  std::cout <<  (--it)->first << std::endl;
-  std::cout <<  (--it)->first << std::endl;
-  std::cout <<  (--it)->first << std::endl;
+  std::cout <<  (it--)->first << std::endl;
+  std::cout <<  (it--)->first << std::endl;
+  std::cout <<  (it--)->first << std::endl;
+  std::cout <<  (it--)->first << std::endl;
+  std::cout <<  (it--)->first << std::endl;
+  std::cout <<  (it--)->first << std::endl;
 
-  std::cout <<  (--it)->first << std::endl;
+  std::cout <<  (it--)->first << std::endl;
 
+  std::map<int, int> m;
+  m[1] = 1;
+  m[2] = 2;
+  m[3] = 3;
+	std::map<int, int>::iterator i = m.begin();
+	std::cout << (++i)->first << std::endl;
   return 0;
 }
