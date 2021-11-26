@@ -351,23 +351,21 @@ namespace ft {
 					return (_node->getPair());
 				}
 
-				BidIterator& operator++(int) {
-					BidIterator& tmp = *this;
-
+				BidIterator& operator++() {
 					if (!this->_node->rightChild())
 					{
 						if (!this->_node->parent())
-							return (tmp);
+							return (*this);
 						while (this->_node->parent() && this->_node->parent()->rightChild() == this->_node)
 							this->_node = this->_node->parent();
 						if (this->_node->parent())
 							this->_node = this->_node->parent();
-						return (tmp);
+						return (*this);
 					}
 					this->_node = this->_node->rightChild();
 					while (this->_node->leftChild())
 						this->_node = this->_node->leftChild();
-					return (tmp);
+					return (*this);
 				}
 
 				template <class Type>
