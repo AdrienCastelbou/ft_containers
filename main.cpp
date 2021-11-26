@@ -50,7 +50,7 @@ int main () {
 
   start->show();
 
-  ft::BidIterator<ft::BST<int, int> > it(&start->search(19));
+  ft::BST_iterator<ft::BST<int, int> > it(&start->search(19));
   std::cout <<  (it--)->first << std::endl;
   std::cout <<  (it--)->first << std::endl;
   std::cout <<  (it--)->first << std::endl;
@@ -74,5 +74,8 @@ int main () {
   m[3] = 3;
 	std::map<int, int>::iterator i = m.begin();
 	std::cout << (++i)->first << std::endl;
+  std::pair <int,int> baar;
+
+  baar = std::make_pair (10,20);
   return 0;
 }
