@@ -33,6 +33,8 @@ namespace ft {
 				pair<first_type, second_type>* getPair() {
 					return (&_p);
 				}
+
+
 				///////////////////////////////////////////
 				//                                       //
 				//                Family                 //
@@ -41,6 +43,14 @@ namespace ft {
 
 				BST *parent() const {
 					return (this->_parent);
+				}
+
+				BST *leftChild() const {
+					return (this->_left);
+				}
+
+				BST *rightChild() const {
+					return (this->_right);
 				}
 
 				BST *grandparent() const {
@@ -343,25 +353,22 @@ namespace ft {
 				}
 
 				BidIterator& operator++(int) {
-					BidIterator copy(*this);
-					value_type *previous = NULL;
-					while (this->_node != NULL)
+					BidIterator& tmp = *this;
+					if (!this->_node->rightChild())
 					{
-						if (this->_node->_right)
-							this->_node = this->_node->_right;
-						if (this->node->_left)
-							this->_node = this->_node->_left;
-						if (!this->node->_left && !this->_node->>_right && (!this->_node->_parent || (this->_node->_parent && this->_node == this->_node->_parent->_right)))
-							return (copy);
-						else if (!this->node->_left && !this->_node->>_right && (this->_node->_parent &&  this->_node == this->_node->_parent->_left))
-						{
-							this->_node = this->_node->_parent;
-							return (copy);
-						}
-						else if 
-
+						if (!this->_node->parent())
+							return (tmp);
+						while (this->_node->parent() && this->_node->parent()->rightChild() == this->_node)
+							this->_node = this->_node->parent();
+						if (this->_node->parent())
+							this->_node = this->_node->parent();
+						return (tmp);
 					}
-					return (copy);
+					this->_node = this->_node->rightChild();
+					if (tmp._node != this->_node)
+						while (this->_node->leftChild())
+							this->_node = this->_node->leftChild();
+					return (tmp);
 				}
 
 				template <class Type>
