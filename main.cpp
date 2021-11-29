@@ -11,7 +11,17 @@
 
 
 int main () {
-  ft::pair <int,int> foo;
+  ft::pair <int,int> bar;
+
+  bar = ft::make_pair (15,20);
+
+  ft::map<int, int> m;
+  m.insert(bar);
+  m.insert(ft::make_pair<int, int> (4,4));
+
+  m.insert(ft::make_pair<int, int> (5,4));
+  m.show();
+/*  ft::pair <int,int> foo;
   ft::pair <int,int> bar;
 
   foo = ft::make_pair (15,20);
@@ -49,34 +59,6 @@ int main () {
   start->insert(c, start);
 
   start = start->parent();
-  start->show();
-/*
-  ft::BST_iterator<ft::BST<int, int> > it(&start->search(19));
-  std::cout <<  (it--)->first << std::endl;
-  std::cout <<  (it--)->first << std::endl;
-  std::cout <<  (it--)->first << std::endl;
-  std::cout <<  (it--)->first << std::endl;
-  
-  std::cout <<  (it--)->first << std::endl;
-  std::cout <<  (it--)->first << std::endl;
-
-  std::cout <<  (it--)->first << std::endl;
-  std::cout <<  (it--)->first << std::endl;
-  std::cout <<  (it--)->first << std::endl;
-  std::cout <<  (it--)->first << std::endl;
-  std::cout <<  (it--)->first << std::endl;
-  std::cout <<  (it--)->first << std::endl;
-
-  std::cout <<  (it--)->first << std::endl;
-
-  std::map<int, int> m;
-  m[1] = 1;
-  m[2] = 2;
-  m[3] = 3;
-	std::map<int, int>::iterator i = m.begin();
-	std::cout << (++i)->first << std::endl;
-  std::pair <int,int> baar;
-
-  baar = std::make_pair (10,20);*/
+  start->show();*/
   return 0;
 }

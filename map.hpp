@@ -125,7 +125,7 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				BST& search(first_type key)
+				BST* search(first_type key)
 				{
 					BST* current = this;
 					while (current != NULL && current->_p.first != key)
@@ -135,9 +135,7 @@ namespace ft {
 						else
 							current = current->_left;
 					}
-					if (!current)
-						return (*this);
-					return (*current);
+					return (current);
 				}
 
 				void rec_insert(BST *n, BST* root) {
@@ -165,19 +163,9 @@ namespace ft {
 					}
 					else if (root != NULL && n->_p.first == root->_p.first)
 						return ;
-					else if (root == NULL)
-					{
-						n->_left = new BST<first_type, second_type> (ft::make_pair<int, int>(0, 0), GREEN);
-						n->_right = new BST<first_type, second_type> (ft::make_pair<int, int>(0, 0), GREEN);
-					}
 					n->_parent = root;
 				}
 
-				void insert_green() {
-						this->_left = new BST<first_type, second_type> (ft::make_pair<int, int>(0, 0), GREEN);
-						this->_right = new BST<first_type, second_type> (ft::make_pair<int, int>(0, 0), GREEN);
-
-				}
 				void reorder_case1(BST* n) {
 					if (n->_parent == NULL)
 						n->_color = BLACK;
@@ -244,7 +232,9 @@ namespace ft {
 				}
 
 				void erase(first_type key) {
-					BST* current = &(this->search(key));
+					BST* current = (this->search(key));
+					if (!current)
+						return ;
 					BST* prev= current->_parent;
 					BST** branch;
 
@@ -292,6 +282,13 @@ namespace ft {
 						current->_left->_parent = prev;
 					}
 					delete current;
+				}
+
+				void set_leafs(BST* left, BST* right) {
+					left->_color = GREEN;
+					right->_color = GREEN;
+					this->_left = left;
+					this->_right = right;
 				}
 
 				void show() const {
@@ -459,14 +456,17 @@ namespace ft {
 				typedef Key key_type;
 				typedef T mapped_type;
 				typedef pair<const key_type, mapped_type> value_type;
+				typedef BST<key_type, mapped_type> Node;
 				typedef Compare key_compare;
 				//typedef value_comp value_compare;
 				typedef Alloc allocator_type;
+				typedef typename allocator_type::template rebind<Node>::other node_allocator_type;;
 				typedef typename allocator_type::reference reference;
 				typedef typename allocator_type::const_reference const_reference;
 				typedef typename allocator_type::pointer pointer;
 				typedef typename allocator_type::const_pointer const_pointer;
-				// Iterators
+				typedef BST_iterator<value_type> iterator;
+				typedef BST_iterator<const value_type> const_iterator;
 				// to complete...
 
 				///////////////////////////////////////////
@@ -499,10 +499,54 @@ namespace ft {
 					return (_allocator.max_size());
 				}
 
+				///////////////////////////////////////////
+				//                                       //
+				//              Modifiers                //
+				//                                       //
+				///////////////////////////////////////////
+
+				pair<iterator, bool> insert(const value_type& val) {
+					pair<iterator, bool> res;
+
+					if (_tree->search(val.first))
+						res.second = true;
+					else
+						res.second = false;
+					if (_tree == NULL)
+						set_root(val);
+					else if (!res.second)
+					{
+						Node* n = _node_allocator.allocate(1);
+						_node_allocator.construct(n, val);
+						_tree->insert(n, _tree);
+					}
+					return res;
+				}
+
+				void show() {
+					_tree->show();
+				}
+
 			private:
 				BST<key_type, mapped_type> *_tree;
 				size_t _size;
 				allocator_type _allocator;
+				node_allocator_type _node_allocator;
 				key_compare _comparator;
+
+				void set_root(const value_type& val) {
+					Node *left_leaf;
+					Node *right_leaf;
+
+					_tree = _node_allocator.allocate(1);
+					_node_allocator.construct(_tree, val);
+					left_leaf = _node_allocator.allocate(1);
+					_node_allocator.construct(left_leaf, val);
+					right_leaf = _node_allocator.allocate(1);
+					_node_allocator.construct(right_leaf, val);
+					_tree->set_leafs(left_leaf, right_leaf);
+					_tree->reorder_tree(_tree, _tree);
+				}
+
 		};
 }
