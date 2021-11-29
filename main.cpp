@@ -47,6 +47,7 @@ int main () {
   c = new ft::BST<int, int>(ft::make_pair (19, 3));
   start->insert(c, start);
 
+  start = start->parent();
   start->show();
 /*
   ft::BST_iterator<ft::BST<int, int> > it(&start->search(19));

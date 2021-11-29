@@ -279,7 +279,11 @@ namespace ft {
 				}
 
 				void show() const {
-					std::cout << _p.first << ", " << std::endl;
+					if (_parent)
+						std::cout << "parent: " << _parent->_p.first << ", ";
+					else
+						std::cout << "head: ";
+					std::cout << _p.first << std::endl;
 					if (_left)
 						_left->show();
 					std::cout << "--" << std::endl;
