@@ -292,10 +292,6 @@ namespace ft {
 				}
 
 				void show() const {
-					if (_parent)
-						std::cout << "parent: " << _parent->_p.first << ", ";
-					else
-						std::cout << "head: ";
 					std::cout << _p.first << std::endl;
 					if (_left && _left->_color == GREEN)
 						std::cout << "left branch end" << std::endl;
@@ -524,7 +520,7 @@ namespace ft {
 				}
 
 				void show() {
-					_tree->show();
+					_tree->parent()->show();
 				}
 
 			private:
