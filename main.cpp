@@ -19,6 +19,7 @@ int main () {
 
   ft::BST<int, int> *b = new ft::BST<int, int>(foo);
   ft::BST<int, int>* start = b;
+  start->reorder_tree(b, start);
   ft::BST<int, int> *c = new ft::BST<int, int>(bar);
   start->insert(c, start);
   c = new ft::BST<int, int>(ft::make_pair (18, 3));
@@ -41,12 +42,10 @@ int main () {
   start->insert(c, start);
  c = new ft::BST<int, int>(ft::make_pair (13, 3));
   start->insert(c, start);
- c = new ft::BST<int, int>(ft::make_pair (16, 3));
+  c = new ft::BST<int, int>(ft::make_pair (16, 3));
   start->insert(c, start);
- c = new ft::BST<int, int>(ft::make_pair (19, 3));
+  c = new ft::BST<int, int>(ft::make_pair (19, 3));
   start->insert(c, start);
-
-
 
   start->show();
 

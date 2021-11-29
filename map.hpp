@@ -224,7 +224,7 @@ namespace ft {
 
 				void insert(BST *n, BST *root) {
 					rec_insert(n , root);
-					//reorder_tree(n, root);
+					reorder_tree(n, root);
 				}
 
 				void erase(first_type key) {
