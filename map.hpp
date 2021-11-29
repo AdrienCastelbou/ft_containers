@@ -279,9 +279,9 @@ namespace ft {
 				}
 
 				void show() const {
+					std::cout << _p.first << ", " << std::endl;
 					if (_left)
 						_left->show();
-					std::cout << _p.first << std::endl;
 					std::cout << "--" << std::endl;
 					if (_right)
 						_right->show();

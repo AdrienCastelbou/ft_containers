@@ -48,7 +48,7 @@ int main () {
   start->insert(c, start);
 
   start->show();
-
+/*
   ft::BST_iterator<ft::BST<int, int> > it(&start->search(19));
   std::cout <<  (it--)->first << std::endl;
   std::cout <<  (it--)->first << std::endl;
@@ -75,6 +75,6 @@ int main () {
 	std::cout << (++i)->first << std::endl;
   std::pair <int,int> baar;
 
-  baar = std::make_pair (10,20);
+  baar = std::make_pair (10,20);*/
   return 0;
 }
