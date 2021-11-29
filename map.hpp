@@ -5,7 +5,7 @@
 #include "Iterator.hpp"
 #define BLACK 0
 #define RED 1
-
+#define GREEN 2
 namespace ft {
 
 	template<class T1, class T2>
@@ -20,7 +20,7 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				BST(pair<first_type, second_type> p) : _p(p), _parent(NULL), _left(NULL), _right(NULL), _color(RED) {}
+				BST(pair<first_type, second_type> p, int c = RED) : _p(p), _parent(NULL), _left(NULL), _right(NULL), _color(c) {}
 
 				BST(BST<first_type, second_type> &other) : _p(other._p), _parent (other._parent), _left(other._left), _right(other._right), _color(other._color) {}
 
@@ -141,27 +141,43 @@ namespace ft {
 				}
 
 				void rec_insert(BST *n, BST* root) {
-					if (root != NULL && n->_p.first < root->_p.first) {
-						if (root->_left != NULL){
+					if (root != NULL && root->_color != GREEN && n->_p.first < root->_p.first) {
+						if (root->_left != NULL &&  root->_left->_color != GREEN) {
 							rec_insert(n, root->_left);
 							return ;
 						}
 						else
+						{
+							n->_left = root->_left;
 							root->_left = n;
+						}
 					}
-					else if (root != NULL && n->_p.first > root->_p.first) {
-						if (root->_right != NULL) {
+					else if (root != NULL && root->_color != GREEN && n->_p.first > root->_p.first) {
+						if (root->_right != NULL && root->_right->_color != GREEN) {
 							rec_insert(n , root->_right);
 							return;
 						}
 						else
+						{
+							n->_right = root->_right;
 							root->_right = n;
+						}
 					}
 					else if (root != NULL && n->_p.first == root->_p.first)
 						return ;
+					else if (root == NULL)
+					{
+						n->_left = new BST<first_type, second_type> (ft::make_pair<int, int>(0, 0), GREEN);
+						n->_right = new BST<first_type, second_type> (ft::make_pair<int, int>(0, 0), GREEN);
+					}
 					n->_parent = root;
 				}
 
+				void insert_green() {
+						this->_left = new BST<first_type, second_type> (ft::make_pair<int, int>(0, 0), GREEN);
+						this->_right = new BST<first_type, second_type> (ft::make_pair<int, int>(0, 0), GREEN);
+
+				}
 				void reorder_case1(BST* n) {
 					if (n->_parent == NULL)
 						n->_color = BLACK;
@@ -284,6 +300,10 @@ namespace ft {
 					else
 						std::cout << "head: ";
 					std::cout << _p.first << std::endl;
+					if (_left && _left->_color == GREEN)
+						std::cout << "left branch end" << std::endl;
+					else if (_right && _right->_color == GREEN)
+						std::cout << "right branch end" << std::endl;
 					if (_left)
 						_left->show();
 					std::cout << "--" << std::endl;

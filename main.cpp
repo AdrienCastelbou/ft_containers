@@ -18,6 +18,7 @@ int main () {
   bar = ft::make_pair (7,'A');
 
   ft::BST<int, int> *b = new ft::BST<int, int>(foo);
+  b->insert_green();
   ft::BST<int, int>* start = b;
   start->reorder_tree(b, start);
   ft::BST<int, int> *c = new ft::BST<int, int>(bar);
