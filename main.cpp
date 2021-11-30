@@ -20,6 +20,10 @@ int main () {
   m.insert(ft::make_pair<int, int> (4,4));
 
   m.insert(ft::make_pair<int, int> (5,4));
+
+  m.insert(ft::make_pair<int, int> (1,4));
+  m.insert(ft::make_pair<int, int> (18,4));
+  m.insert(ft::make_pair<int, int> (9,4));
   m.show();
 /*  ft::pair <int,int> foo;
   ft::pair <int,int> bar;
