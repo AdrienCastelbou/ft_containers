@@ -125,18 +125,19 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				BST* search(first_type key)
-				{
-					BST* current = this;
-					while (current != NULL && current->_p.first != key)
+				template<class Compare>
+					BST* search(first_type key, Compare comp)
 					{
-						if (current->_p.first < key)
-							current = current->_right;
-						else
-							current = current->_left;
+						BST* current = this;
+						while (current != NULL && current->_p.first != key)
+						{
+							if (comp(current->_p.first, key))
+								current = current->_right;
+							else
+								current = current->_left;
+						}
+						return (current);
 					}
-					return (current);
-				}
 
 				template<class Compare>
 					void rec_insert(BST *n, BST* root, Compare comp) {

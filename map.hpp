@@ -5,9 +5,7 @@
 #include "Iterator.hpp"
 #include "BST.hpp"
 #include "BST_iterator.hpp"
-#define BLACK 0
-#define RED 1
-#define GREEN 2
+
 namespace ft {
 
 	template<class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
@@ -81,7 +79,7 @@ namespace ft {
 				pair<iterator, bool> insert(const value_type& val) {
 					pair<iterator, bool> res;
 
-					if (_tree->search(val.first))
+					if (_tree->search(val.first, _comparator))
 						res.second = false;
 					else
 						res.second = true;
@@ -94,7 +92,7 @@ namespace ft {
 						_tree->insert(n, &_tree, _comparator);
 					}
 					_size += res.second;
-					res.first = _tree->search(val.first);
+					res.first = _tree->search(val.first, _comparator);
 					return (res);
 				}
 
