@@ -292,11 +292,23 @@ namespace ft {
 				}
 
 				void show() const {
+
+					std::cout << _p.first << std::endl;
+					if (_left && _left->_color == GREEN)
+						std::cout << "left branch end" << std::endl;
+					else if (_right && _right->_color == GREEN)
+						std::cout << "right branch end" << std::endl;
+					if (_left && _left->_color != GREEN)
+						_left->show();
+					std::cout << "--" << std::endl;
+					if (_right && _right->_color != GREEN)
+						_right->show();
+/*
 					if (_left && _left->_color != GREEN)
 						_left->show();
 					std::cout << _p.first << std::endl;
 					if (_right && _right->_color != GREEN)
-						_right->show();
+						_right->show();*/
 				}
 
 			private:
