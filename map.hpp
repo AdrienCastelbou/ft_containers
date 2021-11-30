@@ -476,6 +476,12 @@ namespace ft {
 					_tree = NULL;
 				}
 
+				template<class InputIterator>
+					map(typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _size(0), _allocator(alloc), _comparator(comp) {
+						_tree = NULL;
+						for(;first != last; first++)
+							_tree->insert(*first);
+					}
 				///////////////////////////////////////////
 				//                                       //
 				//               Capacity                //
