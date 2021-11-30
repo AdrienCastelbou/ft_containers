@@ -176,7 +176,7 @@ namespace ft {
 					return ;
 				}
 
-				void reorder_case3(BST *n, BST *root) {
+				void reorder_case3(BST *n, BST **root) {
 
 					n->_parent->_color = BLACK;
 					n->uncle()->_color = BLACK;
@@ -185,34 +185,34 @@ namespace ft {
 					reorder_tree(grandpa, root);
 				}
 
-				void reorder_case4(BST *n, BST *root) {
+				void reorder_case4(BST *n, BST **root) {
 					BST* parent = n->_parent;
 					BST* grandpa = n->grandparent();
 
 					if (grandpa && grandpa->_left && n == grandpa->_left->_right) {
-						left_rotation(parent, &root);
+						left_rotation(parent,root);
 						n = n->_left;
 					}
 					else if (grandpa && grandpa->_right && n == grandpa->_right->_left) {
-						right_rotation(parent , &root);
+						right_rotation(parent , root);
 						n = n ->_right;
 					}
 					reorder_case5(n , root);
 				}
 
-				void reorder_case5(BST *n, BST *root) {
+				void reorder_case5(BST *n, BST **root) {
 					BST* parent = n->_parent;
 					BST* grandpa = n->grandparent();
 
 					if (n == parent->_left)
-						right_rotation(grandpa, &root);
+						right_rotation(grandpa, root);
 					else
-						left_rotation(grandpa, &root);
+						left_rotation(grandpa, root);
 					parent->_color = BLACK;
 					grandpa->_color = RED;
 				}
 
-				void reorder_tree(BST* n, BST *root) {
+				void reorder_tree(BST* n, BST **root) {
 					BST* parent = n->parent();
 					BST* uncle = n->uncle();
 
@@ -226,8 +226,8 @@ namespace ft {
 						reorder_case4(n, root);
 				}
 
-				void insert(BST *n, BST *root) {
-					rec_insert(n , root);
+				void insert(BST *n, BST **root) {
+					rec_insert(n , *root);
 					reorder_tree(n, root);
 				}
 
@@ -292,17 +292,6 @@ namespace ft {
 				}
 
 				void show() const {
-/*					std::cout << _p.first << std::endl;
-					if (_left && _left->_color == GREEN)
-						std::cout << "left branch end" << std::endl;
-					else if (_right && _right->_color == GREEN)
-						std::cout << "right branch end" << std::endl;
-					if (_left)
-						_left->show();
-					std::cout << "--" << std::endl;
-					if (_right)
-						_right->show();
-*/
 					if (_left && _left->_color != GREEN)
 						_left->show();
 					std::cout << _p.first << std::endl;
@@ -514,13 +503,13 @@ namespace ft {
 					{
 						Node* n = _node_allocator.allocate(1);
 						_node_allocator.construct(n, val);
-						_tree->insert(n, _tree);
+						_tree->insert(n, &_tree);
 					}
 					return res;
 				}
 
 				void show() {
-					_tree->parent()->show();
+					_tree->show();
 				}
 
 			private:
@@ -541,7 +530,7 @@ namespace ft {
 					right_leaf = _node_allocator.allocate(1);
 					_node_allocator.construct(right_leaf, val);
 					_tree->set_leafs(left_leaf, right_leaf);
-					_tree->reorder_tree(_tree, _tree);
+					_tree->reorder_tree(_tree, &_tree);
 				}
 
 		};
