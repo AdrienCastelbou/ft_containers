@@ -23,9 +23,9 @@ int main () {
 
   m.insert(ft::make_pair<int, int> (1,4));
   m.insert(ft::make_pair<int, int> (18,4));
-  ft::pair<ft::map<int , int>::iterator, bool> it = m.insert(ft::make_pair<int, int> (9,4));
+	m.insert(ft::make_pair<int, int> (9,4));
   m.show();
-  std::cout << it.first->first << std::endl;
+  std::cout << m.size() << std::endl;
 /*  ft::pair <int,int> foo;
   ft::pair <int,int> bar;
 

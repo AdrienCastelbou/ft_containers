@@ -506,17 +506,18 @@ namespace ft {
 					pair<iterator, bool> res;
 
 					if (_tree->search(val.first))
-						res.second = true;
-					else
 						res.second = false;
+					else
+						res.second = true;
 					if (_tree == NULL)
 						set_root(val);
-					else if (!res.second)
+					else if (res.second)
 					{
 						Node* n = _node_allocator.allocate(1);
 						_node_allocator.construct(n, val);
 						_tree->insert(n, &_tree);
 					}
+					_size += res.second;
 					res.first = _tree->search(val.first);
 					return (res);
 				}
