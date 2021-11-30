@@ -91,7 +91,7 @@ namespace ft {
 					{
 						Node* n = _node_allocator.allocate(1);
 						_node_allocator.construct(n, val);
-						_tree->insert(n, &_tree);
+						_tree->insert(n, &_tree, _comparator);
 					}
 					_size += res.second;
 					res.first = _tree->search(val.first);

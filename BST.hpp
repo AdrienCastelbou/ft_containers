@@ -138,33 +138,34 @@ namespace ft {
 					return (current);
 				}
 
-				void rec_insert(BST *n, BST* root) {
-					if (root != NULL && root->_color != GREEN && n->_p.first < root->_p.first) {
-						if (root->_left != NULL &&  root->_left->_color != GREEN) {
-							rec_insert(n, root->_left);
+				template<class Compare>
+					void rec_insert(BST *n, BST* root, Compare comp) {
+						if (root != NULL && root->_color != GREEN && comp(n->_p.first, root->_p.first)) {
+							if (root->_left != NULL &&  root->_left->_color != GREEN) {
+								rec_insert(n, root->_left, comp);
+								return ;
+							}
+							else
+							{
+								n->_left = root->_left;
+								root->_left = n;
+							}
+						}
+						else if (root != NULL && root->_color != GREEN && !comp(n->_p.first, root->_p.first)) {
+							if (root->_right != NULL && root->_right->_color != GREEN) {
+								rec_insert(n , root->_right, comp);
+								return;
+							}
+							else
+							{
+								n->_right = root->_right;
+								root->_right = n;
+							}
+						}
+						else if (root != NULL && n->_p.first == root->_p.first)
 							return ;
-						}
-						else
-						{
-							n->_left = root->_left;
-							root->_left = n;
-						}
+						n->_parent = root;
 					}
-					else if (root != NULL && root->_color != GREEN && n->_p.first > root->_p.first) {
-						if (root->_right != NULL && root->_right->_color != GREEN) {
-							rec_insert(n , root->_right);
-							return;
-						}
-						else
-						{
-							n->_right = root->_right;
-							root->_right = n;
-						}
-					}
-					else if (root != NULL && n->_p.first == root->_p.first)
-						return ;
-					n->_parent = root;
-				}
 
 				void reorder_case1(BST* n) {
 					if (n->_parent == NULL)
@@ -226,9 +227,10 @@ namespace ft {
 						reorder_case4(n, root);
 				}
 
-				void insert(BST *n, BST **root) {
-					rec_insert(n , *root);
-					reorder_tree(n, root);
+				template<class Compare>
+					void insert(BST *n, BST **root, Compare comp) {
+						rec_insert(n , *root, comp);
+						reorder_tree(n, root);
 				}
 
 				void erase(first_type key) {
