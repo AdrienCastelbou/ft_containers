@@ -462,8 +462,8 @@ namespace ft {
 				typedef typename allocator_type::const_reference const_reference;
 				typedef typename allocator_type::pointer pointer;
 				typedef typename allocator_type::const_pointer const_pointer;
-				typedef BST_iterator<value_type> iterator;
-				typedef BST_iterator<const value_type> const_iterator;
+				typedef BST_iterator<Node> iterator;
+				typedef BST_iterator<const Node> const_iterator;
 				// to complete...
 
 				///////////////////////////////////////////
@@ -517,7 +517,8 @@ namespace ft {
 						_node_allocator.construct(n, val);
 						_tree->insert(n, &_tree);
 					}
-					return res;
+					res.first = _tree->search(val.first);
+					return (res);
 				}
 
 				void show() {
