@@ -23,7 +23,6 @@ namespace ft {
 				typedef pair<const key_type, mapped_type> value_type;
 				typedef BST<value_type> Node;
 				typedef Compare key_compare ;
-				//typedef value_comp value_compare;
 				typedef Alloc allocator_type;
 				typedef typename allocator_type::template rebind<Node>::other node_allocator_type;;
 				typedef typename allocator_type::reference reference;
