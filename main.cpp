@@ -24,8 +24,13 @@ int main () {
   m.insert(ft::make_pair<int, int> (1,4));
   m.insert(ft::make_pair<int, int> (18,4));
 	m.insert(ft::make_pair<int, int> (9,4));
-  m.show();
-  std::cout << m.size() << std::endl;
+	ft::map<int, int>::iterator it = m.begin();
+
+	ft::map<int, int>::iterator ite = m.end();
+	for(; it != ite; it++)
+		std::cout << it->first << std::endl;
+  //m.show();
+  //n.show();
 /*  ft::pair <int,int> foo;
   ft::pair <int,int> bar;
 

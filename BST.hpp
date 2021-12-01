@@ -34,6 +34,25 @@ namespace ft {
 					return (&_p);
 				}
 
+				///////////////////////////////////////////
+				//                                       //
+				//            Extremity                  //
+				//                                       //
+				///////////////////////////////////////////
+
+				BST *getMin() {
+					BST* tmp = this;
+					while (tmp->_left && tmp->_left->_color != GREEN)
+						tmp = tmp->_left;
+					return (tmp);
+				}
+
+				BST *getMax() {
+					BST* tmp = this;
+					while (tmp->_right && tmp->_right)
+						tmp = tmp->_right;
+					return (tmp);
+				}
 
 				///////////////////////////////////////////
 				//                                       //
