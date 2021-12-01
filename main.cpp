@@ -11,23 +11,25 @@
 
 
 int main () {
-   ft::map<char,int> mymap;
+  ft::map<char,int> mymap;
+  ft::map<char,int>::iterator it;
 
-  mymap['x']=1001;
-  mymap['y']=2002;
-  mymap['z']=3003;
+  mymap['a']=50;
+  mymap['b']=100;
+  mymap['c']=150;
+  mymap['d']=200;
 
-  std::cout << "mymap contains:\n";
+  it = mymap.find('z');
+  //if (it != mymap.end())
+   // mymap.erase (it);
 
-  ft::pair<char,int> highest = *mymap.end();          // last element
+  // print content:
+  std::cout << "elements in mymap:" << '\n';
+  std::cout << "a => " << mymap.find('a')->second << '\n';
+  std::cout << "c => " << mymap.find('c')->second << '\n';
+  std::cout << "d => " << mymap.find('d')->second << '\n';
 
-  ft::map<char,int>::iterator it = mymap.begin();
-  do {
-    std::cout << it->first << " => " << it->second << '\n';
-  } while ( mymap.value_comp()(*it++, highest) );
-
-  return 0;
-  /*  ft::pair <int,int> foo;
+  return 0;  /*  ft::pair <int,int> foo;
   ft::pair <int,int> bar;
 
   foo = ft::make_pair (15,20);

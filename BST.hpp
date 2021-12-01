@@ -148,7 +148,7 @@ namespace ft {
 					BST* search(key_type key, Compare comp)
 					{
 						BST* current = this;
-						while (current != NULL && current->_p.first != key)
+						while (current != NULL && (comp(current->_p.first, key) || comp(key, current->_p.first)))
 						{
 							if (comp(current->_p.first, key))
 								current = current->_right;

@@ -159,6 +159,26 @@ namespace ft {
 					return (value_compare(key_comp()));
 				}
 
+				///////////////////////////////////////////
+				//                                       //
+				//              Operations               //
+				//                                       //
+				///////////////////////////////////////////
+
+				iterator find(const key_type& key) {
+					Node* n = _tree->search(key, _comparator);
+					if (!n)
+						return (this->end());
+					return (iterator(n));
+				}
+
+				const_iterator find(const key_type& key) const {
+					Node* n = _tree->search(key, _comparator);
+					if (!n)
+						return (this->end());
+					return (const_iterator(n));
+				}
+
 			private:
 				BST<value_type> *_tree;
 				size_t _size;
