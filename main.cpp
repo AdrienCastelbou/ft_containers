@@ -27,10 +27,13 @@ int main () {
 	ft::map<int, int>::iterator it = m.begin();
 
 	ft::map<int, int>::iterator ite = m.end();
-	for(; it != ite; it++)
-		std::cout << it->first << std::endl;
-  //m.show();
-  //n.show();
+	ft::map<int, int> n(it, ite);
+//	for (; it != ite; it++)
+//		std::cout << it->first << std::endl;
+	std::cout << "++++" << m.size() << std::endl;
+ m.show();
+	std::cout << "++++" << n.size() << std::endl;
+	n.show();
 /*  ft::pair <int,int> foo;
   ft::pair <int,int> bar;
 
