@@ -20,10 +20,10 @@ int main () {
   mymap['d']=80;
   mymap['e']=100;
 
-  itlow=mymap.lower_bound ('z');  // itlow points to b
-  //itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+  //itlow=mymap.lower_bound ('z');  // itlow points to b
+  itup=mymap.upper_bound ('d');   // itup points to e (not d!)
 
-  //	std::cout << itlow->second << std::endl;
+  	std::cout << itup->second << std::endl;
   // print content:
   for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
     std::cout << it->first << " => " << it->second << '\n';
