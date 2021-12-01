@@ -31,6 +31,8 @@ namespace ft {
 				typedef typename allocator_type::const_pointer const_pointer;
 				typedef BST_iterator<Node> iterator;
 				typedef BST_iterator<const Node> const_iterator;
+				typedef typename iterator_traits<iterator>::difference_type difference_type;
+				typedef size_t size_type;
 				// to complete...
 
 				///////////////////////////////////////////
@@ -177,6 +179,12 @@ namespace ft {
 					if (!n)
 						return (this->end());
 					return (const_iterator(n));
+				}
+
+				size_type count (const key_type& key) const {
+					if (_tree->search(key, _comparator))
+						return (1);
+					return (0);
 				}
 
 			private:

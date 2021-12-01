@@ -12,24 +12,22 @@
 
 int main () {
   ft::map<char,int> mymap;
-  ft::map<char,int>::iterator it;
+  char c;
 
-  mymap['a']=50;
-  mymap['b']=100;
-  mymap['c']=150;
-  mymap['d']=200;
+  mymap ['a']=101;
+  mymap ['c']=202;
+  mymap ['f']=303;
 
-  it = mymap.find('z');
-  //if (it != mymap.end())
-   // mymap.erase (it);
+  for (c='a'; c<'h'; c++)
+  {
+    std::cout << c;
+    if (mymap.count(c)>0)
+      std::cout << " is an element of mymap.\n";
+    else 
+      std::cout << " is not an element of mymap.\n";
+  }
 
-  // print content:
-  std::cout << "elements in mymap:" << '\n';
-  std::cout << "a => " << mymap.find('a')->second << '\n';
-  std::cout << "c => " << mymap.find('c')->second << '\n';
-  std::cout << "d => " << mymap.find('d')->second << '\n';
-
-  return 0;  /*  ft::pair <int,int> foo;
+  return 0; /*  ft::pair <int,int> foo;
   ft::pair <int,int> bar;
 
   foo = ft::make_pair (15,20);
