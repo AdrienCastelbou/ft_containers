@@ -51,6 +51,9 @@ namespace ft {
 					return (*this);
 				}
 
+				operator BST_iterator<const T>() {
+					return (BST_iterator<const T>(_node));
+				}
 				pair_type operator*() {
 					return (*_node->getPair());
 				}
