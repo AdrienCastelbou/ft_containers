@@ -187,6 +187,24 @@ namespace ft {
 					return (0);
 				}
 
+				iterator lower_bound(const key_type& key) {
+					iterator it = this->begin();
+					iterator ite = this->end();
+					for(; it != ite; it++)
+						if (!key_compare()(it->first, key))
+							return (it);
+					return (it);
+				}
+
+				const_iterator lower_bound(const key_type& key) const {
+					const_iterator it = this->begin();
+					const_iterator ite = this->end();
+					for(; it != ite; it++)
+						if (!key_compare()(it->first, key))
+							return (it);
+					return (it);
+				}
+
 			private:
 				BST<value_type> *_tree;
 				size_t _size;
