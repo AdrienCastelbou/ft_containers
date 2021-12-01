@@ -21,7 +21,7 @@ namespace ft {
 				typedef Key key_type;
 				typedef T mapped_type;
 				typedef pair<const key_type, mapped_type> value_type;
-				typedef BST<key_type, mapped_type> Node;
+				typedef BST<value_type> Node;
 				typedef Compare key_compare;
 				//typedef value_comp value_compare;
 				typedef Alloc allocator_type;
@@ -124,7 +124,7 @@ namespace ft {
 				}
 
 			private:
-				BST<key_type, mapped_type> *_tree;
+				BST<value_type> *_tree;
 				size_t _size;
 				allocator_type _allocator;
 				node_allocator_type _node_allocator;

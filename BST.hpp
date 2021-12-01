@@ -8,21 +8,21 @@
 #define GREEN 2
 namespace ft {
 
-	template<class T1, class T2>
+	template<class T>
 		class BST {
 			public:
-				typedef T1 first_type;
-				typedef T2 second_type;
-
+				typedef T value_type;
+				typedef typename value_type::first_type key_type;
+				typedef typename value_type::second_type mapped_type;
 				///////////////////////////////////////////
 				//                                       //
 				//              Constructors             //
 				//                                       //
 				///////////////////////////////////////////
 
-				BST(pair<first_type, second_type> p, int c = RED) : _p(p), _parent(NULL), _left(NULL), _right(NULL), _color(c) {}
+				BST(value_type p, int c = RED) : _p(p), _parent(NULL), _left(NULL), _right(NULL), _color(c) {}
 
-				BST(BST<first_type, second_type> &other) : _p(other._p), _parent (other._parent), _left(other._left), _right(other._right), _color(other._color) {}
+				BST(BST<value_type> &other) : _p(other._p), _parent (other._parent), _left(other._left), _right(other._right), _color(other._color) {}
 
 				///////////////////////////////////////////
 				//                                       //
@@ -30,7 +30,7 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				pair<first_type, second_type>* getPair() {
+				value_type* getPair() {
 					return (&_p);
 				}
 
@@ -145,7 +145,7 @@ namespace ft {
 				///////////////////////////////////////////
 
 				template<class Compare>
-					BST* search(first_type key, Compare comp)
+					BST* search(key_type key, Compare comp)
 					{
 						BST* current = this;
 						while (current != NULL && current->_p.first != key)
@@ -253,7 +253,7 @@ namespace ft {
 						reorder_tree(n, root);
 				}
 
-				void erase(first_type key) {
+				void erase(key_type key) {
 					BST* current = (this->search(key));
 					if (!current)
 						return ;
@@ -334,10 +334,10 @@ namespace ft {
 				}
 
 			private:
-				pair<first_type, second_type> _p;
-				BST<first_type, second_type>* _parent;
-				BST<first_type, second_type>* _left;
-				BST<first_type, second_type>* _right;
+				value_type _p;
+				BST<value_type>* _parent;
+				BST<value_type>* _left;
+				BST<value_type>* _right;
 				int _color;
 		};
 }

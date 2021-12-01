@@ -25,8 +25,8 @@ namespace ft {
 				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, T>::pointer pointer;
 				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, T>::reference reference;
 				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, T>::iterator_category iterator_category;
-				typedef typename value_type::first_type key_type;
-				typedef typename value_type::second_type mapped_type;
+				typedef typename value_type::key_type key_type;
+				typedef typename value_type::mapped_type mapped_type;
 				typedef pair<key_type, mapped_type> pair_type;
 
 				///////////////////////////////////////////
