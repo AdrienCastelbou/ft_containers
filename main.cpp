@@ -11,24 +11,20 @@
 
 
 int main () {
-  ft::pair <int,int> bar;
+  std::map<char,std::string> mymap;
 
-  bar = ft::make_pair (15,20);
+  mymap['a']="an element";
+  mymap['b']="another element";
+  mymap['c']=mymap['b'];
 
-  ft::map<int, int> m;
-  m.insert(bar);
-  m.insert(ft::make_pair<int, int> (4,4));
+  std::cout << "mymap['a'] is " << mymap['a'] << '\n';
+  std::cout << "mymap['b'] is " << mymap['b'] << '\n';
+  std::cout << "mymap['c'] is " << mymap['c'] << '\n';
+  std::cout << "mymap['d'] is " << mymap['d'] << '\n';
 
-  m.insert(ft::make_pair<int, int> (5,4));
+  std::cout << "mymap now contains " << mymap.size() << " elements.\n";
 
-  m.insert(ft::make_pair<int, int> (1,4));
-  m.insert(ft::make_pair<int, int> (18,4));
-	m.insert(ft::make_pair<int, int> (9,4));
-	ft::map<int, int>::iterator it = m.begin();
-
-	ft::map<int, int>::iterator ite = m.end();
-	ft::map<int, int>::const_iterator ii = m.begin();
-/*  ft::pair <int,int> foo;
+  return 0;/*  ft::pair <int,int> foo;
   ft::pair <int,int> bar;
 
   foo = ft::make_pair (15,20);

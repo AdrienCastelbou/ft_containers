@@ -75,6 +75,15 @@ namespace ft {
 
 				///////////////////////////////////////////
 				//                                       //
+				//           Elements access             //
+				//                                       //
+				///////////////////////////////////////////
+
+				mapped_type& operator[] (const key_type& k) {
+					return ((((this->insert(make_pair(k,mapped_type()))).first))->second);
+				}
+				///////////////////////////////////////////
+				//                                       //
 				//               Capacity                //
 				//                                       //
 				///////////////////////////////////////////
@@ -99,8 +108,8 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				pair<iterator, bool> insert(const value_type& val) {
-					pair<iterator, bool> res;
+				ft::pair<iterator, bool> insert(const value_type& val) {
+					ft::pair<iterator, bool> res;
 
 					if (_tree->search(val.first, _comparator))
 						res.second = false;
