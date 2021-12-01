@@ -222,6 +222,15 @@ namespace ft {
 							return (it);
 					return (it);
 				}
+
+				ft::pair<const_iterator, const_iterator> equal_range(const key_type& key) const {
+					return(ft::make_pair<const_iterator, const_iterator>(lower_bound(key), upper_bound(key)));
+				}
+
+				ft::pair<iterator, iterator> equal_range(const key_type& key) {
+					return(ft::make_pair<iterator, iterator>(lower_bound(key), upper_bound(key)));
+				}
+
 			private:
 				BST<value_type> *_tree;
 				size_t _size;
