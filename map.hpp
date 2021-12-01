@@ -231,6 +231,16 @@ namespace ft {
 					return(ft::make_pair<iterator, iterator>(lower_bound(key), upper_bound(key)));
 				}
 
+				///////////////////////////////////////////
+				//                                       //
+				//              Allocator                //
+				//                                       //
+				///////////////////////////////////////////
+
+				allocator_type ge_allocator() const {
+					return (_allocator);
+				}
+
 			private:
 				BST<value_type> *_tree;
 				size_t _size;
