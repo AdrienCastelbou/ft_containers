@@ -22,7 +22,7 @@ namespace ft {
 				typedef T mapped_type;
 				typedef pair<const key_type, mapped_type> value_type;
 				typedef BST<value_type> Node;
-				typedef Compare key_compare;
+				typedef Compare key_compare ;
 				//typedef value_comp value_compare;
 				typedef Alloc allocator_type;
 				typedef typename allocator_type::template rebind<Node>::other node_allocator_type;;
@@ -142,6 +142,23 @@ namespace ft {
 					return (_comparator);
 				}
 
+				class value_compare {
+					public:
+						typedef bool result_type;
+						typedef value_type first_argument_type;
+						typedef value_type second_argument_type;
+
+						value_compare (Compare c) : comp(c) {}
+						bool operator() (const value_type& x, const value_type& y) const {
+							return comp(x.first, y.first);
+						}
+					protected:
+						Compare comp;
+				};
+
+				value_compare value_comp() const {
+					return (value_compare(key_comp()));
+				}
 
 			private:
 				BST<value_type> *_tree;
@@ -165,4 +182,5 @@ namespace ft {
 				}
 
 		};
+
 }

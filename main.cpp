@@ -11,26 +11,23 @@
 
 
 int main () {
-  std::map<char,int> mymap;
+   ft::map<char,int> mymap;
 
-  std::map<char,int>::key_compare mycomp = mymap.key_comp();
-
-  mymap['a']=100;
-  mymap['b']=200;
-  mymap['c']=300;
+  mymap['x']=1001;
+  mymap['y']=2002;
+  mymap['z']=3003;
 
   std::cout << "mymap contains:\n";
 
-  char highest = mymap.end()->first;     // key value of last element
+  ft::pair<char,int> highest = *mymap.end();          // last element
 
-  std::map<char,int>::iterator it = mymap.begin();
+  ft::map<char,int>::iterator it = mymap.begin();
   do {
     std::cout << it->first << " => " << it->second << '\n';
-  } while ( mycomp((*it++).first, highest) );
+  } while ( mymap.value_comp()(*it++, highest) );
 
-  std::cout << '\n';
-
-  return 0;/*  ft::pair <int,int> foo;
+  return 0;
+  /*  ft::pair <int,int> foo;
   ft::pair <int,int> bar;
 
   foo = ft::make_pair (15,20);
