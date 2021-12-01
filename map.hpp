@@ -132,6 +132,17 @@ namespace ft {
 					_tree->show();
 				}
 
+				///////////////////////////////////////////
+				//                                       //
+				//              Observers                //
+				//                                       //
+				///////////////////////////////////////////
+
+				key_compare key_comp() const {
+					return (_comparator);
+				}
+
+
 			private:
 				BST<value_type> *_tree;
 				size_t _size;

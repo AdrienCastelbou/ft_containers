@@ -11,18 +11,24 @@
 
 
 int main () {
-  std::map<char,std::string> mymap;
+  std::map<char,int> mymap;
 
-  mymap['a']="an element";
-  mymap['b']="another element";
-  mymap['c']=mymap['b'];
+  std::map<char,int>::key_compare mycomp = mymap.key_comp();
 
-  std::cout << "mymap['a'] is " << mymap['a'] << '\n';
-  std::cout << "mymap['b'] is " << mymap['b'] << '\n';
-  std::cout << "mymap['c'] is " << mymap['c'] << '\n';
-  std::cout << "mymap['d'] is " << mymap['d'] << '\n';
+  mymap['a']=100;
+  mymap['b']=200;
+  mymap['c']=300;
 
-  std::cout << "mymap now contains " << mymap.size() << " elements.\n";
+  std::cout << "mymap contains:\n";
+
+  char highest = mymap.end()->first;     // key value of last element
+
+  std::map<char,int>::iterator it = mymap.begin();
+  do {
+    std::cout << it->first << " => " << it->second << '\n';
+  } while ( mycomp((*it++).first, highest) );
+
+  std::cout << '\n';
 
   return 0;/*  ft::pair <int,int> foo;
   ft::pair <int,int> bar;
