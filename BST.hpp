@@ -323,7 +323,7 @@ namespace ft {
 					std::cout << _p.first << std::endl;
 					if (_left && _left->_color == GREEN)
 						std::cout << "left branch end" << std::endl;
-					else if (_right && _right->_color == GREEN)
+					if (_right && _right->_color == GREEN)
 						std::cout << "right branch end" << std::endl;
 					if (_left && _left->_color != GREEN)
 						_left->show();
