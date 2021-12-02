@@ -134,6 +134,17 @@ namespace ft {
 							this->insert(*first);
 					}
 
+				void swap(map& x) {
+					BST<value_type> *tmp;
+					int tmp_size;
+					tmp = _tree;
+					tmp_size = _size;
+					_tree = x._tree;
+					_size = x._size;
+					x._tree = tmp;
+					x._size = tmp_size;
+				}
+
 				void show() {
 					_tree->show();
 				}
