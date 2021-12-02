@@ -48,8 +48,7 @@ namespace ft {
 				template<class InputIterator>
 					map(typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _size(0), _allocator(alloc), _comparator(comp) {
 						_tree = NULL;
-						for(;first != last; first++)
-							this->insert(*first);
+						this->insert(first, last);
 					}
 
 				///////////////////////////////////////////
@@ -128,6 +127,12 @@ namespace ft {
 					res.first = _tree->search(val.first, _comparator);
 					return (res);
 				}
+
+				template<class InputIterator>
+					void insert(InputIterator first, InputIterator last) {
+						for (; first != last; first++)
+							this->insert(*first);
+					}
 
 				void show() {
 					_tree->show();

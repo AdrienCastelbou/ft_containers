@@ -11,20 +11,27 @@
 
 
 int main () {
-  std::map<char,int> mymap;
 
-  mymap['b']=10;
-  mymap['c']=20;
-  mymap['d']=30;
+	ft::map<int, int> m;
+	m[3] = 31;
+	m[8] = 81;
+	m[5] = 51;
+	m[9] = 91;
+	m[2] = 21;
 
-  std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator> ret;
-  ret = mymap.equal_range('a');
+	ft::map<int, int>::iterator it = m.begin();
+	ft::map<int, int>::iterator ite = m.end();
+	for(;it != ite; it++)
+		std::cout << it->first << std::endl;
+	std::cout << "size of m: " << m.size() << std::endl;
+	it = m.begin();
+	ft::map<int, int>n(it, ite);
+	//n.insert(it, ite);
+	for(;it != ite; it++)
+		std::cout << it->first << std::endl;
 
-  std::cout << "lower bound points to: ";
-  std::cout << ret.first->first << " => " << ret.first->second << '\n';
+	std::cout << "size of n: " << n.size() << std::endl;
 
-  std::cout << "upper bound points to: ";
-  std::cout << ret.second->first << " => " << ret.second->second << '\n';
 
   return 0;
   /*  ft::pair <int,int> foo;
