@@ -253,59 +253,64 @@ namespace ft {
 						reorder_tree(n, root);
 				}
 
-				void erase(key_type key) {
-					BST* current = (this->search(key));
-					if (!current)
-						return ;
-					BST* prev= current->_parent;
-					BST** branch;
-
-					if (prev && prev->_left == current)
-						branch = &prev->_left;
-					else if (prev)
-						branch = &prev->_right;
-					if (current == this && current->_p.first != key)
-						return ;
-					if (this == current)
-					{
-						BST* left = current->_left;
-						if (current->_right)
-						{
-							*this = *current->_right;
-							current->_parent = prev;
-							prev = this;
-							while (prev->_left)
-								prev = prev->_left;
-						}
-						if (current->_left)
-						{
-							if (current->_right)
-								prev->_left = left;
-							else
-								*this = *left;
-							left->_parent = prev;
-						}
-						return;
-					}
-					if (current->_right)
-					{
-						if (branch)
-							*branch = current->_right;
-						current->_right->_parent = prev;
-						prev = current->_right;
-						while (prev->_left)
-							prev = prev->_left;
-						branch = &prev->_left;
-					}
-					if (current->_left)
-					{
-						if (branch)
-							*branch = current->_left;
-						current->_left->_parent = prev;
-					}
-					delete current;
+				BST** get_child_side() {
+					if (!_parent)
+						return (NULL);
+					if (this == _parent->_left)
+						return (&_parent->_left);
+					return (&_parent->_right);
 				}
 
+				void erase(BST*target, BST**root) {
+					(void) root;
+					BST **child_side = target->get_child_side();
+					BST *tmp;
+					if (!target->_left && !target->_right)
+						*child_side = NULL;
+					else if (target->_left && !target->_right)
+					{
+						target->_left->_parent = target->_parent;
+						*child_side = target->_left;
+					}
+					else if (target->_right && !target->_left)
+					{
+						target->_right->_parent = target->_parent;
+						*child_side = target->_right;
+					}
+					else if (target->_left->_color == GREEN)
+					{
+						tmp = target->_right;
+						while (tmp->_left)
+							tmp = tmp->_left;
+						target->_left->_parent = tmp;
+						tmp->_left = target->_left;
+						*child_side = target->_right;
+					}
+					else if (target->_right->_color == GREEN)
+					{
+						tmp = target->_left;
+						while (tmp->_right)
+							tmp = tmp->_right;
+						target->_right->_parent = tmp;
+						tmp->_right = target->_right;
+						*child_side = target->_left;
+					}
+					else
+					{
+						tmp = target->_right;
+						while (tmp->_left)
+							tmp = tmp->_left;
+						if (tmp->_right && tmp != target->_right)
+						{
+							tmp->_parent->_left = tmp->_right;
+							tmp->_right->_parent = tmp->_parent;
+						}
+						tmp->_parent = target->_parent;
+						tmp->_left = target->_left;
+						target->_left->_parent = tmp;
+					}
+					delete (target);
+				}
 				void set_leafs(BST* left, BST* right) {
 					left->_color = GREEN;
 					right->_color = GREEN;

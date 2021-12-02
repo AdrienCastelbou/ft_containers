@@ -19,33 +19,24 @@ int main () {
 	m[9] = 91;
 	m[2] = 21;
 
+
 	ft::map<int, int>::iterator it = m.begin();
 	ft::map<int, int>::iterator ite = m.end();
 	for(;it != ite; it++)
 		std::cout << it->first << std::endl;
-	std::cout << "size of m: " << m.size() << std::endl;
-	it = m.begin();
-	ft::map<int, int>n(it, ite);
-	n[14] = 140;
-	n[15] = 150;
-	it = n.begin();
-	ite = n.end();
+	m.erase(3);
+	std::cout << "---" << std::endl;
+	m.show();
+	m.erase(8);
+	m.erase(5);
+	m.erase(2);
+	std::cout << "---" << std::endl;
+	m.show();
+/* it = m.begin();
+ite = m.end();
 	for(;it != ite; it++)
 		std::cout << it->first << std::endl;
-	std::cout << "size of n: " << n.size() << std::endl;
-	m.swap(n);
-	it = m.begin();
-	ite = m.end();
-	for(;it != ite; it++)
-		std::cout << it->first << std::endl;
-	std::cout << "size of m: " << m.size() << std::endl;
-	it = n.begin();
-	ite = n.end();
-	for(;it != ite; it++)
-		std::cout << it->first << std::endl;
-	std::cout << "size of n: " << n.size() << std::endl;
-
-  return 0;
+  return 0;*/
   /*  ft::pair <int,int> foo;
   ft::pair <int,int> bar;
 

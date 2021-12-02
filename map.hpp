@@ -134,6 +134,13 @@ namespace ft {
 							this->insert(*first);
 					}
 
+				size_type erase(const key_type& k) {
+					BST<value_type> *target = _tree->search(k, _comparator);
+					if (!target)
+						return (0);
+					_tree->erase(target, &_tree);
+					return (1);
+				} 
 				void swap(map& x) {
 					BST<value_type> *tmp;
 					int tmp_size;
