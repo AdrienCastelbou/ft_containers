@@ -250,7 +250,7 @@ namespace ft {
 				template<class Compare>
 					void insert(BST *n, BST **root, Compare comp) {
 						rec_insert(n , *root, comp);
-						//reorder_tree(n, root);
+						reorder_tree(n, root);
 				}
 
 				BST** get_child_side(BST **root) {
