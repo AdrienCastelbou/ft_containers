@@ -318,15 +318,6 @@ namespace ft {
 						target->_right->_parent = tmp;
 						*child_side = tmp;
 						tmp->_parent = target->_parent;
-						/*
-						if (tmp->_right && tmp != target->_right)
-						{
-							tmp->_parent->_left = tmp->_right;
-							tmp->_right->_parent = tmp->_parent;
-						}
-						tmp->_parent = target->_parent;
-						tmp->_left = target->_left;
-						target->_left->_parent = tmp;*/
 					}
 					delete (target);
 				}
