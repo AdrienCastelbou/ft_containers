@@ -14,10 +14,11 @@ int main () {
 
 	ft::map<int, int> m;
 	m[5] = 51;
-	m[4] = 61;
-
-
-	m.erase(5);
+	m[6] = 61;
+	m[3] = 31;
+	m[2] = 21;
+	m[4] = 41;
+	m.erase(3);
 
 	m.show();
 /*	m.erase(9);

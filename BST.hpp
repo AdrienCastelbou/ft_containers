@@ -314,8 +314,6 @@ namespace ft {
 						tmp->_parent = target->_parent;
 						tmp->_left = target->_left;
 						target->_left->_parent = tmp;
-						tmp->_right = target->_right;
-						target->_right->_parent = tmp;
 					}
 					delete (target);
 				}
