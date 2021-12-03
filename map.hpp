@@ -153,7 +153,8 @@ namespace ft {
 				}
 
 				void show() {
-					_tree->show();
+					if (_tree)
+						_tree->show();
 				}
 
 				///////////////////////////////////////////

@@ -13,22 +13,18 @@
 int main () {
 
 	ft::map<int, int> m;
-	m[3] = 31;
-	m[8] = 81;
 	m[5] = 51;
-	m[9] = 91;
-	m[2] = 21;
+	m[4] = 61;
 
 
-	m.erase(3);
-	m.erase(8);
-	m.erase(2);
+	m.erase(5);
+
 	m.show();
-	m.erase(9);
+/*	m.erase(9);
 
 
 	std::cout << "++++" << std::endl;
-	m.show();
+	m.show();*/
   return 0;
   /*  ft::pair <int,int> foo;
   ft::pair <int,int> bar;
