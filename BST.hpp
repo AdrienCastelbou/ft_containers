@@ -9,6 +9,64 @@
 namespace ft {
 
 	template<class T>
+		class BST_node {
+			public:
+				typedef T value_type;
+
+				value_type value;
+				BST_node* parent;
+				BST_node* left;
+				BST_node* right;
+
+				BST_node() :
+					value_type(),
+					parent(),
+					left(),
+					right() {}
+
+				BST_node(const value_type& v, BST_node* parent = NULL, BST_node* left = NULL, BST_node* right = NULL) :
+					value(v),
+					parent(parent),
+					left(left),
+					right(right) {}
+
+				BST_node(const BST_node& node) :
+					value(node.value),
+					parent(node.parent),
+					left(node.left),
+					right(node.right) {}
+
+				~BST_node() {}
+
+				BST_node& operator=(const BST_node& node) {
+					if (*this == node)
+						return (*this);
+					value = node.value;
+					parent = node.parent;
+					left = node.letf;
+					right = node.right;
+					return (*this);
+				}
+
+				bool operator==(const BST_node& node) const {
+					return (value == node.value);
+				}
+		};
+
+	template<class T, class Compare, class Alloc = std::allocator<T> >
+		class BST_tree {
+			public:
+				typedef T value_type;
+				typedef typename value_type::first_type key_type;
+				typedef BST_node<T> tree;
+
+				bst_node *tree;
+
+
+
+		};
+
+	template<class T>
 		class BST {
 			public:
 				typedef T value_type;
@@ -349,4 +407,5 @@ namespace ft {
 				BST<value_type>* _right;
 				int _color;
 		};
+
 }
