@@ -26,6 +26,7 @@ int main () {
 		ite++;
 	m.erase(it, ite);
 	m.show();
+	std::cout << m.size() << std::endl;
 /*	m.erase(9);
 
 
