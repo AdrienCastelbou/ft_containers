@@ -20,8 +20,11 @@ int main () {
 	m[8] = 81;
 	m[11] = 11;
 	m[9] = 91;
-	m.erase(1);
-
+	ft::map<int, int>::iterator it = m.begin();
+	ft::map<int, int>::iterator ite = it;
+	for (int i = 0; i < 3; i++)
+		ite++;
+	m.erase(it, ite);
 	m.show();
 /*	m.erase(9);
 

@@ -113,7 +113,7 @@ namespace ft {
 
 				template <class Type>
 					friend bool operator!=(const BST_iterator<Type>& lhs, const BST_iterator<Type>& rhs);
-			protected:
+
 				value_type *_node;
 		};
 

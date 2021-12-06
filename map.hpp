@@ -134,13 +134,25 @@ namespace ft {
 							this->insert(*first);
 					}
 
+				void erase(iterator position) {
+					if (position._node)
+						_tree->erase(position._node, &_tree);
+				}
+
 				size_type erase(const key_type& k) {
 					BST<value_type> *target = _tree->search(k, _comparator);
 					if (!target)
 						return (0);
 					_tree->erase(target, &_tree);
 					return (1);
-				} 
+				}
+
+				void erase(iterator first, iterator last) {
+					iterator next = first;
+					next++;
+					for(; first != last; first = next++)
+						_tree->erase(first._node, &_tree);
+				}
 				void swap(map& x) {
 					BST<value_type> *tmp;
 					int tmp_size;
