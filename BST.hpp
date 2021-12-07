@@ -269,7 +269,6 @@ namespace ft {
 						insert_case4(n);
 				}
 				void insert(node *n) {
-					std::cout << n->value.first << " insertion" << std::endl;
 					rec_insert(tree, n);
 					balance_tree(n);
 					tree = n;
