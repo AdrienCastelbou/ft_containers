@@ -13,8 +13,20 @@
 int main () {
 
 	ft::BST_tree<ft::pair<int, int> > tree;
-	ft::BST_node<ft::pair<int, int> >node(ft::make_pair<int, int>(3, 3));
-	tree.insert(&node);
+	ft::BST_node<ft::pair<int, int> >*node= new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(3, 3));
+	tree.insert(node);
+	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(2, 2));
+
+	tree.insert(node);
+	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(1, 2));
+
+	tree.insert(node);
+	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(5, 2));
+
+	tree.insert(node);
+	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(4, 2));
+
+	tree.insert(node);
 	tree.show(tree.tree);
 /*	ft::map<int, int> m;
 	m[15] = 51;

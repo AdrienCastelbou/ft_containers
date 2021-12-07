@@ -48,7 +48,7 @@ namespace ft {
 					color = node.color;
 					value = node.value;
 					parent = node.parent;
-					left = node.letf;
+					left = node.left;
 					right = node.right;
 					return (*this);
 				}
@@ -110,7 +110,7 @@ namespace ft {
 				}
 
 				node* brother(node* n) {
-					node* p = parent(p);
+					node* p = parent(n);
 					if (p == NULL)
 						return (NULL);
 					if (n == p->left)
@@ -133,7 +133,37 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
+				void left_rotation(node *n) {
+					node *y = n->right;
+					n->right = y->left;
+					if (y->left)
+						y->left->parent = n;
+					y->parent = n->parent;
+					if (n->parent == NULL)
+						tree = y;
+					else if (n == n->parent->left)
+						n->parent->left = y;
+					else
+						n->parent->right = y;
+					y->left = n;
+					n->parent = y;
+				}
 
+				void right_rotation(node *n) {
+					node *y = n->left;
+					n->left = y->right;
+					if (y->right)
+						y->right->parent = n;
+					y->parent = n->parent;
+					if (n->parent == NULL)
+						tree = y;
+					else if (n == n->parent->right)
+						n->parent->right = y;
+					else
+						n->parent->left = y;
+					y->right = n;
+					n->parent = y;
+				}
 				///////////////////////////////////////////
 				//                                       //
 				//            Operations                 //
@@ -153,7 +183,6 @@ namespace ft {
 					}
 
 				void rec_insert(node *root, node *n) {
-
 					if (root && !comp(n->value.first, root->value.first) && !comp(root->value.first, n->value.first))
 						return ;
 					if (root && comp(n->value.first, root->value.first))
@@ -174,7 +203,7 @@ namespace ft {
 							return ;
 						}
 						else
-							root->left = n;
+							root->right = n;
 					}
 					n->parent = root;
 					n->left = NULL;
@@ -201,24 +230,23 @@ namespace ft {
 
 				void insert_case4(node *n) {
 					node *p = parent(n);
-					node *g = grandparent(g);
-
+					node *g = grandparent(n);
 					if (g->left && n == g->left->right)
 					{
-						left_rotation(n);
+						left_rotation(p);
 						n = n->left;
 					}
 					else if (g->right && n == g->right->left)
 					{
-						right_rotation(n);
+						right_rotation(p);
 						n = n->right;
 					}
-					insert_case5(node *n);
+					insert_case5(n);
 				}
 
 				void insert_case5(node *n) {
 					node *p = parent(n);
-					node *g = grandparent(g);
+					node *g = grandparent(n);
 
 					if (n == p->left)
 						right_rotation(g);
@@ -227,19 +255,21 @@ namespace ft {
 					p->color = BLACK;
 					g->color = RED;
 				}
-				balance_tree(node *n) {
+
+				void balance_tree(node *n) {
 					if (n == NULL)
 						return ;
 					if (parent(n) == NULL)
 						insert_case1(n);
 					else if (parent(n)->color == BLACK)
 						insert_case2(n);
-					else if (uncle(n) && && uncle(n)->color == RED)
+					else if (uncle(n) && uncle(n)->color == RED)
 						insert_case3(n);
 					else
 						insert_case4(n);
 				}
 				void insert(node *n) {
+					std::cout << n->value.first << " insertion" << std::endl;
 					rec_insert(tree, n);
 					balance_tree(n);
 					tree = n;
