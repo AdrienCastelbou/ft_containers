@@ -13,24 +13,28 @@ namespace ft {
 			public:
 				typedef T value_type;
 
+				int color;
 				value_type value;
 				BST_node* parent;
 				BST_node* left;
 				BST_node* right;
 
 				BST_node() :
+					color(RED),
 					value_type(),
 					parent(),
 					left(),
 					right() {}
 
 				BST_node(const value_type& v, BST_node* parent = NULL, BST_node* left = NULL, BST_node* right = NULL) :
+					color(RED),
 					value(v),
 					parent(parent),
 					left(left),
 					right(right) {}
 
 				BST_node(const BST_node& node) :
+					color(node.color),
 					value(node.value),
 					parent(node.parent),
 					left(node.left),
@@ -41,6 +45,7 @@ namespace ft {
 				BST_node& operator=(const BST_node& node) {
 					if (*this == node)
 						return (*this);
+					color = node.color;
 					value = node.value;
 					parent = node.parent;
 					left = node.letf;
@@ -51,19 +56,150 @@ namespace ft {
 				bool operator==(const BST_node& node) const {
 					return (value == node.value);
 				}
+
 		};
 
-	template<class T, class Compare, class Alloc = std::allocator<T> >
+	template<class T, class Compare = std::less<typename T::first_type>, class Alloc = std::allocator<T> >
 		class BST_tree {
 			public:
 				typedef T value_type;
+				typedef BST_node<T> node;
 				typedef typename value_type::first_type key_type;
-				typedef BST_node<T> tree;
+				typedef Compare comparator_type;
+				typedef Alloc allocator_type;
 
-				bst_node *tree;
+				node *tree;
+				allocator_type allocator;
+				comparator_type comp;
 
+				BST_tree() :
+					tree(NULL),
+					allocator(),
+					comp() {}
 
+				BST_tree(const BST_tree &other) :
+					tree(other.tree),
+					allocator(other.allocator),
+					comp(other.comp) {}
 
+				~BST_tree() {}
+
+				BST_tree& operator=(const BST_tree& other) {
+					if (*this == other)
+						return (*this);
+					tree = other.tree;
+					allocator = other.allocator;
+					comp = other.comp;
+				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//                Family                 //
+				//                                       //
+				///////////////////////////////////////////
+
+				node* parent(node* n) {
+					return (n->parent);
+				}
+
+				node* grandparent(node* n) {
+					node* p = parent(n);
+					if (p == NULL)
+						return (NULL);
+					return (parent(p));
+				}
+
+				node* brother(node* n) {
+					node* p = parent(p);
+					if (p == NULL)
+						return (NULL);
+					if (n == p->left)
+						return (p->right);
+					else
+						return (p->left);
+				}
+
+				node* uncle(node *n) {
+					node* p = parent(n);
+					node* g = grandparent(n);
+					if (g == NULL)
+						return (NULL);
+					return (brother(p));
+				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//            Operations                 //
+				//                                       //
+				///////////////////////////////////////////
+
+				node* search(key_type key){
+						node *current = tree;
+						while (current != NULL && (comp(current->value.first, key) || comp(key, current->value.first)))
+						{
+							if (comp(current->_p.first, key))
+								current = current->_right;
+							else
+								current = current->_left;
+						}
+						return (current);
+					}
+
+				void rec_insert(node *root, node *n) {
+
+					if (root && !comp(n->value.first, root->value.first) && !comp(root->value.first, n->value.first))
+						return ;
+					if (root && comp(n->value.first, root->value.first))
+					{
+						if (root->left)
+						{
+							rec_insert(root->left, n);
+							return ;
+						}
+						else
+							root->left = n;
+					}
+					else if (root)
+					{
+						if (root->right)
+						{
+							rec_insert(root->right, n);
+							return ;
+						}
+						else
+							root->left = n;
+					}
+					n->parent = root;
+					n->left = NULL;
+					n->right = NULL;
+				}
+
+				void insert(node *n) {
+					rec_insert(tree, n);
+					if (!tree)
+						tree = n;
+					while (parent(tree) != NULL)
+						tree = parent(tree);
+				}
+				///////////////////////////////////////////
+				//                                       //
+				//                 Utils                 //
+				//                                       //
+				///////////////////////////////////////////
+				void show(node *node) const {
+					if (!node)
+						return ;
+					std::cout << node->value.first << ", " << node->color << std::endl;
+					if (!node->left)
+						std::cout << "left branch end" << std::endl;
+					if (!node->right)
+						std::cout << "right branch end" << std::endl;
+					if (node->left)
+						show(node->left);
+					std::cout << "--" << std::endl;
+					if (node->right)
+						show(node->right);
+				}
 		};
 
 	template<class T>

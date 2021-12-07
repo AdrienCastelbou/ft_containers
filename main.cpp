@@ -12,7 +12,11 @@
 
 int main () {
 
-	ft::map<int, int> m;
+	ft::BST_tree<ft::pair<int, int> > tree;
+	ft::BST_node<ft::pair<int, int> >node(ft::make_pair<int, int>(3, 3));
+	tree.insert(&node);
+	tree.show(tree.tree);
+/*	ft::map<int, int> m;
 	m[15] = 51;
 	m[1] = 61;
 	m[0] = 31;
@@ -26,7 +30,7 @@ int main () {
 		ite++;
 	m.erase(it, ite);
 	m.show();
-	std::cout << m.size() << std::endl;
+	std::cout << m.size() << std::endl;*/
 /*	m.erase(9);
 
 
