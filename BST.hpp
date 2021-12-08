@@ -166,7 +166,7 @@ namespace ft {
 				}
 				///////////////////////////////////////////
 				//                                       //
-				//            Operations                 //
+				//               Search                  //
 				//                                       //
 				///////////////////////////////////////////
 
@@ -174,13 +174,20 @@ namespace ft {
 						node *current = tree;
 						while (current != NULL && (comp(current->value.first, key) || comp(key, current->value.first)))
 						{
-							if (comp(current->_p.first, key))
-								current = current->_right;
+							if (comp(current->value.first, key))
+								current = current->right;
 							else
-								current = current->_left;
+								current = current->left;
 						}
 						return (current);
 					}
+
+
+				///////////////////////////////////////////
+				//                                       //
+				//             Insertion                 //
+				//                                       //
+				///////////////////////////////////////////
 
 				void rec_insert(node *root, node *n) {
 					if (root && !comp(n->value.first, root->value.first) && !comp(root->value.first, n->value.first))
@@ -268,6 +275,7 @@ namespace ft {
 					else
 						insert_case4(n);
 				}
+
 				void insert(node *n) {
 					rec_insert(tree, n);
 					balance_tree(n);
@@ -275,11 +283,58 @@ namespace ft {
 					while (parent(tree) != NULL)
 						tree = parent(tree);
 				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//                 Erase                 //
+				//                                       //
+				///////////////////////////////////////////
+
+				node* getMin(node *n) {
+					while (n->left)
+						n = n->left;
+					return (n);
+				}
+
+				node* rec_erase(node *root, key_type key) {
+					if (root == NULL)
+						return (root);
+					if (comp(key, root->value.first))
+						root->left = rec_erase(root->left, key);
+					else if (comp(root->value.first, key))
+						root->right = rec_erase(root->right, key);
+					else {
+						if (root->left == NULL && root->right == NULL)
+							return (NULL);
+						else if (root->left == NULL)
+						{
+							node *tmp = root->right;
+							delete root;
+							return (tmp);
+						}
+						else if (root->right == NULL)
+						{
+							node *tmp = root->left;
+							delete root;
+							return (tmp);
+						}
+						node *tmp = getMin(root->right);
+						root->value = tmp->value;
+						root->right = rec_erase(root->right, tmp->value.first);
+					}
+					return (root);
+				}
+
+				void erase(key_type key) {
+					tree = rec_erase(tree, key);
+				}
+
 				///////////////////////////////////////////
 				//                                       //
 				//                 Utils                 //
 				//                                       //
 				///////////////////////////////////////////
+				
 				void show(node *node) const {
 					if (!node)
 						return ;
