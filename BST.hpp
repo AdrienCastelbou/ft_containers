@@ -305,7 +305,10 @@ namespace ft {
 						root->right = rec_erase(root->right, key);
 					else {
 						if (root->left == NULL && root->right == NULL)
+						{
+							delete root;
 							return (NULL);
+						}
 						else if (root->left == NULL)
 						{
 							node *tmp = root->right;
