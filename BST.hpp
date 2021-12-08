@@ -328,8 +328,125 @@ namespace ft {
 					return (root);
 				}
 
-				void erase(key_type key) {
-					tree = rec_erase(tree, key);
+				node *nodeReplace(node *n) {
+					if (n->left && n->right)
+						return (getMin(n->right));
+					if (n->left == NULL && n->right == NULL)
+						return (NULL);
+					if (n->left)
+						return (n->left);
+					else
+						return (n->right);
+				}
+
+				void swapValues(node *u, node *v) {
+					value_type tmp;
+					tmp = u->value;
+					u->value = v->value;
+					v->value = tmp;
+				}
+
+				void fixDoubleBlack(node *n) {
+					if (n == tree)
+						return ;
+					node *bro = brother(n);
+					node *parent = n->parent;
+					if (bro == NULL)
+						fixDoubleBlack(parent);
+					else {
+						if (bro->color == RED) {
+							parent->color = RED;
+							bro->color = BLACK;
+							if (parent && parent->left == bro)
+								right_rotation(parent);
+							else
+								left_rotation(parent);
+							fixDoubleBlack(n);
+						}
+						else {
+							if ((bro->left && bro->left->color == RED) || (bro->right && bro->right->color == RED)) {
+								if (bro->left && bro->left->color == RED) {
+									if (bro->parent->left == bro) {
+										bro->left->color = bro->color;
+										bro->color = parent->color;
+										right_rotation(parent);
+									}
+									else {
+										bro->left->color = parent->color;
+										right_rotation(bro);
+										left_rotation(parent);
+									}
+								}
+								else {
+									if (bro->parent->left == bro) {
+										bro->right->color = parent->color;
+										left_rotation(bro);
+										right_rotation(parent);
+									}
+									else {
+										bro->right->color = bro->color;
+										bro->color = parent->color;
+										left_rotation(parent);
+									}
+								}
+								parent->color = BLACK;
+							}
+							else { // Two black children
+								bro->color = RED;
+								if (parent->color == BLACK)
+									fixDoubleBlack(parent);
+								else
+									parent->color = BLACK;
+							}
+						}
+					}
+				}
+
+				void erase(node *v) {
+					node *u = nodeReplace(v);
+					node *parent = v->parent;
+					bool uvBlack = ((u == NULL || u->color == BLACK) && v->color == BLACK);
+					if (u == NULL)
+					{
+						if (u == tree)
+							tree = NULL;
+						else
+						{
+							if (uvBlack)
+								fixDoubleBlack(v);
+							else if (brother(v))
+								brother(v)->color = RED;
+							if (parent && v == parent->left)
+								parent->left = NULL;
+							else if (parent)
+								parent->right = NULL;
+						}
+						delete v;
+						return ;
+					}
+					if (v->left == NULL || v->right == NULL) {
+						if (v == tree) {
+							v->value = u->value;
+							v->left = NULL;
+							v->right = NULL;
+							delete u;
+						}
+						else {
+							if (parent && parent->left == v)
+								parent->left = u;
+							else
+								parent->right = u;
+							delete v;
+							u->parent = parent;
+							if (uvBlack)
+								fixDoubleBlack(u);
+							else
+								u->color = BLACK;
+						}
+					}
+					swapValues(u, v);
+					erase(u);
+					//tree = rec_erase(tree, key);
 				}
 
 				///////////////////////////////////////////
