@@ -296,6 +296,11 @@ namespace ft {
 					return (n);
 				}
 
+				node* getMax(node *n) {
+					while (n->right)
+						n = n->right;
+					return (n);
+				}
 				node* rec_erase(node *root, key_type key) {
 					if (root == NULL)
 						return (root);

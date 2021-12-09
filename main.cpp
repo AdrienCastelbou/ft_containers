@@ -24,6 +24,16 @@ int main () {
 	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(7, 2));
 
 	tree.insert(node);
+	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(15, 2));
+
+	tree.insert(node);
+	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(13, 2));
+
+	tree.insert(node);
+	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(25, 2));
+
+	tree.insert(node);
+
 	tree.erase(tree.search(3));
 	tree.show(tree.tree);
 /*	ft::map<int, int> m;
