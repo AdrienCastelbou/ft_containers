@@ -354,10 +354,10 @@ namespace ft {
 						return ;
 					node *bro = brother(n);
 					node *parent = n->parent;
-					if (bro == NULL)
+					if (bro == NULL) // no brother, double black pushed up
 						fixDoubleBlack(parent);
 					else {
-						if (bro->color == RED) {
+						if (bro->color == RED) { // if bro is red
 							parent->color = RED;
 							bro->color = BLACK;
 							if (parent && parent->left == bro)
@@ -366,9 +366,9 @@ namespace ft {
 								left_rotation(parent);
 							fixDoubleBlack(n);
 						}
-						else {
-							if ((bro->left && bro->left->color == RED) || (bro->right && bro->right->color == RED)) {
-								if (bro->left && bro->left->color == RED) {
+						else { // bro is black
+							if ((bro->left && bro->left->color == RED) || (bro->right && bro->right->color == RED)) { // 1+ Red child
+								if (bro->left && bro->left->color == RED) { // Red child is left child
 									if (bro->parent->left == bro) {
 										bro->left->color = bro->color;
 										bro->color = parent->color;
@@ -380,7 +380,7 @@ namespace ft {
 										left_rotation(parent);
 									}
 								}
-								else {
+								else { // Red child is right child
 									if (bro->parent->left == bro) {
 										bro->right->color = parent->color;
 										left_rotation(bro);
@@ -409,15 +409,15 @@ namespace ft {
 					node *u = nodeReplace(v);
 					node *parent = v->parent;
 					bool uvBlack = ((u == NULL || u->color == BLACK) && v->color == BLACK);
-					if (u == NULL)
+					if (u == NULL) // when v is leaf and has no children
 					{
 						if (u == tree)
 							tree = NULL;
 						else
 						{
-							if (uvBlack)
+							if (uvBlack) // if v is black (u is also black because NULL)
 								fixDoubleBlack(v);
-							else if (brother(v))
+							else if (brother(v)) // u or v is red
 								brother(v)->color = RED;
 							if (isOnLeft(v))
 								parent->left = NULL;
@@ -427,7 +427,7 @@ namespace ft {
 						delete v;
 						return ;
 					}
-					if (v->left == NULL || v->right == NULL) {
+					if (v->left == NULL || v->right == NULL) { // v has 1 child
 						if (v == tree) {
 							v->value = u->value;
 							v->left = NULL;
@@ -435,19 +435,20 @@ namespace ft {
 							delete u;
 						}
 						else {
-							if (isOnLeft(v))
+							if (isOnLeft(v)) // detach v from tree, replace it by u
 								parent->left = u;
 							else
 								parent->right = u;
 							delete v;
 							u->parent = parent;
-							if (uvBlack)
+							if (uvBlack) // if v and u are black
 								fixDoubleBlack(u);
-							else
+							else // u or v red, color u black
 								u->color = BLACK;
 						}
 						return ;
 					}
+					// v has 2 children, swap and recurse
 					swapValues(u, v);
 					erase(u);
 					//tree = rec_erase(tree, key);
