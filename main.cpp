@@ -34,8 +34,12 @@ int main () {
 
 	tree.insert(node);
 
-	tree.erase(tree.search(3));
-	tree.show(tree.tree);
+	ft::BST_tree<ft::pair<int, int> >::iterator it(tree.begin());
+	ft::BST_tree<ft::pair<int, int> >::iterator ite(tree.search(25));
+	for(;it != ite; ite--)
+		std::cout << ite->first << std::endl;
+	/*tree.erase(tree.search(3));
+	tree.show(tree.tree);*/
 /*	ft::map<int, int> m;
 	m[15] = 51;
 	m[1] = 61;

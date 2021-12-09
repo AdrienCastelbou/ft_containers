@@ -3,6 +3,7 @@
 #include <iostream>
 #include "utils.hpp"
 #include "Iterator.hpp"
+#include "BST_iterator.hpp"
 #define BLACK 0
 #define RED 1
 #define GREEN 2
@@ -12,6 +13,8 @@ namespace ft {
 		class BST_node {
 			public:
 				typedef T value_type;
+				typedef typename value_type::first_type key_type;
+				typedef typename value_type::second_type mapped_type;
 				typedef Alloc allocator_type;
 
 				int color;
@@ -77,6 +80,7 @@ namespace ft {
 				typedef typename value_type::first_type key_type;
 				typedef Compare comparator_type;
 				typedef Alloc allocator_type;
+				typedef RB_iterator<node> iterator;
 
 				node *tree;
 				allocator_type allocator;
@@ -135,6 +139,20 @@ namespace ft {
 					if (g == NULL)
 						return (NULL);
 					return (brother(p));
+				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//          Iterator Helper              //
+				//                                       //
+				///////////////////////////////////////////
+
+				node *begin() {
+					return (getMin(tree));
+				}
+
+				node *end() {
+					return (getMax(tree)->right);
 				}
 
 				///////////////////////////////////////////
