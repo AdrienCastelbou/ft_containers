@@ -301,37 +301,6 @@ namespace ft {
 						n = n->right;
 					return (n);
 				}
-				node* rec_erase(node *root, key_type key) {
-					if (root == NULL)
-						return (root);
-					if (comp(key, root->value.first))
-						root->left = rec_erase(root->left, key);
-					else if (comp(root->value.first, key))
-						root->right = rec_erase(root->right, key);
-					else {
-						if (root->left == NULL && root->right == NULL)
-						{
-							delete root;
-							return (NULL);
-						}
-						else if (root->left == NULL)
-						{
-							node *tmp = root->right;
-							delete root;
-							return (tmp);
-						}
-						else if (root->right == NULL)
-						{
-							node *tmp = root->left;
-							delete root;
-							return (tmp);
-						}
-						node *tmp = getMin(root->right);
-						root->value = tmp->value;
-						root->right = rec_erase(root->right, tmp->value.first);
-					}
-					return (root);
-				}
 
 				node *nodeReplace(node *n) {
 					if (n->left && n->right)
@@ -456,7 +425,6 @@ namespace ft {
 					// v has 2 children, swap and recurse
 					swapValues(u, v);
 					erase(u);
-					//tree = rec_erase(tree, key);
 				}
 
 				///////////////////////////////////////////
