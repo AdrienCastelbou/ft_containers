@@ -8,16 +8,18 @@
 #define GREEN 2
 namespace ft {
 
-	template<class T>
+	template<class T, class Alloc = std::allocator<T> >
 		class BST_node {
 			public:
 				typedef T value_type;
+				typedef Alloc allocator_type;
 
 				int color;
-				value_type value;
+				value_type *value;
 				BST_node* parent;
 				BST_node* left;
 				BST_node* right;
+				allocator_type allocator;
 
 				BST_node() :
 					color(RED),
@@ -28,19 +30,27 @@ namespace ft {
 
 				BST_node(const value_type& v, BST_node* parent = NULL, BST_node* left = NULL, BST_node* right = NULL) :
 					color(RED),
-					value(v),
 					parent(parent),
 					left(left),
-					right(right) {}
+					right(right) {
+						value = allocator.allocate(1);
+						allocator.construct(value, v);
+					}
 
 				BST_node(const BST_node& node) :
 					color(node.color),
-					value(node.value),
 					parent(node.parent),
 					left(node.left),
-					right(node.right) {}
+					right(node.right) {
+						value = allocator.allocate(1);
+						allocator.construct(node.value, node.value);
+					}
 
-				~BST_node() {}
+
+				~BST_node() {
+					allocator.destroy(value);
+					allocator.deallocate(value, 1);
+				}
 
 				BST_node& operator=(const BST_node& node) {
 					if (*this == node)
@@ -172,9 +182,9 @@ namespace ft {
 
 				node* search(key_type key){
 						node *current = tree;
-						while (current != NULL && (comp(current->value.first, key) || comp(key, current->value.first)))
+						while (current != NULL && (comp(current->value->first, key) || comp(key, current->value->first)))
 						{
-							if (comp(current->value.first, key))
+							if (comp(current->value->first, key))
 								current = current->right;
 							else
 								current = current->left;
@@ -190,9 +200,9 @@ namespace ft {
 				///////////////////////////////////////////
 
 				void rec_insert(node *root, node *n) {
-					if (root && !comp(n->value.first, root->value.first) && !comp(root->value.first, n->value.first))
+					if (root && !comp(n->value->first, root->value->first) && !comp(root->value->first, n->value->first))
 						return ;
-					if (root && comp(n->value.first, root->value.first))
+					if (root && comp(n->value->first, root->value->first))
 					{
 						if (root->left)
 						{
@@ -314,7 +324,7 @@ namespace ft {
 				}
 
 				void swapValues(node *u, node *v) {
-					value_type tmp;
+					value_type *tmp;
 					tmp = u->value;
 					u->value = v->value;
 					v->value = tmp;
@@ -323,6 +333,7 @@ namespace ft {
 				bool isOnLeft(node *n) {
 					return (n->parent && n->parent->left == n);
 				}
+
 				void fixDoubleBlack(node *n) {
 					if (n == tree)
 						return ;
@@ -436,7 +447,7 @@ namespace ft {
 				void show(node *node) const {
 					if (!node)
 						return ;
-					std::cout << node->value.first << ", " << node->color << std::endl;
+					std::cout << node->value->first << ", " << node->color << std::endl;
 					if (!node->left)
 						std::cout << "left branch end" << std::endl;
 					if (!node->right)
