@@ -346,6 +346,9 @@ namespace ft {
 					v->value = tmp;
 				}
 
+				bool isOnLeft(node *n) {
+					return (n->parent && n->parent->left == n);
+				}
 				void fixDoubleBlack(node *n) {
 					if (n == tree)
 						return ;
@@ -416,7 +419,7 @@ namespace ft {
 								fixDoubleBlack(v);
 							else if (brother(v))
 								brother(v)->color = RED;
-							if (parent && v == parent->left)
+							if (isOnLeft(v))
 								parent->left = NULL;
 							else if (parent)
 								parent->right = NULL;
@@ -432,7 +435,7 @@ namespace ft {
 							delete u;
 						}
 						else {
-							if (parent && parent->left == v)
+							if (isOnLeft(v))
 								parent->left = u;
 							else
 								parent->right = u;
@@ -443,6 +446,7 @@ namespace ft {
 							else
 								u->color = BLACK;
 						}
+						return ;
 					}
 					swapValues(u, v);
 					erase(u);
