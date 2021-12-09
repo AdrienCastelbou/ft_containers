@@ -365,7 +365,7 @@ namespace ft {
 						if (bro->color == RED) { // if bro is red
 							parent->color = RED;
 							bro->color = BLACK;
-							if (parent && parent->left == bro)
+							if (isOnLeft(bro))
 								right_rotation(parent);
 							else
 								left_rotation(parent);
@@ -374,7 +374,7 @@ namespace ft {
 						else { // bro is black
 							if ((bro->left && bro->left->color == RED) || (bro->right && bro->right->color == RED)) { // 1+ Red child
 								if (bro->right && bro->right->color == RED) { // Red child is right child
-									if (bro->parent->left == bro) {
+									if (isOnLeft(bro)) {
 										bro->right->color = parent->color;
 										left_rotation(bro);
 										right_rotation(parent);
@@ -386,7 +386,7 @@ namespace ft {
 									}
 								}
 								else { // Red child is left child
-									if (bro->parent->left == bro) {
+									if (isOnLeft(bro)) {
 										bro->left->color = bro->color;
 										bro->color = parent->color;
 										right_rotation(parent);
