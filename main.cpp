@@ -13,31 +13,17 @@
 int main () {
 
 	ft::BST_tree<ft::pair<int, int> > tree;
-	ft::BST_node<ft::pair<int, int> >*node= new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(5, 3));
-	tree.insert(node);
-	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(3, 2));
-
-	tree.insert(node);
-	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(10, 2));
-
-	tree.insert(node);
-	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(7, 2));
-
-	tree.insert(node);
-	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(15, 2));
-
-	tree.insert(node);
-	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(13, 2));
-
-	tree.insert(node);
-	node = new ft::BST_node<ft::pair<int, int> >(ft::make_pair<int, int>(25, 2));
-
-	tree.insert(node);
-
+	tree.insert(ft::make_pair<int, int>(5, 3));
+	tree.insert(ft::make_pair<int, int>(3, 2));
+	tree.insert(ft::make_pair<int, int>(10, 2));
+	tree.insert(ft::make_pair<int, int>(7, 2));
+	tree.insert(ft::make_pair<int, int>(15, 2));
+	tree.insert(ft::make_pair<int, int>(13, 2));
+	tree.insert(ft::make_pair<int, int>(25, 2));
 	ft::BST_tree<ft::pair<int, int> >::iterator it(tree.begin());
 	ft::BST_tree<ft::pair<int, int> >::iterator ite(tree.search(25));
-	for(;it != ite; ite--)
-		std::cout << ite->first << std::endl;
+	for(;it != ite; it++)
+		std::cout << it->first << std::endl;
 	/*tree.erase(tree.search(3));
 	tree.show(tree.tree);*/
 /*	ft::map<int, int> m;

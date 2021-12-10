@@ -81,11 +81,13 @@ namespace ft {
 				typedef typename value_type::first_type key_type;
 				typedef Compare comparator_type;
 				typedef Alloc allocator_type;
+				typedef typename allocator_type::template rebind<node>::other node_allocator_type;
 				typedef RB_iterator<node> iterator;
 				typedef RB_iterator<const_node> const_iterator;
 
 				node *tree;
 				allocator_type allocator;
+				node_allocator_type node_allocator;
 				comparator_type comp;
 
 				BST_tree() :
@@ -106,6 +108,19 @@ namespace ft {
 					tree = other.tree;
 					allocator = other.allocator;
 					comp = other.comp;
+				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//            Alloc node                 //
+				//                                       //
+				///////////////////////////////////////////
+
+				node *alloc_node(value_type& value) {
+					node *n;
+					n = node_allocator.allocate(1);
+					node_allocator.construct(n, value);
+					return (n);
 				}
 
 				///////////////////////////////////////////
@@ -219,32 +234,43 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				void rec_insert(node *root, node *n) {
-					if (root && !comp(n->value->first, root->value->first) && !comp(root->value->first, n->value->first))
-						return ;
-					if (root && comp(n->value->first, root->value->first))
+				node* rec_insert(node *root, value_type value) {
+					node *n = NULL;
+
+					if (root && !comp(value.first, root->value->first) && !comp(root->value->first, value.first))
+						return (n);
+					if (root && comp(value.first, root->value->first))
 					{
 						if (root->left)
 						{
-							rec_insert(root->left, n);
-							return ;
+							rec_insert(root->left, value);
+							return (n);
 						}
 						else
+						{
+							n = alloc_node(value);
 							root->left = n;
+						}
 					}
 					else if (root)
 					{
 						if (root->right)
 						{
-							rec_insert(root->right, n);
-							return ;
+							rec_insert(root->right, value);
+							return (n);
 						}
 						else
+						{
+							n = alloc_node(value);
 							root->right = n;
+						}
 					}
+					else if (tree == NULL)
+						n = alloc_node(value);
 					n->parent = root;
 					n->left = NULL;
 					n->right = NULL;
+					return (n);
 				}
 
 				void insert_case1(node* n) {
@@ -306,8 +332,10 @@ namespace ft {
 						insert_case4(n);
 				}
 
-				void insert(node *n) {
-					rec_insert(tree, n);
+				void insert(value_type val) {
+					node *n = rec_insert(tree, val);
+					if (n == NULL)
+						return ;
 					balance_tree(n);
 					tree = n;
 					while (parent(tree) != NULL)
