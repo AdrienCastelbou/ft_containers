@@ -12,7 +12,7 @@
 
 int main () {
 
-	ft::BST_tree<ft::pair<int, int> > tree;
+	ft::RB_tree<ft::pair<int, int> > tree;
 	tree.insert(ft::make_pair<int, int>(5, 3));
 	tree.insert(ft::make_pair<int, int>(3, 2));
 	tree.insert(ft::make_pair<int, int>(10, 2));
@@ -20,8 +20,8 @@ int main () {
 	tree.insert(ft::make_pair<int, int>(15, 2));
 	tree.insert(ft::make_pair<int, int>(13, 2));
 	tree.insert(ft::make_pair<int, int>(25, 2));
-	ft::BST_tree<ft::pair<int, int> >::iterator it(tree.begin());
-	ft::BST_tree<ft::pair<int, int> >::iterator ite(tree.search(25));
+	ft::RB_tree<ft::pair<int, int> >::iterator it(tree.begin());
+	ft::RB_tree<ft::pair<int, int> >::iterator ite(tree.search(25));
 	for(;it != ite; it++)
 		std::cout << it->first << std::endl;
 	/*tree.erase(tree.search(3));

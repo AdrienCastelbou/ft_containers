@@ -10,7 +10,7 @@
 namespace ft {
 
 	template<class T, class Alloc = std::allocator<T> >
-		class BST_node {
+		class RB_node {
 			public:
 				typedef T value_type;
 				typedef typename value_type::first_type key_type;
@@ -19,19 +19,19 @@ namespace ft {
 
 				int color;
 				value_type *value;
-				BST_node* parent;
-				BST_node* left;
-				BST_node* right;
+				RB_node* parent;
+				RB_node* left;
+				RB_node* right;
 				allocator_type allocator;
 
-				BST_node() :
+				RB_node() :
 					color(RED),
 					value_type(),
 					parent(),
 					left(),
 					right() {}
 
-				BST_node(const value_type& v, BST_node* parent = NULL, BST_node* left = NULL, BST_node* right = NULL) :
+				RB_node(const value_type& v, RB_node* parent = NULL, RB_node* left = NULL, RB_node* right = NULL) :
 					color(RED),
 					parent(parent),
 					left(left),
@@ -40,7 +40,7 @@ namespace ft {
 						allocator.construct(value, v);
 					}
 
-				BST_node(const BST_node& node) :
+				RB_node(const RB_node& node) :
 					color(node.color),
 					parent(node.parent),
 					left(node.left),
@@ -50,12 +50,12 @@ namespace ft {
 					}
 
 
-				~BST_node() {
+				~RB_node() {
 					allocator.destroy(value);
 					allocator.deallocate(value, 1);
 				}
 
-				BST_node& operator=(const BST_node& node) {
+				RB_node& operator=(const RB_node& node) {
 					if (*this == node)
 						return (*this);
 					color = node.color;
@@ -66,18 +66,18 @@ namespace ft {
 					return (*this);
 				}
 
-				bool operator==(const BST_node& node) const {
+				bool operator==(const RB_node& node) const {
 					return (value == node.value);
 				}
 
 		};
 
 	template<class T, class Compare = std::less<typename T::first_type>, class Alloc = std::allocator<T> >
-		class BST_tree {
+		class RB_tree {
 			public:
 				typedef T value_type;
-				typedef BST_node<T> node;
-				typedef BST_node<const T> const_node;
+				typedef RB_node<T> node;
+				typedef RB_node<const T> const_node;
 				typedef typename value_type::first_type key_type;
 				typedef Compare comparator_type;
 				typedef Alloc allocator_type;
@@ -90,21 +90,21 @@ namespace ft {
 				node_allocator_type node_allocator;
 				comparator_type comp;
 
-				BST_tree() :
+				RB_tree() :
 					tree(NULL),
 					allocator(),
 					comp() {}
 
-				BST_tree(const BST_tree &other) :
+				RB_tree(const RB_tree &other) :
 					tree(other.tree),
 					allocator(other.allocator),
 					comp(other.comp) {}
 
-				~BST_tree() {
+				~RB_tree() {
 					delete_node(tree);
 				}
 
-				BST_tree& operator=(const BST_tree& other) {
+				RB_tree& operator=(const RB_tree& other) {
 					if (*this == other)
 						return (*this);
 					tree = other.tree;
