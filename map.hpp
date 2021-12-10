@@ -21,16 +21,17 @@ namespace ft {
 				typedef Key key_type;
 				typedef T mapped_type;
 				typedef pair<const key_type, mapped_type> value_type;
-				typedef BST<value_type> Node;
+				typedef RB_tree<value_type> RB_tree;
+				typedef RB_node<value_type> RB_node;
 				typedef Compare key_compare ;
 				typedef Alloc allocator_type;
-				typedef typename allocator_type::template rebind<Node>::other node_allocator_type;;
+				typedef typename allocator_type::template rebind<RB_tree>::other tree_allocator_type;
 				typedef typename allocator_type::reference reference;
 				typedef typename allocator_type::const_reference const_reference;
 				typedef typename allocator_type::pointer pointer;
 				typedef typename allocator_type::const_pointer const_pointer;
-				typedef BST_iterator<Node> iterator;
-				typedef BST_iterator<const Node> const_iterator;
+				typedef typename RB_tree::iterator iterator;
+				typedef typename RB_tree::const_iterator const_iterator;
 				typedef typename iterator_traits<iterator>::difference_type difference_type;
 				typedef size_t size_type;
 				// to complete...
@@ -42,12 +43,14 @@ namespace ft {
 				///////////////////////////////////////////
 
 				explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _size(0),  _allocator(alloc), _comparator(comp){
-					_tree = NULL;
+					tree = tree_allocator.allocate(1);
+					tree_allocator.construct(tree);
 				}
 
 				template<class InputIterator>
 					map(typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _size(0), _allocator(alloc), _comparator(comp) {
-						_tree = NULL;
+						tree = tree_allocator.allocate(1);
+						tree_allocator.construct(tree);
 						this->insert(first, last);
 					}
 
@@ -58,19 +61,19 @@ namespace ft {
 				///////////////////////////////////////////
 
 				iterator begin() {
-					return (iterator(_tree->getMin()));
+					return (iterator(tree->getMin(tree->tree)));
 				}
 
 				const_iterator begin() const {
-					return (const_iterator(_tree->getMin()));
+					return (const_iterator(tree->getMin(tree->tree)));
 				}
 
 				iterator end() {
-					return (iterator(_tree->getMax()));
+					return (iterator(tree->getMax(tree->tree)));
 				}
 
 				const_iterator end() const {
-					return (const_iterator(_tree->getMax()));
+					return (const_iterator(tree->getMax(tree->tree)));
 				}
 
 				///////////////////////////////////////////
@@ -89,7 +92,7 @@ namespace ft {
 				///////////////////////////////////////////
 
 				bool empty() const {
-					if (_tree)
+					if (tree->tree)
 						return (false);
 					return (true);
 				}
@@ -111,20 +114,14 @@ namespace ft {
 				ft::pair<iterator, bool> insert(const value_type& val) {
 					ft::pair<iterator, bool> res;
 
-					if (_tree->search(val.first, _comparator))
+					if (tree->search(val.first))
 						res.second = false;
 					else
 						res.second = true;
-					if (_tree == NULL)
-						set_root(val);
-					else if (res.second)
-					{
-						Node* n = _node_allocator.allocate(1);
-						_node_allocator.construct(n, val);
-						_tree->insert(n, &_tree, _comparator);
-					}
+					if (res.second)
+						tree->insert(val);
 					_size += res.second;
-					res.first = _tree->search(val.first, _comparator);
+					res.first = tree->search(val.first);
 					return (res);
 				}
 
@@ -138,12 +135,12 @@ namespace ft {
 					
 					if (!position._node)
 						return ;
-					_tree->erase(position._node, &_tree);
+					tree->erase(position._node);
 					_size--;
 				}
 
 				size_type erase(const key_type& k) {
-					BST<value_type> *target = _tree->search(k, _comparator);
+					BST<value_type> *target = tree->search(k);
 					if (!target)
 						return (0);
 					iterator position(target);
@@ -158,19 +155,20 @@ namespace ft {
 						erase(first);
 				}
 				void swap(map& x) {
-					BST<value_type> *tmp;
+					RB_tree *tmp;
 					int tmp_size;
-					tmp = _tree;
+					tmp = tree;
 					tmp_size = _size;
-					_tree = x._tree;
+					tree = x.tree;
 					_size = x._size;
 					x._tree = tmp;
 					x._size = tmp_size;
 				}
 
 				void show() {
-					if (_tree)
-						_tree->show();
+					if (tree)
+						tree->show(tree->tree);
+					std::cout << "-------------" << std::endl;
 				}
 
 				///////////////////////////////////////////
@@ -208,21 +206,21 @@ namespace ft {
 				///////////////////////////////////////////
 
 				iterator find(const key_type& key) {
-					Node* n = _tree->search(key, _comparator);
+					RB_node* n = tree->search(key);
 					if (!n)
 						return (this->end());
 					return (iterator(n));
 				}
 
 				const_iterator find(const key_type& key) const {
-					Node* n = _tree->search(key, _comparator);
+					RB_node* n = tree->search(key);
 					if (!n)
 						return (this->end());
 					return (const_iterator(n));
 				}
 
 				size_type count (const key_type& key) const {
-					if (_tree->search(key, _comparator))
+					if (tree->search(key))
 						return (1);
 					return (0);
 				}
@@ -277,31 +275,16 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				allocator_type ge_allocator() const {
+				allocator_type get_allocator() const {
 					return (_allocator);
 				}
 
 			private:
-				BST<value_type> *_tree;
+				RB_tree *tree;
 				size_t _size;
 				allocator_type _allocator;
-				node_allocator_type _node_allocator;
+				tree_allocator_type tree_allocator;
 				key_compare _comparator;
-
-				void set_root(const value_type& val) {
-					Node *left_leaf;
-					Node *right_leaf;
-
-					_tree = _node_allocator.allocate(1);
-					_node_allocator.construct(_tree, val);
-					left_leaf = _node_allocator.allocate(1);
-					_node_allocator.construct(left_leaf, val);
-					right_leaf = _node_allocator.allocate(1);
-					_node_allocator.construct(right_leaf, val);
-					_tree->set_leafs(left_leaf, right_leaf);
-					_tree->reorder_tree(_tree, &_tree);
-				}
-
 		};
 
 }

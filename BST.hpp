@@ -251,42 +251,41 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				node* rec_insert(node *root, value_type value) {
-					node *n = NULL;
 
-					if (root && !comp(value.first, root->value->first) && !comp(root->value->first, value.first))
-						return (n);
-					if (root && comp(value.first, root->value->first))
+				node* place_and_insert(node *root, value_type value) {
+					node *n = NULL;
+					if (!root)
 					{
-						if (root->left)
-						{
-							rec_insert(root->left, value);
-							return (n);
-						}
-						else
-						{
-							n = alloc_node(value);
-							root->left = n;
-						}
-					}
-					else if (root)
-					{
-						if (root->right)
-						{
-							rec_insert(root->right, value);
-							return (n);
-						}
-						else
-						{
-							n = alloc_node(value);
-							root->right = n;
-						}
-					}
-					else if (tree == NULL)
 						n = alloc_node(value);
+						return (n);
+					}
+					while (root) {
+						if (!comp(value.first, root->value->first) && !comp(root->value->first, value.first))
+							return (n);
+						else if (comp(value.first, root->value->first))
+						{
+							if (root->left)
+								root = root->left;
+							else
+							{
+								n = alloc_node(value);
+								root->left = n;
+								break;
+							}
+						}
+						else if (comp(root->value->first, value.first))
+						{
+							if (root->right)
+								root = root->right;
+							else
+							{
+								n = alloc_node(value);
+								root->right = n;
+								break;
+							}
+						}
+					}
 					n->parent = root;
-					n->left = NULL;
-					n->right = NULL;
 					return (n);
 				}
 
@@ -350,7 +349,7 @@ namespace ft {
 				}
 
 				void insert(value_type val) {
-					node *n = rec_insert(tree, val);
+					node *n = place_and_insert(tree, val);
 					if (n == NULL)
 						return ;
 					balance_tree(n);
