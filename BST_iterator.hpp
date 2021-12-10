@@ -54,6 +54,7 @@ namespace ft {
 				operator RB_iterator<const T>() {
 					return (RB_iterator<const T>(_node));
 				}
+
 				pair_type operator*() {
 					return (*_node->value);
 				}

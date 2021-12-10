@@ -77,10 +77,12 @@ namespace ft {
 			public:
 				typedef T value_type;
 				typedef BST_node<T> node;
+				typedef BST_node<const T> const_node;
 				typedef typename value_type::first_type key_type;
 				typedef Compare comparator_type;
 				typedef Alloc allocator_type;
 				typedef RB_iterator<node> iterator;
+				typedef RB_iterator<const_node> const_iterator;
 
 				node *tree;
 				allocator_type allocator;
