@@ -19,6 +19,11 @@ int main () {
 	m[31] = 31;
 	m[19] = 31;
 	m[14] = 31;
+	ft::map<int, int>::iterator it= m.begin();
+	ft::map<int, int>::iterator ite = m.begin();
+	for(int i = 0; i < 3; i++)
+		ite++;
+	m.erase(it, ite);
 	m.show();
 	//std::cout << m.size() << std::endl;
 /*	m.erase(9);

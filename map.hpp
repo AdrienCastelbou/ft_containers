@@ -140,7 +140,7 @@ namespace ft {
 				}
 
 				size_type erase(const key_type& k) {
-					BST<value_type> *target = tree->search(k);
+					RB_node *target = tree->search(k);
 					if (!target)
 						return (0);
 					iterator position(target);
