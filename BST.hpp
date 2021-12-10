@@ -100,7 +100,9 @@ namespace ft {
 					allocator(other.allocator),
 					comp(other.comp) {}
 
-				~BST_tree() {}
+				~BST_tree() {
+					delete_node(tree);
+				}
 
 				BST_tree& operator=(const BST_tree& other) {
 					if (*this == other)
@@ -121,6 +123,21 @@ namespace ft {
 					n = node_allocator.allocate(1);
 					node_allocator.construct(n, value);
 					return (n);
+				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//            Destroy node               //
+				//                                       //
+				///////////////////////////////////////////
+
+				void delete_node(node *n) {
+					if (n->left)
+						delete_node(n->left);
+					if (n->right)
+						delete_node(n->right);
+					node_allocator.destroy(n);
+					node_allocator.deallocate(n, 1);
 				}
 
 				///////////////////////////////////////////
