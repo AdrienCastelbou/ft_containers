@@ -3,7 +3,7 @@
 #include <iostream>
 #include "utils.hpp"
 #include "Iterator.hpp"
-#include "BST.hpp"
+#include "RB_tree.hpp"
 #define BLACK 0
 #define RED 1
 #define GREEN 2

@@ -3,7 +3,7 @@
 #include <iostream>
 #include "utils.hpp"
 #include "Iterator.hpp"
-#include "BST_iterator.hpp"
+#include "RB_iterator.hpp"
 #define BLACK 0
 #define RED 1
 #define GREEN 2
