@@ -21,10 +21,10 @@ namespace ft {
 				typedef Key key_type;
 				typedef T mapped_type;
 				typedef pair<const key_type, mapped_type> value_type;
-				typedef RB_tree<value_type> RB_tree;
-				typedef RB_node<value_type> RB_node;
 				typedef Compare key_compare ;
 				typedef Alloc allocator_type;
+				typedef RB_tree<value_type, Compare, allocator_type> RB_tree;
+				typedef RB_node<value_type, allocator_type> RB_node;
 				typedef typename allocator_type::template rebind<RB_tree>::other tree_allocator_type;
 				typedef typename allocator_type::reference reference;
 				typedef typename allocator_type::const_reference const_reference;

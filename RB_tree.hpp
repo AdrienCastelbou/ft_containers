@@ -76,11 +76,11 @@ namespace ft {
 		class RB_tree {
 			public:
 				typedef T value_type;
-				typedef RB_node<T> node;
-				typedef RB_node<const T> const_node;
-				typedef typename value_type::first_type key_type;
 				typedef Compare comparator_type;
 				typedef Alloc allocator_type;
+				typedef RB_node<T, allocator_type> node;
+				typedef RB_node<const T, allocator_type> const_node;
+				typedef typename value_type::first_type key_type;
 				typedef typename allocator_type::template rebind<node>::other node_allocator_type;
 				typedef RB_iterator<node> iterator;
 				typedef RB_iterator<const_node> const_iterator;
