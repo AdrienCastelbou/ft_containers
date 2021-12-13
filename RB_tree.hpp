@@ -352,8 +352,8 @@ namespace ft {
 						insert_case4(n);
 				}
 
-				void insert(value_type val) {
-					node *n = place_and_insert(tree, val);
+				void insert(value_type val, node *root) {
+					node *n = place_and_insert(root, val);
 					if (n == NULL)
 						return ;
 					balance_tree(n);

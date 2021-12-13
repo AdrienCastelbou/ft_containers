@@ -14,11 +14,10 @@ int main () {
 
 	ft::map<int, int> m;
 	m[1] = 2;
-	ft::map<int, int> n;
-	n = m;
-	std::cout << n[1] << std::endl;
-	if (m == n)
-		std::cout << "ya" << std::endl;
-	else
-		std::cout << "UwU" << std::endl;
+	ft::map<int, int>::iterator it = m.begin();
+	ft::map<int, int>::iterator ite = m.end();
+	m.insert(it, ft::make_pair<int, int>(2, 2));
+	for (it = m.begin(); it != ite; it++)
+		std::cout << it->first << std::endl;
+	std::cout << "size: " << m.size() << std::endl;
 }

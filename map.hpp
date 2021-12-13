@@ -116,12 +116,12 @@ namespace ft {
 				///////////////////////////////////////////
 
 				bool empty() const {
-					if (tree->tree)
-						return (false);
-					return (true);
+					if (_size == 0)
+						return (true);
+					return (false);
 				}
 
-				size_t size() const {
+				size_type size() const {
 					return (_size);
 				}
 
@@ -143,10 +143,22 @@ namespace ft {
 					else
 						res.second = true;
 					if (res.second)
-						tree->insert(val);
+						tree->insert(val, tree->tree);
 					_size += res.second;
 					res.first = tree->search(val.first);
 					return (res);
+				}
+
+				iterator insert(iterator position, const value_type& val) {
+					iterator ite = end();
+					iterator tmp = position;
+
+					if (position != ite && (_comparator(position->first, val.first) && (++tmp == ite || _comparator(val.first, tmp->first) )))
+					{
+						tree->insert(val, tree->search(position->first));
+						_size++;
+					}
+					return (insert(val).first);
 				}
 
 				template<class InputIterator>
