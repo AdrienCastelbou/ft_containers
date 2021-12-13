@@ -31,7 +31,7 @@ namespace ft {
 				typedef typename allocator_type::pointer pointer;
 				typedef typename allocator_type::const_pointer const_pointer;
 				typedef typename RB_tree::iterator iterator;
-				typedef typename RB_tree::const_iterator const_iterator;
+				typedef typename RB_tree::iterator const_iterator;
 				typedef typename iterator_traits<iterator>::difference_type difference_type;
 				typedef size_t size_type;
 				// to complete...
@@ -71,19 +71,19 @@ namespace ft {
 				///////////////////////////////////////////
 
 				iterator begin() {
-					return (iterator(tree->getMin(tree->tree)));
+					return (iterator(tree->begin()));
 				}
 
 				const_iterator begin() const {
-					return (const_iterator(tree->getMin(tree->tree)));
+					return (const_iterator(tree->begin()));
 				}
 
 				iterator end() {
-					return (iterator(tree->getMax(tree->tree)));
+					return (iterator(tree->end()));
 				}
 
 				const_iterator end() const {
-					return (const_iterator(tree->getMax(tree->tree)));
+					return (const_iterator(tree->end()));
 				}
 
 				///////////////////////////////////////////
@@ -297,4 +297,52 @@ namespace ft {
 				key_compare _comparator;
 		};
 
+                                ///////////////////////////////////////////
+                                //                                       //
+                                //     Non-member function overloads     //
+                                //                                       //
+                                ///////////////////////////////////////////
+
+	template<class Key, class T, class Compare, class Alloc >
+		bool operator==( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ){
+			if (lhs.size() != rhs.size())
+				return (false);
+			typename ft::map<Key,T,Compare,Alloc>::const_iterator itl = lhs.begin();
+			typename ft::map<Key,T,Compare,Alloc>::const_iterator itle = lhs.end();
+			typename ft::map<Key,T,Compare,Alloc>::const_iterator itr = rhs.begin();
+			for(; itl != itle; itl++)
+				if (*itl != *(itr++))
+					return (false);
+			return (true);
+		}
+
+	template< class Key, class T, class Compare, class Alloc >
+		bool operator!=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+			return (!(lhs == rhs));
+		}
+
+	template< class Key, class T, class Compare, class Alloc >
+		bool operator<( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+		}
+
+	template< class Key, class T, class Compare, class Alloc >
+		bool operator<=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+			return (!(rhs < lhs));
+		}
+
+	template< class Key, class T, class Compare, class Alloc >
+		bool operator>( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+			return (rhs < lhs);
+		}
+
+	template< class Key, class T, class Compare, class Alloc >
+		bool operator>=( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ) {
+			return (!(lhs < rhs));
+		}
+
+	template< class Key, class T, class Compare, class Alloc >
+		void swap(ft::map<Key,T,Compare,Alloc>& lhs, ft::map<Key,T,Compare,Alloc>& rhs ) {
+			lhs.swap(rhs);
+		}
 }

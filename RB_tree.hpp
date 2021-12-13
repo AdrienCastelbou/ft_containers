@@ -101,7 +101,8 @@ namespace ft {
 					comp(other.comp) {}
 
 				~RB_tree() {
-					delete_node(tree);
+					if (tree)
+						delete_node(tree);
 				}
 
 				RB_tree& operator=(const RB_tree& other) {
@@ -186,7 +187,10 @@ namespace ft {
 				}
 
 				node *end() {
-					return (getMax(tree)->right);
+					node *n = getMax(tree);
+					if (n)
+						return (n->right);
+					return (n);
 				}
 
 				///////////////////////////////////////////
@@ -365,12 +369,16 @@ namespace ft {
 				///////////////////////////////////////////
 
 				node* getMin(node *n) {
+					if (n == NULL)
+						return (n);
 					while (n->left)
 						n = n->left;
 					return (n);
 				}
 
 				node* getMax(node *n) {
+					if (n == NULL)
+						return (n);
 					while (n->right)
 						n = n->right;
 					return (n);
