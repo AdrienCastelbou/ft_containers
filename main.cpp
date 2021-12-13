@@ -12,11 +12,12 @@
 
 int main () {
 
-	std::map<int, int> m;
+	ft::map<int, int> m;
 	m[1] = 2;
-	std::map<int, int> n;
-	n[2] = 2;
-	if (m >= n)
+	ft::map<int, int> n;
+	n = m;
+	std::cout << n[1] << std::endl;
+	if (m == n)
 		std::cout << "ya" << std::endl;
 	else
 		std::cout << "UwU" << std::endl;

@@ -54,6 +54,20 @@ namespace ft {
 						this->insert(first, last);
 					}
 
+				map& operator=(const map& other) {
+					if (this != &other)
+					{
+						tree_allocator.destroy(tree);
+						tree_allocator.deallocate(tree, 1);
+						map::iterator first = other.begin();
+						map::iterator last = other.end();
+						tree = tree_allocator.allocate(1);
+						tree_allocator.construct(tree);
+						this->insert(first, last);
+					}
+					return (*this);
+				}
+
 				///////////////////////////////////////////
 				//                                       //
 				//             Desstructor               //
@@ -297,11 +311,11 @@ namespace ft {
 				key_compare _comparator;
 		};
 
-                                ///////////////////////////////////////////
-                                //                                       //
-                                //     Non-member function overloads     //
-                                //                                       //
-                                ///////////////////////////////////////////
+				///////////////////////////////////////////
+				//                                       //
+				//     Non-member function overloads     //
+				//                                       //
+				///////////////////////////////////////////
 
 	template<class Key, class T, class Compare, class Alloc >
 		bool operator==( const ft::map<Key,T,Compare,Alloc>& lhs, const ft::map<Key,T,Compare,Alloc>& rhs ){
