@@ -13,8 +13,8 @@
 int main () {
 
 	ft::map<int, int> m;
-	m[1] = 2;
 	ft::map<int, int>::iterator it = m.begin();
-	m.erase(it);
+	ft::map<int, int>::iterator ite = m.end();
+	m.erase(it, ite);
 	std::cout << "size: " << m.size() << std::endl;
 }

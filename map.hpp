@@ -185,11 +185,12 @@ namespace ft {
 				}
 
 				void erase(iterator first, iterator last) {
-					iterator next = first;
-					next++;
-					for(; first != last; first = next++)
-						erase(first);
+					iterator it = first;
+					if (first != last)
+						erase(++first, last);
+					erase(it);
 				}
+
 				void swap(map& x) {
 					RB_tree *tmp;
 					int tmp_size;
@@ -201,6 +202,11 @@ namespace ft {
 					x._size = tmp_size;
 				}
 
+				void clear() {
+					iterator first = begin();
+					iterator last = end();
+					erase(first, last);
+				}
 				void show() {
 					if (tree)
 						tree->show(tree->tree);
