@@ -62,6 +62,13 @@ namespace ft {
 				}
 
 				RB_iterator operator++() {
+					if (_node == NULL)
+					{
+						_node = _last;
+						_last = NULL;
+						return (*this);
+					}
+					_last = _node;
 					if (!this->_node->right)
 					{
 						while (this->_node->parent && this->_node->parent->right == this->_node)
@@ -82,6 +89,13 @@ namespace ft {
 				}
 
 				RB_iterator& operator--() {
+					if (_node == NULL)
+					{
+						_node = _last;
+						_last = NULL;
+						return (*this);
+					}
+					_last = _node;
 					if (!this->_node->left)
 					{
 						while (this->_node->parent && this->_node->parent->left == this->_node)
@@ -108,6 +122,7 @@ namespace ft {
 					friend bool operator!=(const RB_iterator<Type>& lhs, const RB_iterator<Type>& rhs);
 
 				node_type *_node;
+				node_type *_last;
 		};
 
 	///////////////////////////////////////////

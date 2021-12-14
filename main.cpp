@@ -14,10 +14,8 @@ int main () {
 
 	ft::map<int, int> m;
 	m[3] = 3;
-	m[4]= 4;
-	m[2] = 2;
-	ft::map<int, int>::reverse_iterator it = m.rbegin();
-	ft::map<int, int>::reverse_iterator ite = m.rend();
-	for(; it != ite; it++)
-		std::cout << it->first << std::endl;
+	ft::map<int, int>::iterator it = m.begin();
+	it++;
+	it--;
+	std::cout << it->first << std::endl;
 }
