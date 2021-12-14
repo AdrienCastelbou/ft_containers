@@ -13,5 +13,11 @@
 int main () {
 
 	ft::map<int, int> m;
-	std::cout << m.max_size() << std::endl;
+	m[3] = 3;
+	m[4]= 4;
+	m[2] = 2;
+	ft::map<int, int>::iterator it = m.begin();
+	ft::map<int, int>::iterator ite = m.end();
+	for(; it != ite; it++)
+		std::cout << it->first << std::endl;
 }

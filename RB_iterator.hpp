@@ -20,14 +20,12 @@ namespace ft {
 				///////////////////////////////////////////
 
 
-				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, T>::value_type value_type;
-				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, T>::difference_type difference_type;
-				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, T>::pointer pointer;
-				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, T>::reference reference;
-				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, T>::iterator_category iterator_category;
-				typedef typename value_type::key_type key_type;
-				typedef typename value_type::mapped_type mapped_type;
-				typedef pair<key_type, mapped_type> pair_type;
+				typedef T node_type;
+				typedef typename node_type::value_type value_type;
+				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, value_type>::difference_type difference_type;
+				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, value_type>::pointer pointer;
+				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, value_type>::reference reference;
+				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, value_type>::iterator_category iterator_category;
 
 				///////////////////////////////////////////
 				//                                       //
@@ -35,7 +33,7 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				RB_iterator(value_type *node = nullptr) : _node(node) {}
+				RB_iterator(node_type *node = nullptr) : _node(node) {}
 
 				RB_iterator(const RB_iterator& other) : _node(other._node) {}
 
@@ -55,11 +53,11 @@ namespace ft {
 					return (RB_iterator<const T>(_node));
 				}
 
-				pair_type operator*() {
-					return (*_node->value);
+				reference operator*() {
+					return (_node->value);
 				}
 
-				pair_type* operator->() {
+				pointer operator->() {
 					return (_node->value);
 				}
 
@@ -109,7 +107,7 @@ namespace ft {
 				template <class Type>
 					friend bool operator!=(const RB_iterator<Type>& lhs, const RB_iterator<Type>& rhs);
 
-				value_type *_node;
+				node_type *_node;
 		};
 
 	///////////////////////////////////////////
