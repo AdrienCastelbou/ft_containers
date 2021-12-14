@@ -468,7 +468,7 @@ namespace ft {
 					bool uvBlack = ((u == NULL || u->color == BLACK) && v->color == BLACK);
 					if (u == NULL) // when v is leaf and has no children
 					{
-						if (u == tree)
+						if (v == tree)
 							tree = NULL;
 						else
 						{
@@ -481,7 +481,8 @@ namespace ft {
 							else if (parent)
 								parent->right = NULL;
 						}
-						delete v;
+						node_allocator.destroy(v);
+						node_allocator.deallocate(v, 1);
 						return ;
 					}
 					if (v->left == NULL || v->right == NULL) { // v has 1 child
@@ -489,14 +490,16 @@ namespace ft {
 							v->value = u->value;
 							v->left = NULL;
 							v->right = NULL;
-							delete u;
+							node_allocator.destroy(u);
+							node_allocator.deallocate(u, 1);
 						}
 						else {
 							if (isOnLeft(v)) // detach v from tree, replace it by u
 								parent->left = u;
 							else
 								parent->right = u;
-							delete v;
+							node_allocator.destroy(v);
+							node_allocator.deallocate(v, 1);
 							u->parent = parent;
 							if (uvBlack) // if v and u are black
 								fixDoubleBlack(u);
