@@ -54,7 +54,7 @@ namespace ft {
 				}
 
 				reference operator*() {
-					return (_node->value);
+					return (*_node->value);
 				}
 
 				pointer operator->() {

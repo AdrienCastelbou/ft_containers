@@ -32,6 +32,8 @@ namespace ft {
 				typedef typename allocator_type::const_pointer const_pointer;
 				typedef typename RB_tree::iterator iterator;
 				typedef typename RB_tree::iterator const_iterator;
+				typedef ft::reverse_iterator<iterator> reverse_iterator;
+				typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 				typedef ptrdiff_t difference_type;
 				typedef size_t size_type;
 				// to complete...
@@ -98,6 +100,22 @@ namespace ft {
 
 				const_iterator end() const {
 					return (const_iterator(tree->end()));
+				}
+
+				reverse_iterator rbegin() {
+					return (reverse_iterator(tree->getMax(tree->tree)));
+				}
+
+				const_reverse_iterator rbegin() const {
+					return (const_reverse_iterator(tree->getMax(tree->tree)));
+				}
+
+				reverse_iterator rend() {
+					return (reverse_iterator(tree->begin()));
+				}
+
+				const_reverse_iterator rend() const {
+					return (const_reverse_iterator(tree->begin()));
 				}
 
 				///////////////////////////////////////////
