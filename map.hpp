@@ -95,27 +95,31 @@ namespace ft {
 				}
 
 				iterator end() {
-					return (iterator(tree->end()));
+					return (iterator(NULL, tree->end()));
 				}
 
 				const_iterator end() const {
-					return (const_iterator(tree->end()));
+					return (const_iterator(NULL, tree->end()));
 				}
 
 				reverse_iterator rbegin() {
-					return (reverse_iterator(tree->getMax(tree->tree)));
+					iterator it(NULL, tree->end());
+					return (reverse_iterator(it));
 				}
 
 				const_reverse_iterator rbegin() const {
-					return (const_reverse_iterator(tree->getMax(tree->tree)));
+					const_iterator it(NULL, tree->end());
+					return (const_reverse_iterator(it));
 				}
 
 				reverse_iterator rend() {
-					return (reverse_iterator(tree->begin()));
+					iterator it(tree->begin());
+					return (reverse_iterator(it));
 				}
 
 				const_reverse_iterator rend() const {
-					return (const_reverse_iterator(tree->begin()));
+					const_iterator it(tree->begin());
+					return (const_reverse_iterator(it));
 				}
 
 				///////////////////////////////////////////

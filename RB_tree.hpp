@@ -187,10 +187,7 @@ namespace ft {
 				}
 
 				node *end() {
-					node *n = getMax(tree);
-					if (n)
-						return (n->right);
-					return (n);
+					return (getMax(tree));
 				}
 
 				///////////////////////////////////////////

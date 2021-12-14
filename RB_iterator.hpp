@@ -33,14 +33,15 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				RB_iterator(node_type *node = nullptr) : _node(node) {}
+				RB_iterator(node_type *node = nullptr, node_type *last = nullptr) : _node(node), _last(last) {}
 
-				RB_iterator(const RB_iterator& other) : _node(other._node) {}
+				RB_iterator(const RB_iterator& other) : _node(other._node), _last(other._last) {}
 
 				~RB_iterator() {}
 
 				RB_iterator& operator=(RB_iterator& other) {
 					_node = other._node;
+					_last = other._last;
 					return (*this);
 				}
 
