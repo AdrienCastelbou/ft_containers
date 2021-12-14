@@ -13,8 +13,5 @@
 int main () {
 
 	ft::map<int, int> m;
-	ft::map<int, int>::iterator it = m.begin();
-	ft::map<int, int>::iterator ite = m.end();
-	m.erase(it, ite);
-	std::cout << "size: " << m.size() << std::endl;
+	std::cout << m.max_size() << std::endl;
 }

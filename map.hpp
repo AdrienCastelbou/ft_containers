@@ -32,7 +32,7 @@ namespace ft {
 				typedef typename allocator_type::const_pointer const_pointer;
 				typedef typename RB_tree::iterator iterator;
 				typedef typename RB_tree::iterator const_iterator;
-				typedef typename iterator_traits<iterator>::difference_type difference_type;
+				typedef ptrdiff_t difference_type;
 				typedef size_t size_type;
 				// to complete...
 
@@ -126,7 +126,7 @@ namespace ft {
 				}
 
 				size_t  max_size() const {
-					return (_allocator.max_size());
+					return (std::numeric_limits<difference_type>::max());
 				}
 
 				///////////////////////////////////////////
