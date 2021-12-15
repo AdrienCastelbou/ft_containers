@@ -223,7 +223,7 @@ namespace ft {
 					tmp_size = _size;
 					tree = x.tree;
 					_size = x._size;
-					x._tree = tmp;
+					x.tree = tmp;
 					x._size = tmp_size;
 				}
 
