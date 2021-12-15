@@ -56,12 +56,20 @@ namespace ft {
 						this->insert(first, last);
 					}
 
+				map(const map& x) {
+					tree = tree_allocator.allocate(1);
+					tree_allocator.construct(tree);
+					map::iterator first = x.begin();
+					map::iterator last = x.end();
+					this->insert(first, last);
+				}
+
 				map& operator=(const map& other) {
 					if (this != &other)
 					{
-						this->clear();
 						map::iterator first = other.begin();
 						map::iterator last = other.end();
+						this->clear();
 						this->insert(first, last);
 					}
 					return (*this);
