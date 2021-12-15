@@ -484,11 +484,12 @@ namespace ft {
 					}
 					if (v->left == NULL || v->right == NULL) { // v has 1 child
 						if (v == tree) {
-							v->value = u->value;
+							u->parent = NULL;
+							tree = u;
 							v->left = NULL;
 							v->right = NULL;
-							node_allocator.destroy(u);
-							node_allocator.deallocate(u, 1);
+							node_allocator.destroy(v);
+							node_allocator.deallocate(v, 1);
 						}
 						else {
 							if (isOnLeft(v)) // detach v from tree, replace it by u

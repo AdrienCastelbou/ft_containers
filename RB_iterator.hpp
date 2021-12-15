@@ -54,11 +54,11 @@ namespace ft {
 					return (RB_iterator<const T>(_node));
 				}
 
-				reference operator*() {
+				reference operator*() const {
 					return (*_node->value);
 				}
 
-				pointer operator->() {
+				pointer operator->() const {
 					return (_node->value);
 				}
 

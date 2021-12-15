@@ -13,10 +13,10 @@
 int main () {
 
 	ft::map<int, int> m;
-	m[3] = 3;
-	m[5] = 51;
-	ft::map<int, int>::reverse_iterator it = m.rbegin();
-	ft::map<int, int>::reverse_iterator ite = m.rend();
-	for(;it != ite; it++)
-	std::cout << it->first << std::endl;
+	m[1] = 3;
+	m[2] = 51;
+	m[3] = 51;
+	ft::map<int, int>::iterator it = m.begin();
+	ft::map<int, int>::iterator ite = m.end();
+	m.erase(it, ite);
 }

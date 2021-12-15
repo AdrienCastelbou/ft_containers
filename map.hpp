@@ -59,12 +59,9 @@ namespace ft {
 				map& operator=(const map& other) {
 					if (this != &other)
 					{
-						tree_allocator.destroy(tree);
-						tree_allocator.deallocate(tree, 1);
+						this->clear();
 						map::iterator first = other.begin();
 						map::iterator last = other.end();
-						tree = tree_allocator.allocate(1);
-						tree_allocator.construct(tree);
 						this->insert(first, last);
 					}
 					return (*this);
@@ -207,10 +204,8 @@ namespace ft {
 				}
 
 				void erase(iterator first, iterator last) {
-					iterator it = first;
-					if (first != last)
-						erase(++first, last);
-					erase(it);
+					while (first != last)
+						erase((first++)->first);
 				}
 
 				void swap(map& x) {
