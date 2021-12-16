@@ -198,14 +198,17 @@ namespace ft {
 					
 					if (!position._node)
 						return ;
-					tree->erase(position._node);
+					tree->erase(position._node, position);
 					_size--;
 				}
 
-				size_type erase(const key_type& k) {
+				size_type erase(const key_type& k, iterator first) {
 					RB_node *target = tree->search(k);
 					if (!target)
 						return (0);
+					tree->erase(target, first);
+					_size--;
+					return (1);
 					iterator position(target);
 					erase(position);
 					return (1);
@@ -213,7 +216,7 @@ namespace ft {
 
 				void erase(iterator first, iterator last) {
 					while (first != last)
-						erase((first++)->first);
+						erase((first++)->first, first);
 				}
 
 				void swap(map& x) {

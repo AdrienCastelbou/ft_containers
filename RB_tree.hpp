@@ -392,12 +392,6 @@ namespace ft {
 						return (n->right);
 				}
 
-				void swapValues(node *u, node *v) {
-					value_type *tmp;
-					tmp = u->value;
-					u->value = v->value;
-					v->value = tmp;
-				}
 
 				bool isOnLeft(node *n) {
 					return (n->parent && n->parent->left == n);
@@ -459,7 +453,79 @@ namespace ft {
 					}
 				}
 
-				void erase(node *v) {
+				void show_node(node *n) {
+					std::cout << "         NODE" <<std::endl;
+					std::cout << "VALUE : " << n->value->first << std::endl;
+					std::cout << "COLOR : " << n->color << std::endl;
+					std::cout << "PARENT : " ;
+					if (n->parent)
+					{
+						std::cout << n->parent->value->first << ", LEFT : " ;
+						if (n->parent->left)
+							std::cout << n->parent->left->value->first ;
+						else
+							std::cout << "no left";
+						if (n->parent->right)
+							std::cout << ", RIGHT : " << n->parent->right->value->first << std::endl;
+						else
+							std::cout << "no right" << std::endl;
+					}
+					else
+						std::cout << "no parent" << std::endl;
+					std::cout << "LEFT : ";
+					if (n->left)
+						std::cout << n->left->value->first << std::endl;
+					else
+						std::cout << "no left" << std::endl;
+					std::cout << "RIGHT : ";
+					if (n->right)
+						std::cout << n->right->value->first << std::endl;
+					else
+						std::cout << "no right" << std::endl;
+
+					std::cout << "--------------" << std::endl;
+				}
+
+				void swapValues(node *v, node *u) {
+					node *u_parent = u->parent;
+					bool u_isOnLeft = isOnLeft(u);
+					node *u_left = u->left;
+					node *u_right = u->right;
+					int u_color = u->color;
+					
+					std::cout << "V" << std::endl;
+					show_node(v);
+					std::cout << "U" << std::endl;
+					show_node (u);
+					/*value_type *tmp;
+					tmp = u->value;
+					u->value = v->value;
+					v->value = tmp;*/
+					u->parent = v->parent;
+					if (isOnLeft(v) && u->parent)
+						u->parent->left = u;
+					else if (u->parent)
+						u->parent->right = u;
+					u->left = v->left;
+					u->right = v->right;
+					u->color = v->color;
+
+					v->parent = u_parent;
+					if (u_isOnLeft && v->parent)
+						v->parent->left = v;
+					else if (v->parent)
+						v->parent->right = v;
+					v->left = u_left;
+					v->right = u_right;
+					v->color = u_color;
+					std::cout << "NEW V" << std::endl;
+					show_node(v);
+					std::cout << "NEW U" << std::endl;
+					show_node (u);
+				}
+
+
+				void erase(node *v, iterator first) {
 					node *u = nodeReplace(v);
 					node *parent = v->parent;
 					bool uvBlack = ((u == NULL || u->color == BLACK) && v->color == BLACK);
@@ -507,8 +573,9 @@ namespace ft {
 						return ;
 					}
 					// v has 2 children, swap and recurse
-					swapValues(u, v);
-					erase(u);
+					
+					swapValues(v, u);
+					erase(v, first);
 				}
 
 				///////////////////////////////////////////

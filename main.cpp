@@ -8,15 +8,25 @@
 #include "map.hpp"
 
 #define NAMESPACE ft
+#define T1 int
+#define T2 std::string
+
+template<class M>
+void printMap(M m) {
+	NAMESPACE::map<T1, T2>::iterator it = m.begin();
+	NAMESPACE::map<T1, T2>::iterator ite = m.end();
+	for(; it != ite; it++)
+		std::cout << it->first << ": " << it->second << std::endl;
+	std::cout << "------------------" << std::endl;
+}
 
 
 int main () {
 
-	ft::map<int, int> m;
-	m[1] = 3;
-	m[2] = 51;
-	m[3] = 51;
-	ft::map<int, int>::iterator it = m.begin();
-	ft::map<int, int>::iterator ite = m.end();
-	m.erase(it, ite);
+	NAMESPACE::map<T1, T2> m;
+	for (int i = 0; i < 5; i++)
+		m[i] = 65 + i;
+	printMap(m);
+	m.erase( --(--(--m.end())), m.end());
+	printMap(m);
 }
