@@ -492,15 +492,7 @@ namespace ft {
 					node *u_left = u->left;
 					node *u_right = u->right;
 					int u_color = u->color;
-					
-					std::cout << "V" << std::endl;
-					show_node(v);
-					std::cout << "U" << std::endl;
-					show_node (u);
-					/*value_type *tmp;
-					tmp = u->value;
-					u->value = v->value;
-					v->value = tmp;*/
+
 					u->parent = v->parent;
 					if (isOnLeft(v) && u->parent)
 						u->parent->left = u;
@@ -511,6 +503,8 @@ namespace ft {
 					u->color = v->color;
 
 					v->parent = u_parent;
+					if (v->parent == v)
+						v->parent = u;
 					if (u_isOnLeft && v->parent)
 						v->parent->left = v;
 					else if (v->parent)
@@ -518,10 +512,6 @@ namespace ft {
 					v->left = u_left;
 					v->right = u_right;
 					v->color = u_color;
-					std::cout << "NEW V" << std::endl;
-					show_node(v);
-					std::cout << "NEW U" << std::endl;
-					show_node (u);
 				}
 
 

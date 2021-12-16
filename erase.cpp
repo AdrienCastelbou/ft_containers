@@ -20,7 +20,12 @@ void	ft_erase(MAP &mp, U param, V param2)
 {
 	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
 	mp.erase(param, param2);
-	printSize(mp);
+	typename MAP::iterator it = mp.begin();
+	typename MAP::iterator ite = mp.end();
+	for(; it != ite; it++)
+		std::cout << "i" << std::endl;
+	mp.show();
+	//printSize(mp);
 }
 
 int		main(void)
