@@ -357,6 +357,7 @@ namespace ft {
 					tree = n;
 					while (parent(tree) != NULL)
 						tree = parent(tree);
+
 				}
 
 				///////////////////////////////////////////
@@ -453,7 +454,12 @@ namespace ft {
 					}
 				}
 
-				void show_node(node *n) {
+				void show_node(node *n) const {
+					if (n == NULL)
+					{
+						std::cout << "no Node" << std::endl;
+						return;
+					}
 					std::cout << "         NODE" <<std::endl;
 					std::cout << "VALUE : " << n->value->first << std::endl;
 					std::cout << "COLOR : " << n->color << std::endl;
@@ -466,7 +472,7 @@ namespace ft {
 						else
 							std::cout << "no left";
 						if (n->parent->right)
-							std::cout << ", RIGHT : " << n->parent->right->value->first << std::endl;
+							std::cout << ", RIGHT : " << n->parent->right->value->first << ", color : " << std::endl;
 						else
 							std::cout << "no right" << std::endl;
 					}
@@ -474,12 +480,12 @@ namespace ft {
 						std::cout << "no parent" << std::endl;
 					std::cout << "LEFT : ";
 					if (n->left)
-						std::cout << n->left->value->first << std::endl;
+						std::cout << n->left->value->first << ", color : " <<  n->left->color << std::endl;
 					else
 						std::cout << "no left" << std::endl;
 					std::cout << "RIGHT : ";
 					if (n->right)
-						std::cout << n->right->value->first << std::endl;
+						std::cout << n->right->value->first <<  n->right->color << std::endl;
 					else
 						std::cout << "no right" << std::endl;
 
@@ -498,10 +504,14 @@ namespace ft {
 						u->parent->left = u;
 					else if (u->parent)
 						u->parent->right = u;
-					u->left = v->left;
-					u->right = v->right;
-					u->color = v->color;
 
+					u->left = v->left;
+					if (u->left && u->left != u)
+						u->left->parent = u;
+					u->right = v->right;
+					if (u->right && u->right  != u)
+						u->right->parent = u;
+					u->color = v->color;
 					v->parent = u_parent;
 					if (v->parent == v)
 						v->parent = u;
@@ -510,17 +520,24 @@ namespace ft {
 					else if (v->parent)
 						v->parent->right = v;
 					v->left = u_left;
+					if (v->left)
+						v->left->parent = v;
 					v->right = u_right;
+					if (v->right)
+						v->right->parent = v;
 					v->color = u_color;
+					if (tree == v)
+						tree = u;
 				}
 
 
-				void erase(node *v, iterator first) {
+				void erase(node *v) {
 					node *u = nodeReplace(v);
 					node *parent = v->parent;
 					bool uvBlack = ((u == NULL || u->color == BLACK) && v->color == BLACK);
 					if (u == NULL) // when v is leaf and has no children
 					{
+
 						if (v == tree)
 							tree = NULL;
 						else
@@ -544,6 +561,7 @@ namespace ft {
 							tree = u;
 							v->left = NULL;
 							v->right = NULL;
+							u->color = BLACK;
 							node_allocator.destroy(v);
 							node_allocator.deallocate(v, 1);
 						}
@@ -565,7 +583,7 @@ namespace ft {
 					// v has 2 children, swap and recurse
 					
 					swapValues(v, u);
-					erase(v, first);
+					erase(v);
 				}
 
 				///////////////////////////////////////////
@@ -577,7 +595,7 @@ namespace ft {
 				void show(node *node) const {
 					if (!node)
 						return ;
-					std::cout << node->value->first << ", " << node->color << std::endl;
+					show_node(node);
 					if (!node->left)
 						std::cout << "left branch end" << std::endl;
 					if (!node->right)
