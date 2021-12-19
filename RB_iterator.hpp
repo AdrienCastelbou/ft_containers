@@ -3,7 +3,7 @@
 #include <iostream>
 #include "utils.hpp"
 #include "Iterator.hpp"
-#include "RB_tree.hpp"
+#include "RB_node.hpp"
 #define BLACK 0
 #define RED 1
 #define GREEN 2
@@ -20,8 +20,8 @@ namespace ft {
 				///////////////////////////////////////////
 
 
-				typedef T node_type;
-				typedef typename node_type::value_type value_type;
+				typedef T value_type;
+				typedef RB_node<value_type> node_type;
 				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, value_type>::difference_type difference_type;
 				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, value_type>::pointer pointer;
 				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, value_type>::reference reference;
@@ -50,8 +50,8 @@ namespace ft {
 					return (*this);
 				}
 
-				operator RB_iterator<const T>() {
-					return (RB_iterator<const T>(_node));
+				operator RB_iterator<const value_type>() {
+					return (RB_iterator<const value_type>(_node));
 				}
 
 				reference operator*() const {

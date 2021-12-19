@@ -22,11 +22,6 @@ void printMap(M m) {
 
 
 int main () {
-
-	NAMESPACE::map<T1, T2> m;
-	for (int i = 0; i < 5; i++)
-		m[i] = 65 + i;
-	printMap(m);
-	m.erase( --(--(--m.end())), m.end());
-	printMap(m);
+	const ft::map<int, int> m ;
+	ft::map<int, int>::const_iterator it = m.begin();
 }
