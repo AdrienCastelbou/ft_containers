@@ -13,12 +13,13 @@ int		main(void)
 		lst.push_back(T3(2.5 - i, (i + 1) * 7));
 
 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
-	TESTED_NAMESPACE::map<T1, T2>::reverse_iterator it(mp.rbegin());
+	std::cout << "set rev_it" << std::endl;
 	TESTED_NAMESPACE::map<T1, T2>::const_reverse_iterator ite(mp.rbegin());
+	std::cout << "end set rev_it" << std::endl;
 	printSize(mp);
 
-	printPair(++ite);
-	printPair(ite++);
+	printPair(ite);
+/*	printPair(ite++);
 	printPair(ite++);
 	printPair(++ite);
 
@@ -42,6 +43,6 @@ int		main(void)
 	printPair(it--);
 	printPair(it--);
 	printPair(--it);
-
+*/
 	return (0);
 }

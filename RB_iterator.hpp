@@ -112,7 +112,7 @@ namespace ft {
 					{
 						_node = _last;
 						_last = NULL;
-						if (this->_node)
+						if (_node)
 							_value = _node->value;
 						else
 							_value = NULL;
