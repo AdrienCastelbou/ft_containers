@@ -1,201 +1,116 @@
-#include "common.hpp"
-#include "vector.hpp"
-#include "stack.hpp"
-#include <stack>          // std::stack
-#include <vector>         // std::vector
-#include <deque>          // std::deque
-#include <map>
-#include "map.hpp"
-
-using namespace std;
-#include <vector>
 #include <iostream>
-#include <iterator>
-#include <utility>
-#include <ctime>
-#include <iomanip>
-#include <unistd.h>
-#include <signal.h>
-#include <sys/time.h>
-#include <random>
-#define YELLOW "\e[1;33m"
-#define RESET "\e[0m"
-#define BLUE "\e[0;34m"
+#include <string>
+#include <deque>
+#if 1 //CREATE A REAL STL EXAMPLE
+	#include <map>
+	#include <stack>
+	#include <vector>
+	namespace ft = std;
+#else
+	#include "map.hpp"
+	#include "stack.hpp"
+	#include "vector.hpp"
+#endif
 
-#define EQUAL(x) ((x) ? (std::cout << "\033[1;32mAC\033[0m\n") : (std::cout << "\033[1;31mWA\033[0m\n"))
-#define TIME_FAC 4 // the ft::map methods can be slower up to std::map methods * TIME_FAC (MAX 20)
-time_t get_time(void)
+#include <stdlib.h>
+
+#define MAX_RAM 4294967296
+#define BUFFER_SIZE 4096
+struct Buffer
 {
-    struct timeval time_now;
+	int idx;
+	char buff[BUFFER_SIZE];
+};
 
-    gettimeofday(&time_now, NULL);
-    time_t msecs_time = (time_now.tv_sec * 1e3) + (time_now.tv_usec / 1e3);
-    return (msecs_time);
-}
 
-template <typename Iter1, typename Iter2>
-bool comparemaps(Iter1 first1, Iter1 last1, Iter2 first2, Iter2 last2)
+#define COUNT (MAX_RAM / (int)sizeof(Buffer))
+
+template<typename T>
+class MutantStack : public ft::stack<T>
 {
-    for (; (first1 != last1) && (first2 != last2); ++first1, ++first2)
-        if (first1->first != first2->first || first1->second != first2->second)
-            return false;
-    return true;
-}
+public:
+	MutantStack() {}
+	MutantStack(const MutantStack<T>& src) { *this = src; }
+	MutantStack<T>& operator=(const MutantStack<T>& rhs) 
+	{
+		this->c = rhs.c;
+		return *this;
+	}
+	~MutantStack() {}
 
-typedef std::pair<std::map<int, std::string>::iterator, std::map<int, std::string>::iterator> iter_def;
-typedef ft::pair<ft::map<int, std::string>::iterator, ft::map<int, std::string>::iterator> ft_iter_def;
-typedef std::pair<std::map<int, std::string>::const_iterator, std::map<int, std::string>::const_iterator> const_iter_def;
-typedef ft::pair<ft::map<int, std::string>::const_iterator, ft::map<int, std::string>::const_iterator> ft_const_iter_def;
+	typedef typename ft::stack<T>::container_type::iterator iterator;
 
-#define TEST_CASE(fn)                                                                                                             \
-    cout << GREEN << "\t======================================================================================" << RESET << endl; \
-    cout << endl;                                                                                                                 \
-    cout << BLUE << "\t   Running " << #fn << " ... \t\t\t\t\t\t" << RESET << std::endl;                                          \
-    fn();                                                                                                                         \
-    cout << endl;                                                                                                                 \
-    cout << GREEN << "\t======================================================================================" << RESET << endl;
+	iterator begin() { return this->c.begin(); }
+	iterator end() { return this->c.end(); }
+};
 
+int main(int argc, char** argv) {
+	if (argc != 2)
+	{
+		std::cerr << "Usage: ./test seed" << std::endl;
+		std::cerr << "Provide a seed please" << std::endl;
+		std::cerr << "Count value:" << COUNT << std::endl;
+		return 1;
+	}
+	const int seed = atoi(argv[1]);
+	srand(seed);
 
-void testOperations()
-{
-    std::cout << "\t\033[1;37m[-------------------- [" << std::setw(40) << std::left << " upper_bound method "
-              << "] --------------------]\t\t\033[0m";
-    {
-        bool cond;
-        /*---------------------------------- time limit test --------------------------------------------*/
-        {
-            time_t start, end, diff;
-            int res, ft_res;
+	ft::vector<std::string> vector_str;
+	ft::vector<int> vector_int;
+	ft::stack<int> stack_int;
+	ft::vector<Buffer> vector_buffer;
+	ft::stack<Buffer, std::deque<Buffer> > stack_deq_buffer;
+	ft::map<int, int> map_int;
 
-            std::map<int, std::string> m;
-            ft::map<int, std::string> ft_m;
-            for (size_t i = 0; i < 1e6; ++i)
-            {
-                m.insert(std::make_pair(i, "value"));
-                ft_m.insert(ft::make_pair(i, "value"));
-            }
-            start = get_time();
-            res = m.upper_bound(1e5)->first;
-            end = get_time();
-            diff = end - start;
-            diff = (diff) ? (diff * TIME_FAC) : TIME_FAC;
+	for (int i = 0; i < COUNT; i++)
+	{
+		vector_buffer.push_back(Buffer());
+	}
 
-            ualarm(diff * 1e3, 0);
-            ft_res = ft_m.upper_bound(1e5)->first;
-            ualarm(0, 0);
-            cond = ft_res == res;
-        }
-        std::map<int, std::string> m;
-        ft::map<int, std::string> ft_m;
-        int arr[] = {20, 10, 100, 15, 60, 90, 65, 200, 150}; // size = 9
-        for (size_t i = 0; i < 9; ++i)
-        {
-            m.insert(std::make_pair(arr[i], "value"));
-            ft_m.insert(ft::make_pair(arr[i], "value"));
-        }
-        std::map<int, std::string> const c_m(m.begin(), m.end());
-        ft::map<int, std::string> const c_ft_m(ft_m.begin(), ft_m.end());
-        cond = (cond && (m.upper_bound(15)->first == ft_m.upper_bound(15)->first));
-        cond = (cond && (m.upper_bound(65)->first == ft_m.upper_bound(65)->first));
-        cond = (cond && (m.upper_bound(63)->first == ft_m.upper_bound(63)->first));
-        cond = (cond && (m.upper_bound(120)->first == ft_m.upper_bound(120)->first));
-        cond = (cond && (m.upper_bound(70)->first == ft_m.upper_bound(70)->first));
-        cond = (cond && (m.upper_bound(150)->first == ft_m.upper_bound(150)->first));
+	for (int i = 0; i < COUNT; i++)
+	{
+		const int idx = rand() % COUNT;
+		vector_buffer[idx].idx = 5;
+	}
+	ft::vector<Buffer>().swap(vector_buffer);
 
-        cond = (cond && (c_m.upper_bound(15)->first == c_ft_m.upper_bound(15)->first));
-        cond = (cond && (c_m.upper_bound(65)->first == c_ft_m.upper_bound(65)->first));
-        cond = (cond && (c_m.upper_bound(63)->first == c_ft_m.upper_bound(63)->first));
-        cond = (cond && (c_m.upper_bound(120)->first == c_ft_m.upper_bound(120)->first));
-        cond = (cond && (c_m.upper_bound(70)->first == c_ft_m.upper_bound(70)->first));
-        cond = (cond && (c_m.upper_bound(150)->first == c_ft_m.upper_bound(150)->first));
-        EQUAL(cond);
-    }
-    std::cout << "\t\033[1;37m[-------------------- [" << std::setw(40) << std::left << " equal_range method "
-              << "] --------------------]\t\t\033[0m";
-    {
-        bool cond;
-        /*---------------------------------- time limit test --------------------------------------------*/
-        {
-            time_t start, end, diff;
-            iter_def res;
-            ft_iter_def ft_res;
+	try
+	{
+		for (int i = 0; i < COUNT; i++)
+		{
+			const int idx = rand() % COUNT;
+			vector_buffer.at(idx);
+			std::cerr << "Error: THIS VECTOR SHOULD BE EMPTY!!" <<std::endl;
+		}
+	}
+	catch(const std::exception& e)
+	{
+		//NORMAL ! :P
+	}
+	
+	for (int i = 0; i < COUNT; ++i)
+	{
+		map_int.insert(ft::make_pair(rand(), rand()));
+	}
 
-            std::map<int, std::string> m;
-            ft::map<int, std::string> ft_m;
-            for (size_t i = 0; i < 1e6; ++i)
-            {
-                m.insert(std::make_pair(i, "value"));
-                ft_m.insert(ft::make_pair(i, "value"));
-            }
-            start = get_time();
-            res = m.equal_range(1e5);
-            end = get_time();
-            diff = end - start;
-            diff = (diff) ? (diff * TIME_FAC) : TIME_FAC;
+	int sum = 0;
+	for (int i = 0; i < 10000; i++)
+	{
+		int access = rand();
+		sum += map_int[access];
+	}
+	std::cout << "should be constant with the same seed: " << sum << std::endl;
 
-            ualarm(diff * 1e3, 0);
-            ft_res = ft_m.equal_range(1e5);
-            ualarm(0, 0);
-            cond = (ft_res.first->first == res.first->first) && (ft_res.second->first == res.second->first);
-        }
-        iter_def res;
-        ft_iter_def ft_res;
-        const_iter_def c_res;
-        ft_const_iter_def ft_c_res;
-        std::map<int, std::string> m;
-        ft::map<int, std::string> ft_m;
-        int arr[] = {20, 10, 100, 15, 60, 90, 65, 200, 150}; // size = 9
-        for (size_t i = 0; i < 9; ++i)
-        {
-            m.insert(std::make_pair(arr[i], "value"));
-            ft_m.insert(ft::make_pair(arr[i], "value"));
-        }
-        std::map<int, std::string> const c_m(m.begin(), m.end());
-        ft::map<int, std::string> const c_ft_m(ft_m.begin(), ft_m.end());
-
-        res = m.equal_range(15);
-        ft_res = ft_m.equal_range(15);
-        cond = (cond && (ft_res.first->first == res.first->first) && (ft_res.second->first == res.second->first));
-        res = m.equal_range(65);
-        ft_res = ft_m.equal_range(65);
-        cond = (cond && (ft_res.first->first == res.first->first) && (ft_res.second->first == res.second->first));
-        res = m.equal_range(63);
-        ft_res = ft_m.equal_range(63);
-        cond = (cond && (ft_res.first->first == res.first->first) && (ft_res.second->first == res.second->first));
-        res = m.equal_range(120);
-        ft_res = ft_m.equal_range(120);
-        cond = (cond && (ft_res.first->first == res.first->first) && (ft_res.second->first == res.second->first));
-        res = m.equal_range(70);
-        ft_res = ft_m.equal_range(70);
-        cond = (cond && (ft_res.first->first == res.first->first) && (ft_res.second->first == res.second->first));
-        res = m.equal_range(150);
-        ft_res = ft_m.equal_range(150);
-        cond = (cond && (ft_res.first->first == res.first->first) && (ft_res.second->first == res.second->first));
-
-        c_res = c_m.equal_range(15);
-        ft_c_res = c_ft_m.equal_range(15);
-        cond = (cond && (ft_c_res.first->first == c_res.first->first) && (ft_c_res.second->first == c_res.second->first));
-        c_res = c_m.equal_range(65);
-        ft_c_res = c_ft_m.equal_range(65);
-        cond = (cond && (ft_c_res.first->first == c_res.first->first) && (ft_c_res.second->first == c_res.second->first));
-        c_res = c_m.equal_range(63);
-        ft_c_res = c_ft_m.equal_range(63);
-        cond = (cond && (ft_c_res.first->first == c_res.first->first) && (ft_c_res.second->first == c_res.second->first));
-        c_res = c_m.equal_range(120);
-        ft_c_res = c_ft_m.equal_range(120);
-        cond = (cond && (ft_c_res.first->first == c_res.first->first) && (ft_c_res.second->first == c_res.second->first));
-        c_res = c_m.equal_range(70);
-        ft_c_res = c_ft_m.equal_range(70);
-        cond = (cond && (ft_c_res.first->first == c_res.first->first) && (ft_c_res.second->first == c_res.second->first));
-        c_res = c_m.equal_range(150);
-        ft_c_res = c_ft_m.equal_range(150);
-        cond = (cond && (ft_c_res.first->first == c_res.first->first) && (ft_c_res.second->first == c_res.second->first));
-        EQUAL(cond);
-    }
-}
-
-int main () {
- std::cout << YELLOW << "Testing Operations Methods;" << RESET << std::endl;
-    TEST_CASE(testOperations)
-    std::cout << std::endl;
+	{
+		ft::map<int, int> copy = map_int;
+	}
+	MutantStack<char> iterable_stack;
+	for (char letter = 'a'; letter <= 'z'; letter++)
+		iterable_stack.push(letter);
+	for (MutantStack<char>::iterator it = iterable_stack.begin(); it != iterable_stack.end(); it++)
+	{
+		std::cout << *it;
+	}
+	std::cout << std::endl;
+	return (0);
 }
