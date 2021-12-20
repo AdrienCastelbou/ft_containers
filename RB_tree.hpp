@@ -20,8 +20,8 @@ namespace ft {
 				typedef RB_node<const T, allocator_type> const_node;
 				typedef typename value_type::first_type key_type;
 				typedef typename allocator_type::template rebind<node>::other node_allocator_type;
-				typedef RB_iterator<value_type> iterator;
-				typedef RB_iterator<const value_type> const_iterator;
+				typedef RB_iterator<value_type, node> iterator;
+				typedef RB_iterator<const value_type, node> const_iterator;
 
 				node *tree;
 				allocator_type allocator;

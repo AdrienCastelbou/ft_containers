@@ -22,6 +22,13 @@ void printMap(M m) {
 
 
 int main () {
-	const ft::map<int, int> m ;
-	ft::map<int, int>::const_iterator it = m.begin();
+
+	ft::map<int, int> m ;
+	m[3] = 31;
+	m[5] = 51;
+ft::map<int, int>::const_iterator it = m.begin();
+ft::map<int, int>::const_iterator ite = m.end();
+for (; it != ite; it++)
+	std::cout << it->first << std::endl;
+	//ft::map<int, int>::const_iterator it = m.begin();
 }
