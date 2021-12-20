@@ -59,7 +59,7 @@ namespace ft {
 				}
 
 				operator RB_iterator<const value_type, node_type>() {
-					return (RB_iterator<const value_type, node_type>(_node));
+					return (RB_iterator<const value_type, node_type>(_node, _last));
 				}
 
 				reference operator*() const {
