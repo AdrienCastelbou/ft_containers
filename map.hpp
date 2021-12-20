@@ -56,7 +56,7 @@ namespace ft {
 						this->insert(first, last);
 					}
 
-				map(const map& x) {
+				map(const map& x) : _size(0),  _allocator(x._allocator), _comparator(x._comparator) {
 					tree = tree_allocator.allocate(1);
 					tree_allocator.construct(tree);
 					map::const_iterator first = x.begin();
