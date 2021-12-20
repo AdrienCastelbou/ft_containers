@@ -529,7 +529,11 @@ namespace ft {
 				//                 Utils                 //
 				//                                       //
 				///////////////////////////////////////////
-				
+
+				size_t max_size() {
+					return (node_allocator_type().max_size());
+				}
+
 				void show(node *node) const {
 					if (!node)
 						return ;
