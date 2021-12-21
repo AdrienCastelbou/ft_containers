@@ -33,28 +33,21 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				RB_iterator(node_type *node = nullptr, node_type *last = nullptr) : _node(node), _last(last) {
-					if (_node)
-						_value = _node->value;
-					else
-						_value = NULL;
-				}
+				RB_iterator(node_type *node = nullptr, node_type *last = nullptr) : _node(node), _last(last) {}
 
-				RB_iterator(const RB_iterator& other) : _node(other._node), _last(other._last) , _value(other._value) {}
+				RB_iterator(const RB_iterator& other) : _node(other._node), _last(other._last) {}
 
 				~RB_iterator() {}
 
 				RB_iterator& operator=(RB_iterator& other) {
 					_node = other._node;
 					_last = other._last;
-					_value = other._value;
 					return (*this);
 				}
 
 				RB_iterator& operator=(const RB_iterator& other) {
 					_node = other._node;
 					_last = other._last;
-					_value = other._value;
 					return (*this);
 				}
 
@@ -63,11 +56,11 @@ namespace ft {
 				}
 
 				reference operator*() const {
-					return (*_value);
+					return (*_node->value);
 				}
 
 				pointer operator->() const {
-					return (_value);
+					return (_node->value);
 				}
 
 				RB_iterator operator++() {
@@ -75,10 +68,6 @@ namespace ft {
 					{
 						_node = _last;
 						_last = NULL;
-						if (this->_node)
-							_value = _node->value;
-						else
-							_value = NULL;
 						return (*this);
 					}
 					_last = _node;
@@ -94,10 +83,6 @@ namespace ft {
 						while (this->_node->left)
 							this->_node = this->_node->left;
 					}
-					if (this->_node)
-						_value = _node->value;
-					else
-						_value = NULL;
 					return (*this);
 				}
 
@@ -112,10 +97,6 @@ namespace ft {
 					{
 						_node = _last;
 						_last = NULL;
-						if (_node)
-							_value = _node->value;
-						else
-							_value = NULL;
 						return (*this);
 					}
 					_last = _node;
@@ -131,10 +112,6 @@ namespace ft {
 						while (this->_node->right)
 							this->_node = this->_node->right;
 					}
-					if (this->_node)
-						_value = _node->value;
-					else
-						_value = NULL;
 					return (*this);
 				}
 
@@ -152,7 +129,6 @@ namespace ft {
 
 				node_type *_node;
 				node_type *_last;
-				value_type *_value;
 		};
 
 	///////////////////////////////////////////
