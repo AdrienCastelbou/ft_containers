@@ -10,7 +10,7 @@
 #define GREEN 2
 namespace ft {
 
-	template<class Key, class T, class KeyOfValue, class Compare = std::less<typename T::first_type>, class Alloc = std::allocator<T> >
+	template<class Key, class T, class KeyOfValue, class Compare, class Alloc = std::allocator<T> >
 		class RB_tree {
 			public:
 				typedef Key key_type;
