@@ -227,7 +227,44 @@ namespace ft {
 					n->parent = root;
 					return (n);
 				}
-
+/*
+node* place_and_insert(node *root, value_type value) {
+					node *n = NULL;
+					if (!root)
+					{
+						n = alloc_node(value);
+						return (n);
+					}
+					while (root) {
+						if (!comp(value.first, root->value->first) && !comp(root->value->first, value.first))
+							return (n);
+						else if (comp(value.first, root->value->first))
+						{
+							if (root->left)
+								root = root->left;
+							else
+							{
+								n = alloc_node(value);
+								root->left = n;
+								break;
+							}
+						}
+						else if (comp(root->value->first, value.first))
+						{
+							if (root->right)
+								root = root->right;
+							else
+							{
+								n = alloc_node(value);
+								root->right = n;
+								break;
+							}
+						}
+					}
+					n->parent = root;
+					return (n);
+				}
+*/
 				void insert_case1(node* n) {
 					if (parent(n) == NULL)
 						n->color = BLACK;
