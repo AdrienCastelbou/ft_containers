@@ -10,15 +10,15 @@
 #define GREEN 2
 namespace ft {
 
-	template<class T, class Compare = std::less<typename T::first_type>, class Alloc = std::allocator<T> >
+	template<class Key, class T, class Compare = std::less<typename T::first_type>, class Alloc = std::allocator<T> >
 		class RB_tree {
 			public:
+				typedef Key key_type;
 				typedef T value_type;
 				typedef Compare comparator_type;
 				typedef Alloc allocator_type;
 				typedef RB_node<T, allocator_type> node;
 				typedef RB_node<const T, allocator_type> const_node;
-				typedef typename value_type::first_type key_type;
 				typedef typename allocator_type::template rebind<node>::other node_allocator_type;
 				typedef RB_iterator<value_type, node> iterator;
 				typedef RB_iterator<const value_type, node> const_iterator;
