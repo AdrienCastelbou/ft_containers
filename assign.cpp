@@ -8,10 +8,9 @@
 #include <signal.h>
 #include <sys/time.h>
 #include "vector.hpp"
-
+#include "map.hpp"
+#include <map>
 #define BLUE "\e[0;34m"
-#define RED "\e[0;31m"
-#define GREEN "\e[0;32m"
 #define YELLOW "\e[1;33m"
 #define RESET "\e[0m"
 
@@ -29,26 +28,30 @@ time_t get_time(void)
 
 void vector_tests()
 {
-          time_t start, end, diff;
-            /*------------------ std::vectors ---------------------*/
-            ft::vector<std::string> ft_v1(1e6, "string2");
-            std::vector<std::string> v1(1e6, "string2");
-            
-			std::vector<std::string> v2(1e4, "string2");
+           time_t start, end, diff;
+            std::map<int, std::string> m;
+            ft::map<int, std::string> my_m;
+
+            for (size_t i = 0; i < 1e6; i++)
+            {
+                m.insert(std::make_pair(i, "range constructor test"));
+                my_m.insert(ft::make_pair(i, "range constructor test"));
+            }
+
             start = get_time();
-            v2.assign(v1.begin(), v1.end());
+            std::map<int, std::string> m1(m.begin(), m.end());
             end = get_time();
             diff = end - start;
-			std::cout << diff << std::endl;
+			std::cout << end << " - " << start << " = " << diff <<std::endl;;
             diff = (diff) ? (diff * TIME_FAC) : TIME_FAC;
-            /*------------------ ft::vectors ---------------------*/
-            // ft::vector<std::string>    ft_v1(1e6, "string2");
-            ft::vector<std::string> ft_v2(1e4, "string2");
+			std::cout << diff << ", " << diff * 1e3 << std::endl;
             start = get_time();
-            ft_v2.assign(ft_v1.begin(), ft_v1.end());
+            ft::map<int, std::string> my_m1(my_m.begin(), my_m.end());
+
             end = get_time();
+
             diff = end - start;
-			std::cout << diff << std::endl;
+			std::cout << end << " - " << start << " = " << diff << std::endl;
 }
 void alarm_handler(int seg)
 {

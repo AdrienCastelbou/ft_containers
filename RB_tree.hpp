@@ -190,7 +190,7 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-
+/*
 				node* place_and_insert(node *root, value_type value) {
 					node *n = NULL;
 					if (!root)
@@ -227,7 +227,7 @@ namespace ft {
 					n->parent = root;
 					return (n);
 				}
-/*
+*/
 node* place_and_insert(node *root, value_type value) {
 					node *n = NULL;
 					if (!root)
@@ -264,7 +264,7 @@ node* place_and_insert(node *root, value_type value) {
 					n->parent = root;
 					return (n);
 				}
-*/
+
 				void insert_case1(node* n) {
 					if (parent(n) == NULL)
 						n->color = BLACK;
