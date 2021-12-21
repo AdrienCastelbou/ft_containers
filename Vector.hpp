@@ -62,8 +62,9 @@ namespace ft {
 				}
 
 				void alloc_new_array(size_t new_cap) {
+					if (new_cap == 0)
+						new_cap = 1;
 					value_type *_new = array_allocation(new_cap);
-
 					for(size_t i = 0; i < _size; i++)
 					{
 						_allocator.construct(&_new[i], _array[i]);
@@ -315,7 +316,7 @@ namespace ft {
 
 				void push_back(const value_type& val) {
 					if (_size == _capacity)
-						alloc_new_array(_capacity + 1);
+						alloc_new_array(_capacity * 2);
 					_allocator.construct(&_array[_size], val);
 					_size++;
 				}

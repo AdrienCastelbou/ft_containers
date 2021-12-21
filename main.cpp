@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
-#if 1 //CREATE A REAL STL EXAMPLE
+#if 0 //CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
 	#include <vector>
@@ -45,6 +45,7 @@ public:
 };
 
 int main(int argc, char** argv) {
+
 	if (argc != 2)
 	{
 		std::cerr << "Usage: ./test seed" << std::endl;
@@ -62,17 +63,25 @@ int main(int argc, char** argv) {
 	ft::stack<Buffer, std::deque<Buffer> > stack_deq_buffer;
 	ft::map<int, int> map_int;
 
+
+	std::cout << "try to push_back in vector_buffer..." << std::endl;
 	for (int i = 0; i < COUNT; i++)
 	{
 		vector_buffer.push_back(Buffer());
 	}
+
+	std::cout << "vector_buffer ok" << std::endl;
 
 	for (int i = 0; i < COUNT; i++)
 	{
 		const int idx = rand() % COUNT;
 		vector_buffer[idx].idx = 5;
 	}
+
+	std::cout << "try to swap vector..." << std::endl;
 	ft::vector<Buffer>().swap(vector_buffer);
+
+	std::cout << "vector swap ok" << std::endl;
 
 	try
 	{
@@ -88,11 +97,14 @@ int main(int argc, char** argv) {
 		//NORMAL ! :P
 	}
 	
+	std::cout << "try to insrt in map_int..." << std::endl;
 	for (int i = 0; i < COUNT; ++i)
 	{
 		map_int.insert(ft::make_pair(rand(), rand()));
 	}
 
+
+	std::cout << "map_int ok" << std::endl;
 	int sum = 0;
 	for (int i = 0; i < 10000; i++)
 	{
