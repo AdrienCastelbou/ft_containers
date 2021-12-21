@@ -548,5 +548,35 @@ namespace ft {
 					if (node->right)
 						show(node->right);
 				}
+
+				iterator lower_bound(const key_type& key) {
+					node *current = tree;
+					node *lower = NULL;
+					while (current) {
+						if (!comp(current->value->first, key))
+						{
+							lower = current;
+							current = current->left;
+						}
+						else
+							current = current->right;
+					}
+					return (iterator(lower));
+				}
+
+				iterator upper_bound(const key_type& key) {
+					node *current = tree;
+					node *upper  = NULL;
+					while (current) {
+						if (comp(key, current->value->first))
+						{
+							upper = current;
+							current = current->left;
+						}
+						else
+							current = current->right;
+					}
+					return (iterator(upper));
+				}
 		};
 }

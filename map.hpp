@@ -297,39 +297,20 @@ namespace ft {
 				}
 
 				iterator lower_bound(const key_type& key) {
-					iterator it = this->begin();
-					iterator ite = this->end();
-					for(; it != ite; it++)
-						if (!key_compare()(it->first, key))
-							return (it);
-					return (it);
+					return (tree->lower_bound(key));
 				}
 
 				const_iterator lower_bound(const key_type& key) const {
-					const_iterator it = this->begin();
-					const_iterator ite = this->end();
-					for(; it != ite; it++)
-						if (!key_compare()(it->first, key))
-							return (it);
-					return (it);
+					return (tree->lower_bound(key));
 				}
 
 				iterator upper_bound(const key_type& key) {
-					iterator it = this->begin();
-					iterator ite = this->end();
-					for(; it != ite; it++)
-						if (key_compare()(key, it->first))
-							return (it);
-					return (it);
+					return (tree->upper_bound(key));
 				}
 
 				const_iterator upper_bound(const key_type& key) const {
-					const_iterator it = this->begin();
-					const_iterator ite = this->end();
-					for(; it != ite; it++)
-						if (key_compare()(key, it->first))
-							return (it);
-					return (it);
+
+					return (tree->upper_bound(key));
 				}
 
 				ft::pair<const_iterator, const_iterator> equal_range(const key_type& key) const {
