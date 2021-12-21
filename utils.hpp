@@ -4,11 +4,52 @@
 
 namespace ft {
 
-	///////////////////////////////////////////
-	//                                       //
-	//                 Pair                  //
-	//                                       //
-	///////////////////////////////////////////
+	template<typename _Arg, typename _Result>
+		class unary_function {
+			public:
+				typedef _Arg argument_type;
+				typedef _Result result_type;
+		};
+
+	template<typename _Pair>
+		class Select_first : public unary_function<_Pair, typename _Pair::first_type> {
+			public:
+				typename _Pair::first_type& operator() (_Pair& x) const {
+					return (x.first);
+				}
+
+				const typename _Pair::first_type& operator() (const _Pair& x) const {
+					return (x.first);
+				}
+		};
+
+	template<typename _Pair>
+		class Select_scnd : public unary_function<_Pair, typename _Pair::second_type> {
+			public:
+				typename _Pair::second_type& operator() (_Pair& x) const {
+					return (x.second_type);
+				}
+
+				const typename _Pair::second_type& operator() (const _Pair& x) {
+					return (x.second_type);
+				}
+		};
+
+	template<typename T>
+		class Identity : public unary_function<T, T> {
+			T& operator() (T& x) const {
+				return (x);
+			}
+			const T& operator() (const T& x) const {
+				return (x);
+			}
+		};
+
+				///////////////////////////////////////////
+				//                                       //
+				//                 Pair                  //
+				//                                       //
+				///////////////////////////////////////////
 
 	template<class T1, class T2>
 		class pair {

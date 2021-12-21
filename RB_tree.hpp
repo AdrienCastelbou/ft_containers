@@ -10,7 +10,7 @@
 #define GREEN 2
 namespace ft {
 
-	template<class Key, class T, class Compare = std::less<typename T::first_type>, class Alloc = std::allocator<T> >
+	template<class Key, class T, class KeyOfValue, class Compare = std::less<typename T::first_type>, class Alloc = std::allocator<T> >
 		class RB_tree {
 			public:
 				typedef Key key_type;
@@ -173,9 +173,9 @@ namespace ft {
 
 				node* search(key_type key){
 						node *current = tree;
-						while (current != NULL && (comp(current->value->first, key) || comp(key, current->value->first)))
+						while (current != NULL && (comp(node_key(current), key) || comp(key, node_key(current))))
 						{
-							if (comp(current->value->first, key))
+							if (comp(node_key(current), key))
 								current = current->right;
 							else
 								current = current->left;
@@ -199,9 +199,9 @@ namespace ft {
 						return (n);
 					}
 					while (root) {
-						if (!comp(value.first, root->value->first) && !comp(root->value->first, value.first))
+						if (!comp(key_value(value), node_key(root)) && !comp(node_key(root), key_value(value)))
 							return (n);
-						else if (comp(value.first, root->value->first))
+						else if (comp(key_value(value), node_key(root)))
 						{
 							if (root->left)
 								root = root->left;
@@ -212,7 +212,7 @@ namespace ft {
 								break;
 							}
 						}
-						else if (comp(root->value->first, value.first))
+						else if (comp(node_key(root), key_value(value)))
 						{
 							if (root->right)
 								root = root->right;
@@ -530,6 +530,14 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
+
+				const key_type key_value(value_type& value) {
+					return (KeyOfValue()(value));
+				}
+				const key_type node_key(node* n) {
+					return (key_value(*n->value));
+				}
+
 				size_t max_size() {
 					return (node_allocator_type().max_size());
 				}
@@ -553,7 +561,7 @@ namespace ft {
 					node *current = tree;
 					node *lower = NULL;
 					while (current) {
-						if (!comp(current->value->first, key))
+						if (!comp(node_key(current), key))
 						{
 							lower = current;
 							current = current->left;
@@ -568,7 +576,7 @@ namespace ft {
 					node *current = tree;
 					node *upper  = NULL;
 					while (current) {
-						if (comp(key, current->value->first))
+						if (comp(key, node_key(current)))
 						{
 							upper = current;
 							current = current->left;
