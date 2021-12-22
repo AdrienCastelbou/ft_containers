@@ -201,6 +201,21 @@ namespace ft {
 				void clear() {
 					erase(begin(), end());
 				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//              Observers                //
+				//                                       //
+				///////////////////////////////////////////
+
+				key_compare key_comp() const {
+					return (_comparator);
+				}
+
+				value_compare value_comp() const {
+					return (_comparator);
+				}
+
 			private:
 				RB_tree *tree;
 				size_t _size;
