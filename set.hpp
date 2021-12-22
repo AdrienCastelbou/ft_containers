@@ -51,8 +51,20 @@ namespace ft {
 					set(typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _size(0), _allocator(alloc), _comparator(comp) {
 					tree = tree_allocator.allocate(1);
 					tree_allocator.construct(tree);
-					(void)first;
-					(void) last;
+					insert(first, last);
+				}
+
+				set(const set& x) : _size(0), _allocator(x._allocator), _comparator(x._comparator) {
+					tree = tree_allocator.allocate(1);
+					tree_allocator.construct(tree);
+					insert(x.begin(), x.last());
+				}
+
+				set& operator=(const map& other) {
+					if (this != &other) {
+						clear();
+						insert(other.begin(), other.last());
+					}
 				}
 
 				///////////////////////////////////////////
