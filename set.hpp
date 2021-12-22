@@ -216,6 +216,62 @@ namespace ft {
 					return (_comparator);
 				}
 
+				///////////////////////////////////////////
+				//                                       //
+				//              Operations               //
+				//                                       //
+				///////////////////////////////////////////
+
+				iterator find(const key_type& key) {
+					RB_node* n = tree->search(key);
+					if (!n)
+						return (end());
+					return (iterator(n));
+				}
+
+				const_iterator find(const key_type& key) const {
+					RB_node* n = tree->search(key);
+					if (!n)
+						return (end());
+					return (const_iterator(n));
+				}
+
+				size_type count (const key_type& key) const {
+					if (tree->search(key))
+						return(1);
+					return (0);
+				}
+
+				iterator lower_bound(const key_type& key) {
+					return (tree->lower_bound(key));
+				}
+
+				const_iterator lower_bound(const key_type& key) const {
+					return (tree->lower_bound(key));
+				}
+
+				iterator upper_bound(const key_type& key) {
+					return (tree->upper_bound(key));
+				}
+
+				const_iterator upper_bound(const key_type& key) const {
+					return (tree->upper_bound(key));
+				}
+
+				ft::pair<iterator, iterator> equal_range(const key_type& key) {
+					return (ft::make_pair<iterator, iterator>(lower_bound(key), upper_bound(key)));
+				}
+
+				///////////////////////////////////////////
+				//                                       //
+				//               Allocator               //
+				//                                       //
+				///////////////////////////////////////////
+
+				allocator_type get_allocator() const {
+					return (_allocator);
+				}
+
 			private:
 				RB_tree *tree;
 				size_t _size;

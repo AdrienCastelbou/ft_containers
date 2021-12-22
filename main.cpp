@@ -17,14 +17,14 @@
 #include <stdlib.h>
 
 int main() {
+	
 	ft::set<int> s;
 	s.insert(10);
 	s.insert(s.begin(), 20);
 	int myints[]= {5,10,15};
 	s.insert (myints,myints+3);
-	s.clear();
 	ft::set<int>::iterator it = s.begin();
 	ft::set<int>::iterator ite = s.end();
 	for(; it != ite; it++)
-	std::cout << *it << std::endl;
+	std::cout << *s.find(20) << std::endl;
 }
