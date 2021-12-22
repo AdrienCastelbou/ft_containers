@@ -264,4 +264,54 @@ namespace ft {
 				tree_allocator_type tree_allocator;
 				key_compare _comparator;
 		};
+
+				///////////////////////////////////////////
+				//                                       //
+				//     Non-member function overloads     //
+				//                                       //
+				///////////////////////////////////////////
+
+	template< class T, class Compare, class Alloc >
+		bool operator==( const ft::set<T,Compare,Alloc>& lhs, const ft::set<T,Compare,Alloc>& rhs ){
+			if (lhs.size() != rhs.size())
+				return (false);
+			typename ft::set<T,Compare,Alloc>::const_iterator itl = lhs.begin();
+			typename ft::set<T,Compare,Alloc>::const_iterator itle = lhs.end();
+			typename ft::set<T,Compare,Alloc>::const_iterator itr = rhs.begin();
+			for(; itl != itle; itl++)
+				if (*itl != *(itr++))
+					return (false);
+			return (true);
+		}
+
+	template<  class T, class Compare, class Alloc >
+		bool operator!=( const ft::set<T,Compare,Alloc>& lhs, const ft::set<T,Compare,Alloc>& rhs ) {
+			return (!(lhs == rhs));
+		}
+
+	template<  class T, class Compare, class Alloc >
+		bool operator<( const ft::set<T,Compare,Alloc>& lhs, const ft::set<T,Compare,Alloc>& rhs ) {
+			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+		}
+
+	template<  class T, class Compare, class Alloc >
+		bool operator<=( const ft::set<T,Compare,Alloc>& lhs, const ft::set<T,Compare,Alloc>& rhs ) {
+			return (!(rhs < lhs));
+		}
+
+	template<  class T, class Compare, class Alloc >
+		bool operator>( const ft::set<T,Compare,Alloc>& lhs, const ft::set<T,Compare,Alloc>& rhs ) {
+			return (rhs < lhs);
+		}
+
+	template<  class T, class Compare, class Alloc >
+		bool operator>=( const ft::set<T,Compare,Alloc>& lhs, const ft::set<T,Compare,Alloc>& rhs ) {
+			return (!(lhs < rhs));
+		}
+
+	template<class T, class Compare, class Alloc >
+		void swap(ft::set<T,Compare,Alloc>& lhs, ft::set<T,Compare,Alloc>& rhs ) {
+			lhs.swap(rhs);
+		}
+
 }

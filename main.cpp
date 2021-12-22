@@ -13,7 +13,7 @@
 	#include "vector.hpp"
 	#include "set.hpp"
 #endif
-
+#include <set>
 #include <stdlib.h>
 
 int main() {
@@ -23,8 +23,7 @@ int main() {
 	s.insert(s.begin(), 20);
 	int myints[]= {5,10,15};
 	s.insert (myints,myints+3);
-	ft::set<int>::const_iterator it = s.begin();
-	ft::set<int>::const_iterator ite = s.end();
-	for(; it != ite; it++)
-	std::cout << *s.find(20) << std::endl;
+	ft::set<int> ss;
+	if (ss < s)
+		std::cout << "lol" << std::endl;
 }
