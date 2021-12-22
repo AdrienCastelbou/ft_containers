@@ -37,13 +37,17 @@ namespace ft {
 
 	template<typename T>
 		class Identity : public unary_function<T, T> {
-			T& operator() (T& x) const {
-				return (x);
-			}
-			const T& operator() (const T& x) const {
-				return (x);
-			}
+			public:
+				T& operator() (T& x) const {
+					return (x);
+				}
+				const T& operator() (const T& x) const {
+					return (x);
+				}
 		};
+
+	template<typename T>
+		class Identity<const T> : public Identity<T> {};
 
 				///////////////////////////////////////////
 				//                                       //

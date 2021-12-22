@@ -11,8 +11,6 @@ namespace ft {
 		class RB_node {
 			public:
 				typedef T value_type;
-				typedef typename value_type::first_type key_type;
-				typedef typename value_type::second_type mapped_type;
 				typedef Alloc allocator_type;
 
 				int color;
