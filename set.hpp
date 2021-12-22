@@ -128,6 +128,37 @@ namespace ft {
 					return (tree->max_size());
 				}
 
+				ft::pair<iterator, bool> insert(const value_type& val) {
+					ft::pair<iterator, bool> res;
+					if (tree->search(val))
+						res.second = false;
+					else
+						res.second = true;
+					if (res.second)
+						tree->insert(val, tree->tree);
+					_size += res.second;
+					res.first = tree->search(val);
+					return (res);
+				}
+
+				iterator insert(iterator position, const value_type& val) {
+					iterator ite = end();
+					iterator tmp = position;
+
+					if (position != ite && (_comparator(*position, val) && (++tmp == ite || _comparator(val, *tmp))))
+					{
+						tree->insert(val, tree->search(*position));
+						_size++;
+					}
+					return (insert(val).first);
+				}
+
+				template<class InputIterator>
+					void insert(InputIterator first, InputIterator last) {
+						for(; first != last; first++)
+							this->insert(*first);
+					}
+
 			private:
 				RB_tree *tree;
 				size_t _size;

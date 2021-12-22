@@ -18,5 +18,10 @@
 
 int main() {
 	ft::set<int> s;
-	std::cout << s.empty() << ", " << s.size() << ", " << s.max_size() << std::endl;
+	s.insert(10);
+	s.insert(s.begin(), 20);
+	ft::set<int>::iterator it = s.begin();
+	ft::set<int>::iterator ite = s.end();
+	for(; it != ite; it++)
+	std::cout << *it << std::endl;
 }
