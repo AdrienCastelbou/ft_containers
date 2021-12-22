@@ -152,9 +152,8 @@ namespace ft {
 					return (_size);
 				}
 
-				size_t  max_size() const {
+				size_type  max_size() const {
 					return (tree->max_size());
-					return (std::numeric_limits<difference_type>::max());
 				}
 
 				///////////////////////////////////////////

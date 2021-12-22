@@ -108,6 +108,26 @@ namespace ft {
 					return (const_reverse_iterator(it));
 				}
 
+				///////////////////////////////////////////
+				//                                       //
+				//               Capacity                //
+				//                                       //
+				///////////////////////////////////////////
+
+				bool empty() const {
+					if (_size == 0)
+						return (true);
+					return (false);
+				}
+
+				size_type size() const {
+					return (_size);
+				}
+
+				size_type max_size() const {
+					return (tree->max_size());
+				}
+
 			private:
 				RB_tree *tree;
 				size_t _size;

@@ -18,8 +18,5 @@
 
 int main() {
 	ft::set<int> s;
-	ft::set<int>::const_iterator it = s.begin();
-	ft::set<int>::const_iterator ite = s.end();
-	if (it == ite)
-		std::cout << "same" << std::endl;
+	std::cout << s.empty() << ", " << s.size() << ", " << s.max_size() << std::endl;
 }
