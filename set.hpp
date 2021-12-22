@@ -187,6 +187,20 @@ namespace ft {
 						erase(*(first++));
 				}
 
+				void swap(set& x) {
+					RB_tree *tmp;
+					size_type tmp_size;
+					tmp = tree;
+					tmp_size = _size;
+					tree = x.tree;
+					_size = x._size;
+					x.tree = tmp;
+					x._size = tmp_size;
+				}
+
+				void clear() {
+					erase(begin(), end());
+				}
 			private:
 				RB_tree *tree;
 				size_t _size;

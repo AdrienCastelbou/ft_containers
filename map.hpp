@@ -218,7 +218,7 @@ namespace ft {
 
 				void swap(map& x) {
 					RB_tree *tmp;
-					int tmp_size;
+					size_type tmp_size;
 					tmp = tree;
 					tmp_size = _size;
 					tree = x.tree;

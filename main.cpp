@@ -22,7 +22,7 @@ int main() {
 	s.insert(s.begin(), 20);
 	int myints[]= {5,10,15};
 	s.insert (myints,myints+3);
-	s.erase(s.begin(), ++(++s.begin()));
+	s.clear();
 	ft::set<int>::iterator it = s.begin();
 	ft::set<int>::iterator ite = s.end();
 	for(; it != ite; it++)
