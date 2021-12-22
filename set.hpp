@@ -29,7 +29,7 @@ namespace ft {
 				typedef RB_tree<key_type, value_type, Identity<value_type>, key_compare, allocator_type> RB_tree;
 				typedef RB_node<value_type, allocator_type> RB_node;
 				typedef typename allocator_type::template rebind<RB_tree>::other tree_allocator_type;
-				typedef typename RB_tree::iterator iterator;
+				typedef typename RB_tree::const_iterator iterator;
 				typedef typename RB_tree::const_iterator const_iterator;
 				typedef ft::reverse_iterator<iterator> reverse_iterator;
 				typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
@@ -173,8 +173,8 @@ namespace ft {
 					_size--;
 				}
 
-				size_type erase(const key_type& k) {
-					RB_node *target = tree->search(k);
+				size_type erase(const value_type& val) {
+					RB_node *target = tree->search(val);
 					if (!target)
 						return (0);
 					tree->erase(target);
@@ -222,18 +222,11 @@ namespace ft {
 				//                                       //
 				///////////////////////////////////////////
 
-				iterator find(const key_type& key) {
+				iterator find(const key_type& key) const {
 					RB_node* n = tree->search(key);
 					if (!n)
 						return (end());
 					return (iterator(n));
-				}
-
-				const_iterator find(const key_type& key) const {
-					RB_node* n = tree->search(key);
-					if (!n)
-						return (end());
-					return (const_iterator(n));
 				}
 
 				size_type count (const key_type& key) const {
@@ -242,23 +235,15 @@ namespace ft {
 					return (0);
 				}
 
-				iterator lower_bound(const key_type& key) {
+				iterator lower_bound(const key_type& key) const {
 					return (tree->lower_bound(key));
 				}
 
-				const_iterator lower_bound(const key_type& key) const {
-					return (tree->lower_bound(key));
-				}
-
-				iterator upper_bound(const key_type& key) {
+				iterator upper_bound(const key_type& key) const {
 					return (tree->upper_bound(key));
 				}
 
-				const_iterator upper_bound(const key_type& key) const {
-					return (tree->upper_bound(key));
-				}
-
-				ft::pair<iterator, iterator> equal_range(const key_type& key) {
+				ft::pair<iterator, iterator> equal_range(const key_type& key) const {
 					return (ft::make_pair<iterator, iterator>(lower_bound(key), upper_bound(key)));
 				}
 

@@ -23,8 +23,8 @@ int main() {
 	s.insert(s.begin(), 20);
 	int myints[]= {5,10,15};
 	s.insert (myints,myints+3);
-	ft::set<int>::iterator it = s.begin();
-	ft::set<int>::iterator ite = s.end();
+	ft::set<int>::const_iterator it = s.begin();
+	ft::set<int>::const_iterator ite = s.end();
 	for(; it != ite; it++)
 	std::cout << *s.find(20) << std::endl;
 }
