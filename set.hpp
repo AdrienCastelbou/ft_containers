@@ -57,14 +57,15 @@ namespace ft {
 				set(const set& x) : _size(0), _allocator(x._allocator), _comparator(x._comparator) {
 					tree = tree_allocator.allocate(1);
 					tree_allocator.construct(tree);
-					insert(x.begin(), x.last());
+					insert(x.begin(), x.end());
 				}
 
-				set& operator=(const map& other) {
+				set& operator=(const set& other) {
 					if (this != &other) {
 						clear();
-						insert(other.begin(), other.last());
+						insert(other.begin(), other.end());
 					}
+					return (*this);
 				}
 
 				///////////////////////////////////////////
