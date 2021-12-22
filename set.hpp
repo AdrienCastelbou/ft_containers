@@ -128,6 +128,13 @@ namespace ft {
 					return (tree->max_size());
 				}
 
+				///////////////////////////////////////////
+				//                                       //
+				//              Modifiers                //
+				//                                       //
+				///////////////////////////////////////////
+
+
 				ft::pair<iterator, bool> insert(const value_type& val) {
 					ft::pair<iterator, bool> res;
 					if (tree->search(val))
@@ -158,6 +165,27 @@ namespace ft {
 						for(; first != last; first++)
 							this->insert(*first);
 					}
+
+				void erase(iterator position) {
+					if (!position._node || !tree->search(*position))
+						return;
+					tree->erase(position._node);
+					_size--;
+				}
+
+				size_type erase(const key_type& k) {
+					RB_node *target = tree->search(k);
+					if (!target)
+						return (0);
+					tree->erase(target);
+					_size--;
+					return (1);
+				}
+
+				void erase(iterator first, iterator last) {
+					while (first != last)
+						erase(*(first++));
+				}
 
 			private:
 				RB_tree *tree;

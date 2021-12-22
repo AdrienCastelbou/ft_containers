@@ -196,7 +196,7 @@ namespace ft {
 
 				void erase(iterator position) {
 					
-					if (!position._node)
+					if (!position._node || !tree->search(position->first))
 						return ;
 					tree->erase(position._node);
 					_size--;
@@ -208,9 +208,6 @@ namespace ft {
 						return (0);
 					tree->erase(target);
 					_size--;
-					return (1);
-					iterator position(target);
-					erase(position);
 					return (1);
 				}
 
