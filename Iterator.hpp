@@ -70,13 +70,14 @@ namespace ft {
 
 
 	template <class T>
-		class RandIterator : public ft::Iterator<ft::random_access_iterator_tag, T> {
+		class RandIterator : public ft::Iterator<std::random_access_iterator_tag, T> {
 			public:
-				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::value_type value_type;
-				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::difference_type difference_type;
-				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::pointer pointer;
-				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::reference reference;
-				typedef typename ft::Iterator<ft::random_access_iterator_tag, T>::iterator_category iterator_category;
+
+				typedef typename ft::Iterator<std::random_access_iterator_tag, T>::value_type value_type;
+				typedef typename ft::Iterator<std::random_access_iterator_tag, T>::difference_type difference_type;
+				typedef typename ft::Iterator<std::random_access_iterator_tag, T>::pointer pointer;
+				typedef typename ft::Iterator<std::random_access_iterator_tag, T>::reference reference;
+				typedef typename ft::Iterator<std::random_access_iterator_tag, T>::iterator_category iterator_category;
 			protected:
 				T* m_ptr;
 			public:
