@@ -10,7 +10,7 @@
 namespace ft {
 
 	template<class T, class U>
-		class RB_iterator : public ft::Iterator<ft::bidirectional_iterator_tag, T> {
+		class RB_iterator : public ft::Iterator<std::bidirectional_iterator_tag, T> {
 			public:
 
 				///////////////////////////////////////////
@@ -22,11 +22,11 @@ namespace ft {
 
 				typedef T value_type;
 				typedef U node_type;
-				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, value_type>::difference_type difference_type;
-				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, value_type>::pointer pointer;
-				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, value_type>::reference reference;
-				typedef typename ft::Iterator<ft::bidirectional_iterator_tag, value_type>::iterator_category iterator_category;
-
+				typedef typename ft::Iterator<std::bidirectional_iterator_tag, value_type>::difference_type difference_type;
+				typedef typename ft::Iterator<std::bidirectional_iterator_tag, value_type>::pointer pointer;
+				typedef typename ft::Iterator<std::bidirectional_iterator_tag, value_type>::reference reference;
+				typedef typename ft::Iterator<std::bidirectional_iterator_tag, value_type>::iterator_category iterator_category;
+				
 				///////////////////////////////////////////
 				//                                       //
 				//              Constructors             //

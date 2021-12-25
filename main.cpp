@@ -17,7 +17,8 @@
 #include <stdlib.h>
 
 int main() {
-	
+	ft::map<int, int> m;
+	std::cout << std::distance(m.begin(), m.end()) << std::endl;
 	ft::set<int> s;
 	s.insert(10);
 	s.insert(s.begin(), 20);
