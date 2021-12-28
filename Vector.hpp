@@ -77,6 +77,8 @@ namespace ft {
 
 
 				value_type *copy_array(iterator pos, size_t n) {
+					if (n == 0)
+						n = 1;
 					value_type *_new = array_allocation(_capacity + n);
 					iterator it = this->begin();
 					for (int i = 0; it + i != pos; i++)
@@ -146,7 +148,6 @@ namespace ft {
 					for (size_t i = 0; i < _size; i++)
 						_allocator.destroy(&_array[i]);
 					_allocator.deallocate(_array,_capacity);
-					return ;
 				}
 
 				///////////////////////////////////////////
@@ -331,7 +332,7 @@ namespace ft {
 					iterator it = ite - 1;
 					value_type *_new = _array;
 					if (_size == _capacity)
-						_new = copy_array(position, 1);
+						_new = copy_array(position, _capacity);
 					int i = 0;
 					for (; ite - i != position; i++)
 						_allocator.construct(&_new[_size - i], *(it - i));
@@ -340,7 +341,10 @@ namespace ft {
 					{
 						array_deallocation();
 						_array = _new;
-						_capacity += 1;
+						if (_capacity)
+							_capacity += _capacity;
+						else
+							_capacity = 1;
 					}
 					_size += 1;
 					return (iterator(&_array[(_size - 1) - i]));
@@ -353,7 +357,7 @@ namespace ft {
 					size_type n_size = _size + n;
 
 					if (n_size > _capacity)
-						_new = copy_array(position, n_size - _capacity);
+						_new = copy_array(position,  (n_size > _capacity * 2)? n_size - _capacity : _capacity);
 					int i = 0;
 					for (; ite - i != position; i++)
 						_allocator.construct(&_new[n_size - 1 - i], *(it - i));
@@ -363,22 +367,20 @@ namespace ft {
 					{
 						array_deallocation();
 						_array = _new;
-						_capacity = n_size;
+							_capacity = (n_size > _capacity * 2)? n_size : _capacity * 2;
 					}
 					_size = n_size;
 				}
 
 				template<class InputIterator>
 					void insert(iterator position, typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last) {
-						size_t distance = 0;
-						for (InputIterator f = first; f != last; f++)
-							distance++;
+						size_t distance = std::distance(first, last);
 						iterator ite = this->end();
 						iterator it = ite - 1;
 						value_type *_new = _array;
 						size_type n_size = _size + distance;
 						if (n_size > _capacity)
-							_new = copy_array(position, n_size - _capacity);
+							_new = copy_array(position, (n_size > _capacity * 2)? n_size - _capacity : _capacity);
 
 						int i = 0;
 						for (; ite - i != position; i++)
@@ -389,7 +391,7 @@ namespace ft {
 						{
 							array_deallocation();
 							_array = _new;
-							_capacity = n_size;
+							_capacity = (n_size > _capacity * 2)? n_size : _capacity * 2;
 						}
 						_size = n_size;
 					}
