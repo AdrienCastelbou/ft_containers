@@ -367,7 +367,7 @@ namespace ft {
 					{
 						array_deallocation();
 						_array = _new;
-							_capacity = (n_size > _capacity * 2)? n_size : _capacity * 2;
+						_capacity = (n_size > _capacity * 2)? n_size : _capacity * 2;
 					}
 					_size = n_size;
 				}
@@ -381,7 +381,6 @@ namespace ft {
 						size_type n_size = _size + distance;
 						if (n_size > _capacity)
 							_new = copy_array(position, (n_size > _capacity * 2)? n_size - _capacity : _capacity);
-
 						int i = 0;
 						for (; ite - i != position; i++)
 							_allocator.construct(&_new[n_size - 1 - i], *(it - i));
@@ -407,9 +406,7 @@ namespace ft {
 				}
 
 				iterator erase(iterator first, iterator last) {
-					size_t distance = 0;
-						for (iterator f = first; f != last; f++)
-							distance++;
+					size_t distance = std::distance(first, last);
 					iterator it = first;
 					iterator ite = this->end();
 					for(;it != last; it++)

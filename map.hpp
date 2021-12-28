@@ -36,7 +36,6 @@ namespace ft {
 				typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 				typedef ptrdiff_t difference_type;
 				typedef size_t size_type;
-				// to complete...
 
 				///////////////////////////////////////////
 				//                                       //
@@ -231,11 +230,6 @@ namespace ft {
 					iterator first = begin();
 					iterator last = end();
 					erase(first, last);
-				}
-				void show() {
-					if (tree)
-						tree->show(tree->tree);
-					std::cout << "-------------" << std::endl;
 				}
 
 				///////////////////////////////////////////
