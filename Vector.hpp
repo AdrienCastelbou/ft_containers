@@ -93,7 +93,7 @@ namespace ft {
 				}
 
 				template<class InputIterator>
-					vector(typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last, const allocator_type& alloc = allocator_type()) : _allocator(alloc) {
+					vector(typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last, const allocator_type& alloc = allocator_type()) : _allocator(alloc) {
 						_size = 0;
 						for (InputIterator fcpy = first; fcpy != last; fcpy++)
 							_size++;
@@ -272,7 +272,7 @@ namespace ft {
 				///////////////////////////////////////////
 
 				template<class InputIterator>
-	void assign(typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last) {
+	void assign(typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last) {
 						for (size_t i = 0; i < _size; i++)
 							_allocator.destroy(&_array[i]);
 						_size = 0;
@@ -360,7 +360,7 @@ namespace ft {
 				}
 
 				template<class InputIterator>
-					void insert(iterator position, typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last) {
+					void insert(iterator position, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last) {
 						size_t distance = std::distance(first, last);
 						iterator ite = this->end();
 						iterator it = ite - 1;
