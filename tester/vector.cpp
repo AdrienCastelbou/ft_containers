@@ -185,11 +185,57 @@ void	vector_modifiers() {
 	print_vector(v1);
 }
 
+void	vector_allocator() {
+	ft::vector<int> v;
+	ft::vector<int> v1(v.get_allocator());
+
+	std::cout << "\x1B[32mALLOCATOR TEST \033[0m" << std::endl;
+	if (typeid(v.get_allocator()) == typeid(v1.get_allocator()))
+		std::cout << "ALLOCATORS ARE SAME" << std::endl;
+	else
+		std::cout << "FAILURE" << std::endl;
+}
+
+void	vector_operators() {
+	ft::vector<int> v;
+	ft::vector<int> v1(v);
+	ft::vector<int> v2(3, 42);
+	std::cout << "\x1B[32mOPERATOR TEST \033[0m" << std::endl;
+	if (v == v1)
+		std::cout << "V && V1 ARE SAME" << std::endl;
+	if (v != v2)
+		std::cout << "V && V2 ARE DIFFERENTS" << std::endl;
+	if (v < v2)
+		std::cout << "V IS LESS THAN V2" << std::endl;
+	if (v2 > v1)
+		std::cout << "V2 IS MORE THAN V1" << std::endl;
+	if (v1 >= v1)
+		std::cout << "V IS MORE OR EQUAL TO V1" << std::endl;
+}
+
+void	vector_non_member_swap() {
+	ft::vector<int> v;
+	ft::vector<int> v1(5, 42);
+	std::cout << "\x1B[32mNON MEMBER SWAP TEST \033[0m" << std::endl;
+	std::cout << "V BEFORE SWAP : " << std::endl;
+	print_vector(v);
+	std::cout << "V1 BEFORE SWAP : " << std::endl;
+	print_vector(v1);
+	ft::swap(v, v1);
+	std::cout << "V AFTER SWAP : " << std::endl;
+	print_vector(v);
+	std::cout << "V1 AFTER SWAP : " << std::endl;
+	print_vector(v1);
+}
+
 int		main() {
 
 	//vector_constructor();
 	//vector_iterator();
 	//vector_capacity();
 	//vector_access();
-	vector_modifiers();
+	//vector_modifiers();
+	//vector_allocator();
+	vector_operators();
+	vector_non_member_swap();
 }
