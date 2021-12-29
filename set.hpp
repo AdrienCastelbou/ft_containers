@@ -48,7 +48,7 @@ namespace ft {
 				}
 
 				template<class InputIterator>
-					set(typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _size(0), _allocator(alloc), _comparator(comp) {
+					set(typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) : _size(0), _allocator(alloc), _comparator(comp) {
 					tree = tree_allocator.allocate(1);
 					tree_allocator.construct(tree);
 					insert(first, last);
